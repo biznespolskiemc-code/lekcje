@@ -10,12 +10,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>LEKCJE | Lekcje</title>
-
-    <meta
-        name="description"
-        content="Archiwum lekcji"
-    >
+    <title>LEKCJE | Lista lekcji</title>
 
     <link
         rel="icon"
@@ -28,139 +23,113 @@
         href="style-index.css"
     >
 
+
     <style>
 
-        /* =====================================================
-           LEKCJE — GŁÓWNY UKŁAD
-        ===================================================== */
-
-        .lessons-page {
-            min-height: calc(100vh - 80px);
-            padding: 150px 25px 90px;
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        * {
+            box-sizing: border-box;
         }
 
-        .lessons-header {
-            width: 100%;
-            max-width: 850px;
 
-            margin-bottom: 65px;
+        .lessons-page {
+
+            width: 100%;
+
+            max-width: 1000px;
+
+            margin: auto;
+
+            padding:
+                150px
+                20px
+                80px;
+
+        }
+
+
+        .lessons-header {
 
             text-align: center;
 
-            animation: pageFade .8s ease both;
+            margin-bottom: 55px;
+
         }
 
-        .lessons-header .hero-label {
-            justify-content: center;
-            margin-bottom: 20px;
-        }
 
         .lessons-header h1 {
-            margin: 0 0 18px;
 
-            font-size: clamp(42px, 6vw, 72px);
-            line-height: 1.05;
+            margin:
+                0 0 15px;
+
+            font-size:
+                clamp(40px, 6vw, 68px);
 
             font-weight: 800;
-            letter-spacing: -2px;
+
+            letter-spacing:
+                -2px;
+
         }
+
 
         .lessons-header h1 span {
-            color: var(--blue-light);
+
+            color:
+                var(--blue-light);
+
         }
+
 
         .lessons-header p {
-            max-width: 650px;
 
-            margin: 0 auto;
-
-            color: rgba(255,255,255,.5);
-
-            font-size: 15px;
-            line-height: 1.8;
-        }
-
-
-        /* =====================================================
-           WIDOK MIESIĘCY
-        ===================================================== */
-
-        .months-container {
-            width: 100%;
-            max-width: 1050px;
-
-            animation: contentFade .8s .15s ease both;
-        }
-
-        .months-title {
-            display: flex;
-            align-items: center;
-
-            width: 100%;
-
-            margin-bottom: 25px;
-
-            gap: 20px;
-        }
-
-        .months-title h2 {
             margin: 0;
 
-            font-size: 26px;
-            font-weight: 700;
+            color:
+                rgba(255,255,255,.45);
 
-            white-space: nowrap;
-        }
+            line-height:
+                1.7;
 
-        .months-title h2 strong {
-            color: var(--blue-light);
-        }
-
-        .months-line {
-            flex: 1;
-
-            height: 1px;
-
-            background: linear-gradient(
-                90deg,
-                rgba(24,176,214,.6),
-                transparent
-            );
-        }
-
-        .months-grid {
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, minmax(0, 1fr));
-
-            gap: 18px;
         }
 
 
-        /* =====================================================
-           KARTA MIESIĄCA
-        ===================================================== */
+        /* ==============================
+           LISTA DNI
+        ============================== */
 
-        .month-card {
-            position: relative;
+        #daysList {
 
-            min-height: 190px;
+            display:
+                flex;
 
-            padding: 28px;
+            flex-direction:
+                column;
 
-            overflow: hidden;
+            gap:
+                12px;
 
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        }
 
-            color: white;
-            text-decoration: none;
+
+        .day-card {
+
+            position:
+                relative;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                20px;
+
+            padding:
+                22px 25px;
 
             background:
                 linear-gradient(
@@ -170,685 +139,577 @@
                 );
 
             border:
-                1px solid rgba(255,255,255,.08);
+                1px solid
+                rgba(255,255,255,.08);
 
-            border-radius: 18px;
+            border-radius:
+                15px;
 
-            backdrop-filter: blur(16px);
+            cursor:
+                pointer;
 
-            cursor: pointer;
-
-            opacity: 0;
-            animation: cardAppear .65s ease forwards;
-
-            transition:
-                transform .35s cubic-bezier(.2,.8,.2,1),
-                border-color .35s ease,
-                box-shadow .35s ease,
-                background .35s ease;
-        }
-
-        .month-card:nth-child(1) {
-            animation-delay: .1s;
-        }
-
-        .month-card:nth-child(2) {
-            animation-delay: .17s;
-        }
-
-        .month-card:nth-child(3) {
-            animation-delay: .24s;
-        }
-
-        .month-card:nth-child(4) {
-            animation-delay: .31s;
-        }
-
-        .month-card:nth-child(5) {
-            animation-delay: .38s;
-        }
-
-        .month-card:nth-child(6) {
-            animation-delay: .45s;
-        }
-
-        .month-card:nth-child(7) {
-            animation-delay: .52s;
-        }
-
-        .month-card:nth-child(8) {
-            animation-delay: .59s;
-        }
-
-        .month-card:nth-child(9) {
-            animation-delay: .66s;
-        }
-
-        .month-card::before {
-            content: "";
-
-            position: absolute;
-
-            width: 180px;
-            height: 180px;
-
-            right: -90px;
-            top: -90px;
-
-            border-radius: 50%;
-
-            background: var(--blue-light);
-
-            opacity: .07;
-
-            filter: blur(40px);
-
-            transition:
-                transform .5s ease,
-                opacity .5s ease;
-        }
-
-        .month-card::after {
-            content: "";
-
-            position: absolute;
-
-            left: 0;
-            bottom: 0;
-
-            width: 0;
-            height: 2px;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    var(--blue),
-                    var(--blue-light)
-                );
-
-            transition: width .4s ease;
-        }
-
-        .month-card:hover {
-            transform:
-                translateY(-8px)
-                scale(1.015);
-
-            border-color:
-                rgba(24,176,214,.42);
-
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(24,176,214,.075),
-                    rgba(255,255,255,.025)
-                );
-
-            box-shadow:
-                0 20px 55px rgba(0,0,0,.35),
-                0 0 35px rgba(24,176,214,.08);
-        }
-
-        .month-card:hover::before {
-            transform: scale(1.5);
-            opacity: .12;
-        }
-
-        .month-card:hover::after {
-            width: 100%;
-        }
-
-        .month-number {
-            font-size: 11px;
-
-            font-weight: 700;
-
-            letter-spacing: 2px;
-
-            color: var(--blue-light);
-        }
-
-        .month-card h3 {
-            margin: 17px 0 7px;
-
-            font-size: 25px;
-            font-weight: 700;
-        }
-
-        .month-card p {
-            margin: 0;
-
-            color: rgba(255,255,255,.42);
-
-            font-size: 13px;
-        }
-
-        .month-arrow {
-            position: absolute;
-
-            right: 24px;
-            bottom: 20px;
-
-            font-size: 24px;
-
-            color: rgba(255,255,255,.3);
-
-            transition:
-                transform .35s ease,
-                color .35s ease;
-        }
-
-        .month-card:hover .month-arrow {
-            transform:
-                translate(5px,-5px);
-
-            color: var(--blue-light);
-        }
-
-
-        /* =====================================================
-           WIDOK DNI
-        ===================================================== */
-
-        .days-view {
-            display: none;
-
-            width: 100%;
-            max-width: 1050px;
+            opacity:
+                0;
 
             animation:
-                viewEnter .5s cubic-bezier(.2,.8,.2,1) both;
-        }
-
-        .days-view.active {
-            display: block;
-        }
-
-        .back-button {
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 10px;
-
-            margin-bottom: 28px;
-
-            padding: 11px 17px;
-
-            color: rgba(255,255,255,.55);
-
-            text-decoration: none;
-
-            background:
-                rgba(255,255,255,.035);
-
-            border:
-                1px solid rgba(255,255,255,.08);
-
-            border-radius: 10px;
-
-            cursor: pointer;
-
-            transition:
-                transform .25s ease,
-                color .25s ease,
-                border-color .25s ease,
-                background .25s ease;
-        }
-
-        .back-button:hover {
-            transform: translateX(-4px);
-
-            color: white;
-
-            border-color:
-                rgba(24,176,214,.4);
-
-            background:
-                rgba(24,176,214,.06);
-        }
-
-        .days-header {
-            margin-bottom: 30px;
-
-            text-align: center;
-        }
-
-        .days-header h2 {
-            margin: 0 0 9px;
-
-            font-size: clamp(32px, 5vw, 45px);
-
-            font-weight: 800;
-        }
-
-        .days-header p {
-            margin: 0;
-
-            color: rgba(255,255,255,.43);
-        }
-
-        .days-grid {
-            display: grid;
-
-            grid-template-columns:
-                repeat(4, minmax(0, 1fr));
-
-            gap: 16px;
-        }
-
-
-        /* =====================================================
-           KARTA DNIA
-        ===================================================== */
-
-        .day-card {
-            position: relative;
-
-            padding: 23px;
-
-            min-height: 165px;
-
-            cursor: pointer;
-
-            background:
-                rgba(255,255,255,.035);
-
-            border:
-                1px solid rgba(255,255,255,.08);
-
-            border-radius: 15px;
-
-            opacity: 0;
-
-            animation:
-                cardAppear .55s ease forwards;
+                dayAppear .5s ease forwards;
 
             transition:
                 transform .3s ease,
-                border-color .3s ease,
                 background .3s ease,
-                box-shadow .3s ease;
+                border-color .3s ease;
+
         }
 
-        .day-card:nth-child(1) {
-            animation-delay: .05s;
-        }
-
-        .day-card:nth-child(2) {
-            animation-delay: .1s;
-        }
-
-        .day-card:nth-child(3) {
-            animation-delay: .15s;
-        }
-
-        .day-card:nth-child(4) {
-            animation-delay: .2s;
-        }
-
-        .day-card:nth-child(5) {
-            animation-delay: .25s;
-        }
-
-        .day-card:nth-child(6) {
-            animation-delay: .3s;
-        }
 
         .day-card:hover {
-            transform:
-                translateY(-6px);
 
-            border-color:
-                rgba(24,176,214,.42);
+            transform:
+                translateX(5px);
 
             background:
                 rgba(24,176,214,.055);
 
-            box-shadow:
-                0 14px 35px rgba(0,0,0,.25);
+            border-color:
+                rgba(24,176,214,.4);
+
         }
 
-        .day-number {
-            font-size: 11px;
 
-            font-weight: 700;
+        .day-left {
 
-            letter-spacing: 1.7px;
+            display:
+                flex;
 
-            color: var(--blue-light);
+            align-items:
+                center;
+
+            gap:
+                18px;
+
         }
 
-        .day-card h3 {
-            margin: 13px 0 7px;
 
-            font-size: 20px;
+        .day-icon {
+
+            width:
+                48px;
+
+            height:
+                48px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            flex-shrink:
+                0;
+
+            color:
+                var(--blue-light);
+
+            background:
+                rgba(24,176,214,.08);
+
+            border:
+                1px solid
+                rgba(24,176,214,.15);
+
+            border-radius:
+                12px;
+
+            font-size:
+                20px;
+
         }
 
-        .day-card p {
+
+        .day-info h2 {
+
+            margin:
+                0 0 5px;
+
+            font-size:
+                18px;
+
+        }
+
+
+        .day-info p {
+
             margin: 0;
 
-            color: rgba(255,255,255,.43);
+            color:
+                rgba(255,255,255,.4);
 
-            font-size: 13px;
+            font-size:
+                13px;
 
-            line-height: 1.5;
         }
 
-        .day-card-arrow {
-            position: absolute;
 
-            right: 20px;
-            bottom: 18px;
+        .day-arrow {
 
-            color: rgba(255,255,255,.25);
+            color:
+                rgba(255,255,255,.3);
 
-            font-size: 18px;
+            font-size:
+                22px;
 
             transition:
                 transform .3s ease,
                 color .3s ease;
-        }
 
-        .day-card:hover .day-card-arrow {
-            transform: translateX(5px);
-
-            color: var(--blue-light);
         }
 
 
-        /* =====================================================
-           SZCZEGÓŁY DNIA
-        ===================================================== */
+        .day-card:hover .day-arrow {
 
-        .lesson-detail {
-            display: none;
+            color:
+                var(--blue-light);
 
-            width: 100%;
-            max-width: 900px;
+            transform:
+                translateX(5px);
+
+        }
+
+
+        /* ==============================
+           SZCZEGÓŁY
+        ============================== */
+
+        #dayDetails {
+
+            display:
+                none;
 
             animation:
-                viewEnter .5s cubic-bezier(.2,.8,.2,1) both;
+                detailsAppear .45s ease both;
+
         }
 
-        .lesson-detail.active {
-            display: block;
+
+        #dayDetails.active {
+
+            display:
+                block;
+
         }
 
-        .detail-header {
-            margin-bottom: 32px;
 
-            text-align: center;
+        .back-button {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            gap:
+                9px;
+
+            margin-bottom:
+                30px;
+
+            padding:
+                10px 16px;
+
+            color:
+                rgba(255,255,255,.55);
+
+            background:
+                rgba(255,255,255,.035);
+
+            border:
+                1px solid
+                rgba(255,255,255,.08);
+
+            border-radius:
+                9px;
+
+            cursor:
+                pointer;
+
+            transition:
+                color .25s ease,
+                transform .25s ease,
+                border-color .25s ease;
+
         }
 
-        .detail-date {
-            margin-bottom: 10px;
 
-            font-size: 11px;
+        .back-button:hover {
 
-            font-weight: 700;
+            color: white;
 
-            letter-spacing: 2px;
+            transform:
+                translateX(-4px);
 
-            color: var(--blue-light);
+            border-color:
+                rgba(24,176,214,.4);
+
         }
 
-        .detail-header h2 {
+
+        .details-header {
+
+            margin-bottom:
+                30px;
+
+            text-align:
+                center;
+
+        }
+
+
+        .details-header .date-label {
+
+            margin-bottom:
+                9px;
+
+            color:
+                var(--blue-light);
+
+            font-size:
+                11px;
+
+            font-weight:
+                700;
+
+            letter-spacing:
+                2px;
+
+        }
+
+
+        .details-header h2 {
+
             margin: 0;
 
-            font-size: clamp(34px, 5vw, 55px);
+            font-size:
+                clamp(34px,5vw,52px);
 
-            font-weight: 800;
+            font-weight:
+                800;
+
         }
 
-        .detail-header p {
-            margin: 12px auto 0;
 
-            color: rgba(255,255,255,.43);
-        }
+        .lessons-box {
 
-        .detail-content {
-            padding: 32px;
+            padding:
+                30px;
 
             background:
                 linear-gradient(
                     145deg,
                     rgba(255,255,255,.045),
-                    rgba(255,255,255,.02)
+                    rgba(255,255,255,.018)
                 );
 
             border:
-                1px solid rgba(255,255,255,.08);
+                1px solid
+                rgba(255,255,255,.08);
 
-            border-radius: 18px;
+            border-radius:
+                18px;
 
-            backdrop-filter: blur(15px);
         }
 
-        .detail-content h3 {
-            margin: 0 0 14px;
 
-            font-size: 23px;
+        .lesson {
+
+            padding:
+                25px 0;
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,.08);
+
         }
 
-        .detail-content p {
+
+        .lesson:first-child {
+
+            padding-top: 0;
+
+        }
+
+
+        .lesson:last-child {
+
+            padding-bottom: 0;
+
+            border-bottom:
+                none;
+
+        }
+
+
+        .lesson-number {
+
+            margin-bottom:
+                9px;
+
+            color:
+                var(--blue-light);
+
+            font-size:
+                10px;
+
+            font-weight:
+                700;
+
+            letter-spacing:
+                2px;
+
+        }
+
+
+        .lesson h3 {
+
+            margin:
+                0 0 10px;
+
+            font-size:
+                22px;
+
+        }
+
+
+        .lesson p {
+
             margin: 0;
 
-            color: rgba(255,255,255,.62);
+            color:
+                rgba(255,255,255,.6);
 
-            line-height: 1.8;
+            line-height:
+                1.8;
+
+            white-space:
+                pre-wrap;
+
         }
 
 
-        /* =====================================================
-           ZDJĘCIA
-        ===================================================== */
+        /* ==============================
+           MATERIAŁY
+        ============================== */
 
-        .lesson-images {
-            display: grid;
+        .materials {
 
-            grid-template-columns:
-                repeat(2, minmax(0, 1fr));
+            margin-top:
+                30px;
 
-            gap: 15px;
+            padding-top:
+                25px;
 
-            margin-top: 27px;
+            border-top:
+                1px solid
+                rgba(255,255,255,.08);
+
         }
 
-        .lesson-images img {
-            width: 100%;
-            height: 280px;
 
-            object-fit: cover;
+        .materials-title {
 
-            border-radius: 13px;
+            margin-bottom:
+                15px;
+
+            font-size:
+                18px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        .materials-list {
+
+            display:
+                flex;
+
+            flex-wrap:
+                wrap;
+
+            gap:
+                10px;
+
+        }
+
+
+        .material {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            gap:
+                8px;
+
+            padding:
+                10px 14px;
+
+            color:
+                white;
+
+            text-decoration:
+                none;
+
+            background:
+                rgba(24,176,214,.06);
 
             border:
-                1px solid rgba(255,255,255,.08);
+                1px solid
+                rgba(24,176,214,.18);
 
-            opacity: 0;
+            border-radius:
+                9px;
 
-            animation:
-                imageAppear .6s .15s ease forwards;
+            font-size:
+                13px;
 
             transition:
-                transform .4s ease,
-                border-color .3s ease,
-                box-shadow .4s ease;
+                background .25s ease,
+                border-color .25s ease;
+
         }
 
-        .lesson-images img:hover {
-            transform: scale(1.02);
+
+        .material:hover {
+
+            background:
+                rgba(24,176,214,.13);
 
             border-color:
-                rgba(24,176,214,.4);
+                rgba(24,176,214,.45);
 
-            box-shadow:
-                0 15px 40px rgba(0,0,0,.3);
         }
 
 
-        /* =====================================================
+        .empty {
+
+            padding:
+                45px 20px;
+
+            text-align:
+                center;
+
+            color:
+                rgba(255,255,255,.35);
+
+        }
+
+
+        .loading {
+
+            padding:
+                40px;
+
+            text-align:
+                center;
+
+            color:
+                rgba(255,255,255,.4);
+
+        }
+
+
+        /* ==============================
            ANIMACJE
-        ===================================================== */
+        ============================== */
 
-        @keyframes pageFade {
-
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-
-        }
-
-        @keyframes contentFade {
+        @keyframes dayAppear {
 
             from {
+
                 opacity: 0;
-                transform: translateY(25px);
-            }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-
-        }
-
-        @keyframes cardAppear {
-
-            from {
-                opacity: 0;
                 transform:
-                    translateY(25px)
-                    scale(.97);
+                    translateY(15px);
+
             }
 
             to {
+
                 opacity: 1;
+
                 transform:
-                    translateY(0)
-                    scale(1);
+                    translateY(0);
+
             }
 
         }
 
-        @keyframes viewEnter {
+
+        @keyframes detailsAppear {
 
             from {
+
                 opacity: 0;
+
                 transform:
-                    translateY(18px)
-                    scale(.985);
+                    translateY(15px);
+
             }
 
             to {
+
                 opacity: 1;
+
                 transform:
-                    translateY(0)
-                    scale(1);
-            }
+                    translateY(0);
 
-        }
-
-        @keyframes imageAppear {
-
-            from {
-                opacity: 0;
-                transform: scale(.97);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1);
             }
 
         }
 
 
-        /* =====================================================
-           MOBILE
-        ===================================================== */
-
-        @media (max-width: 900px) {
-
-            .months-grid {
-                grid-template-columns:
-                    repeat(2, minmax(0, 1fr));
-            }
-
-            .days-grid {
-                grid-template-columns:
-                    repeat(2, minmax(0, 1fr));
-            }
-
-        }
-
-        @media (max-width: 600px) {
+        @media (max-width:600px) {
 
             .lessons-page {
+
                 padding:
-                    125px
-                    18px
+                    120px
+                    15px
                     60px;
+
             }
 
-            .lessons-header {
-                margin-bottom: 45px;
+
+            .day-card {
+
+                padding:
+                    18px;
+
             }
 
-            .lessons-header h1 {
-                letter-spacing: -1.5px;
+
+            .day-icon {
+
+                width:
+                    42px;
+
+                height:
+                    42px;
+
             }
 
-            .months-grid,
-            .days-grid {
-                grid-template-columns: 1fr;
-            }
 
-            .months-title {
-                gap: 12px;
-            }
+            .lessons-box {
 
-            .months-title h2 {
-                font-size: 22px;
-            }
+                padding:
+                    22px;
 
-            .months-line {
-                display: none;
-            }
-
-            .month-card {
-                min-height: 165px;
-            }
-
-            .lesson-images {
-                grid-template-columns: 1fr;
-            }
-
-            .lesson-images img {
-                height: 230px;
-            }
-
-            .detail-content {
-                padding: 22px;
-            }
-
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-
-            *,
-            *::before,
-            *::after {
-                animation-duration: .01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: .01ms !important;
             }
 
         }
@@ -861,10 +722,6 @@
 <body>
 
 
-<!-- =====================================================
-     TŁO
-===================================================== -->
-
 <div class="background">
 
     <div class="background-glow glow-one"></div>
@@ -875,10 +732,6 @@
 
 </div>
 
-
-<!-- =====================================================
-     NAWIGACJA
-===================================================== -->
 
 <nav class="navbar">
 
@@ -915,18 +768,14 @@
 </nav>
 
 
-<!-- =====================================================
-     GŁÓWNA ZAWARTOŚĆ
-===================================================== -->
-
 <main>
 
 <section class="lessons-page">
 
 
-    <!-- =================================================
+    <!-- ==============================
          NAGŁÓWEK
-    ================================================= -->
+    ============================== -->
 
     <div class="lessons-header">
 
@@ -939,914 +788,87 @@
         </div>
 
         <h1>
-
             Lista <span>lekcji.</span>
-
         </h1>
 
         <p>
-
-            Wybierz miesiąc, następnie konkretny dzień,
-            aby zobaczyć informacje oraz zdjęcia z lekcji.
-
+            Wybierz dzień, aby zobaczyć
+            wszystkie lekcje.
         </p>
 
     </div>
 
 
-    <!-- =================================================
-         MIESIĄCE
-    ================================================= -->
+    <!-- ==============================
+         LISTA DNI
+    ============================== -->
 
-    <div
-        class="months-container"
-        id="monthsView"
-    >
+    <div id="daysView">
 
-        <div class="months-title">
+        <div
+            id="daysList"
+        >
 
-            <h2>
-
-                Wybierz <strong>miesiąc.</strong>
-
-            </h2>
-
-            <div class="months-line"></div>
-
-        </div>
-
-
-        <div class="months-grid">
-
-
-            <!-- WRZESIEŃ -->
-
-            <div
-                class="month-card"
-                onclick="showMonth('september')"
-            >
-
-                <div>
-
-                    <div class="month-number">
-                        09 / 2026
-                    </div>
-
-                    <h3>
-                        Wrzesień
-                    </h3>
-
-                    <p>
-                        Lekcje z września 2026
-                    </p>
-
-                </div>
-
-                <div class="month-arrow">
-                    ↗
-                </div>
-
+            <div class="loading">
+                Ładowanie lekcji...
             </div>
-
-
-            <!-- PAŹDZIERNIK -->
-
-            <div
-                class="month-card"
-                onclick="showMonth('october')"
-            >
-
-                <div>
-
-                    <div class="month-number">
-                        10 / 2026
-                    </div>
-
-                    <h3>
-                        Październik
-                    </h3>
-
-                    <p>
-                        Lekcje z października 2026
-                    </p>
-
-                </div>
-
-                <div class="month-arrow">
-                    ↗
-                </div>
-
-            </div>
-
-
-            <!-- LISTOPAD -->
-
-            <div
-                class="month-card"
-                onclick="showMonth('november')"
-            >
-
-                <div>
-
-                    <div class="month-number">
-                        11 / 2026
-                    </div>
-
-                    <h3>
-                        Listopad
-                    </h3>
-
-                    <p>
-                        Lekcje z listopada 2026
-                    </p>
-
-                </div>
-
-                <div class="month-arrow">
-                    ↗
-                </div>
-
-            </div>
-
-
-            <!-- GRUDZIEŃ -->
-
-            <div
-                class="month-card"
-                onclick="showMonth('december')"
-            >
-
-                <div>
-
-                    <div class="month-number">
-                        12 / 2026
-                    </div>
-
-                    <h3>
-                        Grudzień
-                    </h3>
-
-                    <p>
-                        Lekcje z grudnia 2026
-                    </p>
-
-                </div>
-
-                <div class="month-arrow">
-                    ↗
-                </div>
-
-            </div>
-
-
-            <!-- STYCZEŃ -->
-
-            <div
-                class="month-card"
-                onclick="showMonth('january')"
-            >
-
-                <div>
-
-                    <div class="month-number">
-                        01 / 2027
-                    </div>
-
-                    <h3>
-                        Styczeń
-                    </h3>
-
-                    <p>
-                        Lekcje ze stycznia 2027
-                    </p>
-
-                </div>
-
-                <div class="month-arrow">
-                    ↗
-                </div>
-
-            </div>
-
-
-            <!-- LUTY -->
-
-            <div
-                class="month-card"
-                onclick="showMonth('february')"
-            >
-
-                <div>
-
-                    <div class="month-number">
-                        02 / 2027
-                    </div>
-
-                    <h3>
-                        Luty
-                    </h3>
-
-                    <p>
-                        Lekcje z lutego 2027
-                    </p>
-
-                </div>
-
-                <div class="month-arrow">
-                    ↗
-                </div>
-
-            </div>
-
-
-            <!-- MARZEC -->
-
-            <div
-                class="month-card"
-                onclick="showMonth('march')"
-            >
-
-                <div>
-
-                    <div class="month-number">
-                        03 / 2027
-                    </div>
-
-                    <h3>
-                        Marzec
-                    </h3>
-
-                    <p>
-                        Lekcje z marca 2027
-                    </p>
-
-                </div>
-
-                <div class="month-arrow">
-                    ↗
-                </div>
-
-            </div>
-
-
-            <!-- KWIECIEŃ -->
-
-            <div
-                class="month-card"
-                onclick="showMonth('april')"
-            >
-
-                <div>
-
-                    <div class="month-number">
-                        04 / 2027
-                    </div>
-
-                    <h3>
-                        Kwiecień
-                    </h3>
-
-                    <p>
-                        Lekcje z kwietnia 2027
-                    </p>
-
-                </div>
-
-                <div class="month-arrow">
-                    ↗
-                </div>
-
-            </div>
-
-
-            <!-- MAJ -->
-
-            <div
-                class="month-card"
-                onclick="showMonth('may')"
-            >
-
-                <div>
-
-                    <div class="month-number">
-                        05 / 2027
-                    </div>
-
-                    <h3>
-                        Maj
-                    </h3>
-
-                    <p>
-                        Lekcje z maja 2027
-                    </p>
-
-                </div>
-
-                <div class="month-arrow">
-                    ↗
-                </div>
-
-            </div>
-
-
-            <!-- CZERWIEC -->
-
-            <div
-                class="month-card"
-                onclick="showMonth('june')"
-            >
-
-                <div>
-
-                    <div class="month-number">
-                        06 / 2027
-                    </div>
-
-                    <h3>
-                        Czerwiec
-                    </h3>
-
-                    <p>
-                        Lekcje z czerwca 2027
-                    </p>
-
-                </div>
-
-                <div class="month-arrow">
-                    ↗
-                </div>
-
-            </div>
-
 
         </div>
 
     </div>
 
 
-    <!-- =================================================
-         WRZESIEŃ 2026
-    ================================================= -->
+    <!-- ==============================
+         SZCZEGÓŁY DNIA
+    ============================== -->
 
-    <div
-        class="days-view"
-        id="september"
-    >
+    <div id="dayDetails">
 
-        <a
-            href="#"
+        <button
             class="back-button"
-            onclick="showMonths(); return false;"
+            onclick="showDays()"
         >
-            ← Wszystkie miesiące
-        </a>
+            ← Wszystkie dni
+        </button>
 
-        <div class="days-header">
+
+        <div class="details-header">
+
+            <div
+                class="date-label"
+                id="detailDate"
+            >
+            </div>
 
             <h2>
-                Wrzesień 2026
+                Lekcje
             </h2>
-
-            <p>
-                Wybierz dzień, aby zobaczyć szczegóły.
-            </p>
 
         </div>
 
-        <div class="days-grid">
 
+        <div class="lessons-box">
 
             <div
-                class="day-card"
-                onclick="showLesson('lesson-01')"
+                id="lessonList"
             >
-
-                <div class="day-number">
-                    01 WRZEŚNIA
-                </div>
-
-                <h3>
-                    Rozpoczęcie roku
-                </h3>
-
-                <p>
-                    Pierwszy dzień szkoły
-                </p>
-
-                <div class="day-card-arrow">
-                    →
-                </div>
-
             </div>
 
 
             <div
-                class="day-card"
-                onclick="showLesson('lesson-02')"
+                class="materials"
+                id="materials"
             >
 
-                <div class="day-number">
-                    02 WRZEŚNIA
+                <div class="materials-title">
+                    Materiały
                 </div>
 
-                <h3>
-                    Lekcje
-                </h3>
-
-                <p>
-                    Materiały z tego dnia
-                </p>
-
-                <div class="day-card-arrow">
-                    →
-                </div>
-
-            </div>
-
-
-            <div
-                class="day-card"
-                onclick="showLesson('lesson-03')"
-            >
-
-                <div class="day-number">
-                    03 WRZEŚNIA
-                </div>
-
-                <h3>
-                    Lekcje
-                </h3>
-
-                <p>
-                    Materiały z tego dnia
-                </p>
-
-                <div class="day-card-arrow">
-                    →
-                </div>
-
-            </div>
-
-
-        </div>
-
-    </div>
-
-
-    <!-- =================================================
-         POZOSTAŁE MIESIĄCE
-    ================================================= -->
-
-    <div
-        class="days-view"
-        id="october"
-    >
-
-        <a
-            href="#"
-            class="back-button"
-            onclick="showMonths(); return false;"
-        >
-            ← Wszystkie miesiące
-        </a>
-
-        <div class="days-header">
-
-            <h2>
-                Październik 2026
-            </h2>
-
-            <p>
-                Wybierz dzień, aby zobaczyć szczegóły.
-            </p>
-
-        </div>
-
-        <div class="days-grid"></div>
-
-    </div>
-
-
-    <div
-        class="days-view"
-        id="november"
-    >
-
-        <a
-            href="#"
-            class="back-button"
-            onclick="showMonths(); return false;"
-        >
-            ← Wszystkie miesiące
-        </a>
-
-        <div class="days-header">
-
-            <h2>
-                Listopad 2026
-            </h2>
-
-            <p>
-                Wybierz dzień, aby zobaczyć szczegóły.
-            </p>
-
-        </div>
-
-        <div class="days-grid"></div>
-
-    </div>
-
-
-    <div
-        class="days-view"
-        id="december"
-    >
-
-        <a
-            href="#"
-            class="back-button"
-            onclick="showMonths(); return false;"
-        >
-            ← Wszystkie miesiące
-        </a>
-
-        <div class="days-header">
-
-            <h2>
-                Grudzień 2026
-            </h2>
-
-            <p>
-                Wybierz dzień, aby zobaczyć szczegóły.
-            </p>
-
-        </div>
-
-        <div class="days-grid"></div>
-
-    </div>
-
-
-    <div
-        class="days-view"
-        id="january"
-    >
-
-        <a
-            href="#"
-            class="back-button"
-            onclick="showMonths(); return false;"
-        >
-            ← Wszystkie miesiące
-        </a>
-
-        <div class="days-header">
-
-            <h2>
-                Styczeń 2027
-            </h2>
-
-            <p>
-                Wybierz dzień, aby zobaczyć szczegóły.
-            </p>
-
-        </div>
-
-        <div class="days-grid"></div>
-
-    </div>
-
-
-    <div
-        class="days-view"
-        id="february"
-    >
-
-        <a
-            href="#"
-            class="back-button"
-            onclick="showMonths(); return false;"
-        >
-            ← Wszystkie miesiące
-        </a>
-
-        <div class="days-header">
-
-            <h2>
-                Luty 2027
-            </h2>
-
-            <p>
-                Wybierz dzień, aby zobaczyć szczegóły.
-            </p>
-
-        </div>
-
-        <div class="days-grid"></div>
-
-    </div>
-
-
-    <div
-        class="days-view"
-        id="march"
-    >
-
-        <a
-            href="#"
-            class="back-button"
-            onclick="showMonths(); return false;"
-        >
-            ← Wszystkie miesiące
-        </a>
-
-        <div class="days-header">
-
-            <h2>
-                Marzec 2027
-            </h2>
-
-            <p>
-                Wybierz dzień, aby zobaczyć szczegóły.
-            </p>
-
-        </div>
-
-        <div class="days-grid"></div>
-
-    </div>
-
-
-    <div
-        class="days-view"
-        id="april"
-    >
-
-        <a
-            href="#"
-            class="back-button"
-            onclick="showMonths(); return false;"
-        >
-            ← Wszystkie miesiące
-        </a>
-
-        <div class="days-header">
-
-            <h2>
-                Kwiecień 2027
-            </h2>
-
-            <p>
-                Wybierz dzień, aby zobaczyć szczegóły.
-            </p>
-
-        </div>
-
-        <div class="days-grid"></div>
-
-    </div>
-
-
-    <div
-        class="days-view"
-        id="may"
-    >
-
-        <a
-            href="#"
-            class="back-button"
-            onclick="showMonths(); return false;"
-        >
-            ← Wszystkie miesiące
-        </a>
-
-        <div class="days-header">
-
-            <h2>
-                Maj 2027
-            </h2>
-
-            <p>
-                Wybierz dzień, aby zobaczyć szczegóły.
-            </p>
-
-        </div>
-
-        <div class="days-grid"></div>
-
-    </div>
-
-
-    <div
-        class="days-view"
-        id="june"
-    >
-
-        <a
-            href="#"
-            class="back-button"
-            onclick="showMonths(); return false;"
-        >
-            ← Wszystkie miesiące
-        </a>
-
-        <div class="days-header">
-
-            <h2>
-                Czerwiec 2027
-            </h2>
-
-            <p>
-                Wybierz dzień, aby zobaczyć szczegóły.
-            </p>
-
-        </div>
-
-        <div class="days-grid"></div>
-
-    </div>
-
-
-    <!-- =================================================
-         SZCZEGÓŁ — 1 WRZEŚNIA
-    ================================================= -->
-
-    <div
-        class="lesson-detail"
-        id="lesson-01"
-    >
-
-        <a
-            href="#"
-            class="back-button"
-            onclick="showMonth('september'); return false;"
-        >
-            ← Wrzesień 2026
-        </a>
-
-
-        <div class="detail-header">
-
-            <div class="detail-date">
-                01 / 09 / 2026
-            </div>
-
-            <h2>
-                Rozpoczęcie roku
-            </h2>
-
-            <p>
-                Informacje z pierwszego dnia szkoły.
-            </p>
-
-        </div>
-
-
-        <div class="detail-content">
-
-            <h3>
-                Co było na lekcjach?
-            </h3>
-
-            <p>
-                Tutaj wpisujesz informacje dotyczące
-                tego, co było danego dnia w szkole.
-                Możesz tutaj umieścić notatki, zadania
-                oraz inne informacje.
-            </p>
-
-
-            <div class="lesson-images">
-
-                <img
-                    src="zdjecia/01-09-2026-1.jpg"
-                    alt="Zdjęcie z 1 września 2026"
+                <div
+                    class="materials-list"
+                    id="materialsList"
                 >
-
-                <img
-                    src="zdjecia/01-09-2026-2.jpg"
-                    alt="Zdjęcie z 1 września 2026"
-                >
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- =================================================
-         SZCZEGÓŁ — 2 WRZEŚNIA
-    ================================================= -->
-
-    <div
-        class="lesson-detail"
-        id="lesson-02"
-    >
-
-        <a
-            href="#"
-            class="back-button"
-            onclick="showMonth('september'); return false;"
-        >
-            ← Wrzesień 2026
-        </a>
-
-
-        <div class="detail-header">
-
-            <div class="detail-date">
-                02 / 09 / 2026
-            </div>
-
-            <h2>
-                Lekcje — 2 września
-            </h2>
-
-            <p>
-                Materiały i informacje z tego dnia.
-            </p>
-
-        </div>
-
-
-        <div class="detail-content">
-
-            <h3>
-                Co było na lekcjach?
-            </h3>
-
-            <p>
-                Tutaj wpisujesz informacje z 2 września.
-            </p>
-
-
-            <div class="lesson-images">
-
-                <img
-                    src="zdjecia/02-09-2026-1.jpg"
-                    alt="Zdjęcie z 2 września 2026"
-                >
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- =================================================
-         SZCZEGÓŁ — 3 WRZEŚNIA
-    ================================================= -->
-
-    <div
-        class="lesson-detail"
-        id="lesson-03"
-    >
-
-        <a
-            href="#"
-            class="back-button"
-            onclick="showMonth('september'); return false;"
-        >
-            ← Wrzesień 2026
-        </a>
-
-
-        <div class="detail-header">
-
-            <div class="detail-date">
-                03 / 09 / 2026
-            </div>
-
-            <h2>
-                Lekcje — 3 września
-            </h2>
-
-            <p>
-                Materiały i informacje z tego dnia.
-            </p>
-
-        </div>
-
-
-        <div class="detail-content">
-
-            <h3>
-                Co było na lekcjach?
-            </h3>
-
-            <p>
-                Tutaj wpisujesz informacje z 3 września.
-            </p>
-
-
-            <div class="lesson-images">
-
-                <img
-                    src="zdjecia/03-09-2026-1.jpg"
-                    alt="Zdjęcie z 3 września 2026"
-                >
+                </div>
 
             </div>
 
@@ -1860,10 +882,6 @@
 </main>
 
 
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
 <footer>
 
     <div class="footer-container">
@@ -1873,7 +891,7 @@
         </strong>
 
         <span>
-            © 2026 — Panel lekcji
+            © 2026 — Archiwum lekcji
         </span>
 
     </div>
@@ -1881,89 +899,529 @@
 </footer>
 
 
-<!-- =====================================================
-     JAVASCRIPT
-===================================================== -->
-
 <script>
 
-    const monthsView =
-        document.getElementById("monthsView");
+
+// ======================================
+// API
+// ======================================
+
+const API =
+    "https://old-term-d35c.oliwierbielicki.workers.dev";
 
 
-    function hideAll() {
+// ======================================
+// DANE
+// ======================================
 
-        document
-            .querySelectorAll(
-                ".days-view, .lesson-detail"
-            )
-            .forEach(element => {
-
-                element.classList.remove("active");
-
-            });
-
-    }
+let allDays = [];
 
 
-    function showMonths() {
+// ======================================
+// START
+// ======================================
 
-        hideAll();
-
-        monthsView.style.display = "block";
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
-    }
+loadLessons();
 
 
-    function showMonth(month) {
+// ======================================
+// POBIERANIE DANYCH
+// ======================================
 
-        hideAll();
+async function loadLessons() {
 
-        monthsView.style.display = "none";
-
-        const selectedMonth =
-            document.getElementById(month);
-
-        if (selectedMonth) {
-
-            selectedMonth.classList.add("active");
-
-        }
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
-    }
+    const container =
+        document.getElementById(
+            "daysList"
+        );
 
 
-    function showLesson(lesson) {
+    try {
 
-        hideAll();
+        const response =
+            await fetch(
+                `${API}/lessons`
+            );
 
-        monthsView.style.display = "none";
 
-        const selectedLesson =
-            document.getElementById(lesson);
+        if (!response.ok) {
 
-        if (selectedLesson) {
-
-            selectedLesson.classList.add("active");
+            throw new Error(
+                "Nie udało się pobrać lekcji."
+            );
 
         }
 
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
+
+        allDays =
+            await response.json();
+
+
+        renderDays();
+
+
+    } catch (error) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                Nie udało się pobrać
+                listy lekcji.
+
+                <br><br>
+
+                ${escapeHtml(
+                    error.message
+                )}
+
+            </div>
+
+        `;
 
     }
+
+}
+
+
+// ======================================
+// LISTA DNI
+// ======================================
+
+function renderDays() {
+
+    const container =
+        document.getElementById(
+            "daysList"
+        );
+
+
+    container.innerHTML = "";
+
+
+    if (
+        !allDays.length
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                Nie ma jeszcze
+                zapisanych lekcji.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    allDays.forEach(
+        (day, index) => {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "day-card";
+
+
+            card.style.animationDelay =
+                `${index * 0.05}s`;
+
+
+            const lessonCount =
+                Array.isArray(day.lessons)
+                    ? day.lessons.length
+                    : 0;
+
+
+            card.innerHTML = `
+
+                <div class="day-left">
+
+                    <div class="day-icon">
+                        📚
+                    </div>
+
+                    <div class="day-info">
+
+                        <h2>
+                            ${formatDate(
+                                day.date
+                            )}
+                        </h2>
+
+                        <p>
+                            ${lessonCount}
+                            ${
+                                lessonCount === 1
+                                    ? "lekcja"
+                                    : "lekcji"
+                            }
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="day-arrow">
+                    →
+                </div>
+
+            `;
+
+
+            card.addEventListener(
+                "click",
+                () => {
+
+                    showDay(day);
+
+                }
+            );
+
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+// ======================================
+// POKAŻ DZIEŃ
+// ======================================
+
+function showDay(day) {
+
+    document
+        .getElementById(
+            "daysView"
+        )
+        .style.display = "none";
+
+
+    const details =
+        document.getElementById(
+            "dayDetails"
+        );
+
+
+    details.classList.add(
+        "active"
+    );
+
+
+    document
+        .getElementById(
+            "detailDate"
+        )
+        .textContent =
+            formatDate(day.date);
+
+
+    renderLessons(
+        day.lessons
+    );
+
+
+    renderMaterials(
+        day.files
+    );
+
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+// ======================================
+// WRÓĆ DO DNI
+// ======================================
+
+function showDays() {
+
+    document
+        .getElementById(
+            "dayDetails"
+        )
+        .classList.remove(
+            "active"
+        );
+
+
+    document
+        .getElementById(
+            "daysView"
+        )
+        .style.display =
+            "block";
+
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+// ======================================
+// LEKCJE
+// ======================================
+
+function renderLessons(
+    lessons
+) {
+
+    const container =
+        document.getElementById(
+            "lessonList"
+        );
+
+
+    container.innerHTML = "";
+
+
+    if (
+        !Array.isArray(lessons) ||
+        !lessons.length
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                Brak informacji
+                o lekcjach.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    lessons.forEach(
+        (lesson, index) => {
+
+            const element =
+                document.createElement(
+                    "div"
+                );
+
+
+            element.className =
+                "lesson";
+
+
+            element.innerHTML = `
+
+                <div class="lesson-number">
+
+                    LEKCJA ${index + 1}
+
+                </div>
+
+                <h3>
+                    ${escapeHtml(
+                        lesson.subject ||
+                        "Bez nazwy"
+                    )}
+                </h3>
+
+                <p>
+                    ${escapeHtml(
+                        lesson.content ||
+                        "Brak informacji."
+                    )}
+                </p>
+
+            `;
+
+
+            container.appendChild(
+                element
+            );
+
+        }
+    );
+
+}
+
+
+// ======================================
+// MATERIAŁY
+// ======================================
+
+function renderMaterials(
+    files
+) {
+
+    const section =
+        document.getElementById(
+            "materials"
+        );
+
+
+    const container =
+        document.getElementById(
+            "materialsList"
+        );
+
+
+    container.innerHTML = "";
+
+
+    if (
+        !Array.isArray(files) ||
+        !files.length
+    ) {
+
+        section.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    section.style.display =
+        "block";
+
+
+    files.forEach(
+        file => {
+
+            const link =
+                document.createElement(
+                    "a"
+                );
+
+
+            link.className =
+                "material";
+
+
+            link.href =
+                file.url;
+
+
+            link.target =
+                "_blank";
+
+
+            link.rel =
+                "noopener noreferrer";
+
+
+            link.textContent =
+                `🔗 ${
+                    file.name ||
+                    "Materiał"
+                }`;
+
+
+            container.appendChild(
+                link
+            );
+
+        }
+    );
+
+}
+
+
+// ======================================
+// FORMAT DATY
+// ======================================
+
+function formatDate(date) {
+
+    const [
+        year,
+        month,
+        day
+    ] = date.split("-");
+
+
+    const months = [
+
+        "",
+        "stycznia",
+        "lutego",
+        "marca",
+        "kwietnia",
+        "maja",
+        "czerwca",
+        "lipca",
+        "sierpnia",
+        "września",
+        "października",
+        "listopada",
+        "grudnia"
+
+    ];
+
+
+    return `${Number(day)} ${
+        months[Number(month)]
+    } ${year}`;
+
+}
+
+
+// ======================================
+// HTML ESCAPE
+// ======================================
+
+function escapeHtml(text) {
+
+    return String(text ?? "")
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
 
 </script>
 
