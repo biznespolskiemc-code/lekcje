@@ -1,12 +1,33 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Lekcje</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>LEKCJE | Lista lekcji</title>
+
+    <meta
+        name="description"
+        content="Lista lekcji i materiały ze szkoły."
+    >
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="Polak.png"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style-index.css"
+    >
+
 
     <style>
 
@@ -14,425 +35,1345 @@
             box-sizing: border-box;
         }
 
-        body {
-            margin: 0;
-            font-family: 'Montserrat', sans-serif;
-            background:
-                radial-gradient(circle at top left, rgba(40, 120, 255, .12), transparent 35%),
-                radial-gradient(circle at bottom right, rgba(0, 180, 255, .08), transparent 35%),
-                #070b12;
-            color: white;
-            min-height: 100vh;
-        }
 
-        nav {
-            height: 76px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            padding: 0 30px;
-            background: rgba(7, 11, 18, .78);
-            backdrop-filter: blur(18px);
-            border-bottom: 1px solid rgba(255,255,255,.06);
-        }
-
-        nav .logo {
-            font-size: 19px;
-            font-weight: 800;
-        }
+        /* =====================================================
+           GŁÓWNA STRONA
+        ===================================================== */
 
         .lessons-page {
-            max-width: 1100px;
+
+            width: 100%;
+
+            max-width: 1000px;
+
             margin: auto;
-            padding: 105px 20px 80px;
+
+            padding:
+                105px
+                20px
+                80px;
+
         }
 
-        .hero-label {
-            color: #4ea1ff;
-            font-size: 13px;
+
+        /* =====================================================
+           NAGŁÓWEK
+        ===================================================== */
+
+        .lessons-header {
+
+            text-align: center;
+
+            margin-bottom: 45px;
+
+        }
+
+
+        .lessons-header h1 {
+
+            margin:
+                0 0 18px;
+
+            font-size:
+                clamp(42px, 7vw, 72px);
+
             font-weight: 800;
-            letter-spacing: 2px;
-            margin-bottom: 12px;
+
+            letter-spacing:
+                -2.5px;
+
+            line-height:
+                1.05;
+
         }
 
-        h1 {
-            margin: 0;
-            font-size: 38px;
-            font-weight: 800;
+
+        .lessons-header h1 strong {
+
+            color:
+                var(--blue-light);
+
         }
 
-        .subtitle {
-            color: #8c98aa;
-            margin-top: 10px;
-            margin-bottom: 30px;
+
+        .lessons-header p {
+
+            max-width: 650px;
+
+            margin: auto;
+
+            color:
+                rgba(255,255,255,.45);
+
+            line-height: 1.8;
+
+            font-size: 15px;
+
         }
 
-        .days {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 13px;
-        }
 
-        .day {
-            padding: 20px;
-            border-radius: 17px;
-            background: rgba(15, 22, 34, .72);
-            border: 1px solid rgba(255,255,255,.07);
-            cursor: pointer;
-            transition: .2s;
-        }
+        /* =====================================================
+           LISTA DNI
+        ===================================================== */
 
-        .day:hover {
-            transform: translateY(-2px);
-            border-color: rgba(78,161,255,.35);
-            background: rgba(20, 30, 47, .8);
-        }
+        #daysList {
 
-        .day-date {
-            font-size: 18px;
-            font-weight: 800;
-        }
-
-        .day-info {
-            margin-top: 8px;
-            color: #8290a4;
-            font-size: 13px;
-        }
-
-        .details {
-            display: none;
-        }
-
-        .back {
-            display: inline-flex;
-            margin-bottom: 20px;
-            padding: 10px 14px;
-            border-radius: 10px;
-            background: rgba(255,255,255,.06);
-            border: 1px solid rgba(255,255,255,.08);
-            color: #dce5f2;
-            cursor: pointer;
-            font-family: inherit;
-            font-weight: 700;
-        }
-
-        .detail-date {
-            color: #4ea1ff;
-            font-size: 13px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .detail-title {
-            margin-top: 8px;
-            margin-bottom: 25px;
-            font-size: 28px;
-            font-weight: 800;
-        }
-
-        .lesson-card {
-            background: rgba(15, 22, 34, .72);
-            border: 1px solid rgba(255,255,255,.07);
-            border-radius: 17px;
-            padding: 20px;
-            margin-bottom: 13px;
-        }
-
-        .lesson-top {
             display: flex;
-            align-items: center;
-            gap: 13px;
+
+            flex-direction: column;
+
+            gap: 12px;
+
         }
+
+
+        .day-card {
+
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 22px 25px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.055),
+                    rgba(255,255,255,.018)
+                );
+
+            border:
+                1px solid
+                rgba(255,255,255,.08);
+
+            border-radius: 15px;
+
+            cursor: pointer;
+
+            opacity: 0;
+
+            animation:
+                dayAppear .5s ease forwards;
+
+            transition:
+                transform .3s ease,
+                background .3s ease,
+                border-color .3s ease;
+
+        }
+
+
+        .day-card:hover {
+
+            transform:
+                translateX(5px);
+
+            background:
+                rgba(24,176,214,.055);
+
+            border-color:
+                rgba(24,176,214,.4);
+
+        }
+
+
+        .day-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+
+        }
+
+
+        .day-icon {
+
+            width: 48px;
+
+            height: 48px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            color:
+                var(--blue-light);
+
+            background:
+                rgba(24,176,214,.08);
+
+            border:
+                1px solid
+                rgba(24,176,214,.15);
+
+            border-radius: 12px;
+
+            font-size: 20px;
+
+        }
+
+
+        .day-info h2 {
+
+            margin:
+                0 0 5px;
+
+            font-size: 18px;
+
+        }
+
+
+        .day-info p {
+
+            margin: 0;
+
+            color:
+                rgba(255,255,255,.4);
+
+            font-size: 13px;
+
+            text-transform: lowercase;
+
+        }
+
+
+        .day-arrow {
+
+            color:
+                rgba(255,255,255,.3);
+
+            font-size: 22px;
+
+            transition:
+                transform .3s ease,
+                color .3s ease;
+
+        }
+
+
+        .day-card:hover .day-arrow {
+
+            color:
+                var(--blue-light);
+
+            transform:
+                translateX(5px);
+
+        }
+
+
+        /* =====================================================
+           SZCZEGÓŁY DNIA
+        ===================================================== */
+
+        #dayDetails {
+
+            display: none;
+
+            animation:
+                detailsAppear .45s ease both;
+
+        }
+
+
+        #dayDetails.active {
+
+            display: block;
+
+        }
+
+
+        .back-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            margin-bottom: 30px;
+
+            padding: 10px 16px;
+
+            color:
+                rgba(255,255,255,.55);
+
+            background:
+                rgba(255,255,255,.035);
+
+            border:
+                1px solid
+                rgba(255,255,255,.08);
+
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            font-family: inherit;
+
+            transition:
+                color .25s ease,
+                transform .25s ease,
+                border-color .25s ease;
+
+        }
+
+
+        .back-button:hover {
+
+            color: white;
+
+            transform:
+                translateX(-4px);
+
+            border-color:
+                rgba(24,176,214,.4);
+
+        }
+
+
+        .details-header {
+
+            margin-bottom: 30px;
+
+            text-align: center;
+
+        }
+
+
+        .details-header .date-label {
+
+            margin-bottom: 7px;
+
+            color:
+                var(--blue-light);
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .details-header .weekday-label {
+
+            margin-bottom: 10px;
+
+            color:
+                rgba(255,255,255,.4);
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+        }
+
+
+        .details-header h2 {
+
+            margin: 0;
+
+            font-size:
+                clamp(34px,5vw,52px);
+
+            font-weight: 800;
+
+        }
+
+
+        /* =====================================================
+           LEKCJE
+        ===================================================== */
+
+        .lessons-box {
+
+            padding: 30px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.045),
+                    rgba(255,255,255,.018)
+                );
+
+            border:
+                1px solid
+                rgba(255,255,255,.08);
+
+            border-radius: 18px;
+
+        }
+
+
+        .lesson {
+
+            padding: 25px 0;
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,.08);
+
+        }
+
+
+        .lesson:first-child {
+
+            padding-top: 0;
+
+        }
+
+
+        .lesson:last-child {
+
+            padding-bottom: 0;
+
+            border-bottom: none;
+
+        }
+
 
         .lesson-number {
-            min-width: 42px;
-            height: 42px;
-            border-radius: 11px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(62,143,255,.12);
-            color: #58a4ff;
-            font-weight: 800;
-            font-size: 14px;
+
+            margin-bottom: 9px;
+
+            color:
+                var(--blue-light);
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+
         }
 
-        .lesson-subject {
-            font-size: 17px;
-            font-weight: 800;
+
+        .lesson h3 {
+
+            margin:
+                0 0 10px;
+
+            font-size: 22px;
+
         }
 
-        .lesson-content {
-            color: #a5afbf;
-            font-size: 14px;
-            line-height: 1.7;
-            margin-top: 14px;
+
+        .lesson p {
+
+            margin: 0;
+
+            color:
+                rgba(255,255,255,.6);
+
+            line-height: 1.8;
+
             white-space: pre-wrap;
+
         }
 
-        .attachment-button {
-            margin-top: 15px;
-            padding: 10px 13px;
-            background: rgba(78,161,255,.1);
-            color: #65aaff;
-            border: 1px solid rgba(78,161,255,.16);
-            border-radius: 10px;
+
+        /* =====================================================
+           ZAŁĄCZNIKI LEKCJI
+        ===================================================== */
+
+        .lesson-attachments {
+
+            margin-top: 16px;
+
+        }
+
+
+        .lesson-attachments-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 9px 13px;
+
+            color: white;
+
+            background:
+                rgba(24,176,214,.06);
+
+            border:
+                1px solid
+                rgba(24,176,214,.18);
+
+            border-radius: 9px;
+
             cursor: pointer;
+
             font-family: inherit;
+
+            font-size: 13px;
+
             font-weight: 700;
+
+            transition:
+                background .25s ease,
+                border-color .25s ease,
+                transform .25s ease;
+
         }
 
-        .attachment-button:hover {
-            background: rgba(78,161,255,.16);
+
+        .lesson-attachments-button:hover {
+
+            background:
+                rgba(24,176,214,.13);
+
+            border-color:
+                rgba(24,176,214,.45);
+
+            transform:
+                translateY(-2px);
+
         }
 
-        .attachments {
+
+        .lesson-attachments-content {
+
             display: none;
+
             margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255,255,255,.07);
+
         }
 
-        .attachments.show {
+
+        .lesson-attachments-content.active {
+
             display: block;
+
         }
 
-        .attachment-title {
-            font-size: 12px;
-            font-weight: 800;
-            color: #8c98aa;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
 
-        .attachment-list {
+        .lesson-attachment-links {
+
             display: flex;
+
             flex-wrap: wrap;
+
             gap: 10px;
+
+            margin-top: 12px;
+
         }
 
-        .attachment-item {
-            width: 180px;
-            border-radius: 12px;
-            overflow: hidden;
-            background: rgba(255,255,255,.035);
-            border: 1px solid rgba(255,255,255,.07);
+
+        /* =====================================================
+           MATERIAŁY
+        ===================================================== */
+
+        .materials {
+
+            margin-top: 30px;
+
+            padding-top: 25px;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,.08);
+
         }
 
-        .attachment-item img {
-            width: 100%;
-            height: 130px;
-            display: block;
-            object-fit: cover;
-            cursor: pointer;
-        }
 
-        .attachment-name {
-            display: block;
-            padding: 9px;
-            color: #c6cfdd;
-            font-size: 11px;
-            font-weight: 600;
-        }
+        .materials-title {
 
-        .file-link {
-            display: block;
-            padding: 12px;
-            color: #65aaff;
-            text-decoration: none;
-            font-size: 12px;
+            margin-bottom: 18px;
+
+            font-size: 18px;
+
             font-weight: 700;
+
         }
+
+
+        /* =====================================================
+           GALERIA
+        ===================================================== */
+
+        .photo-gallery {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 12px;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .photo-card {
+
+            position: relative;
+
+            aspect-ratio: 16 / 11;
+
+            overflow: hidden;
+
+            background:
+                rgba(255,255,255,.03);
+
+            border:
+                1px solid
+                rgba(255,255,255,.08);
+
+            border-radius: 12px;
+
+            cursor: pointer;
+
+            transition:
+                transform .3s ease,
+                border-color .3s ease;
+
+        }
+
+
+        .photo-card:hover {
+
+            transform:
+                translateY(-3px);
+
+            border-color:
+                rgba(24,176,214,.45);
+
+        }
+
+
+        .photo-card img {
+
+            width: 100%;
+
+            height: 100%;
+
+            display: block;
+
+            object-fit: cover;
+
+            transition:
+                transform .4s ease;
+
+        }
+
+
+        .photo-card:hover img {
+
+            transform:
+                scale(1.04);
+
+        }
+
+
+        .photo-card::after {
+
+            content: "↗";
+
+            position: absolute;
+
+            right: 10px;
+
+            bottom: 10px;
+
+            width: 30px;
+
+            height: 30px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: white;
+
+            background:
+                rgba(0,0,0,.6);
+
+            border:
+                1px solid
+                rgba(255,255,255,.15);
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
+            opacity: 0;
+
+            transition:
+                opacity .25s ease;
+
+        }
+
+
+        .photo-card:hover::after {
+
+            opacity: 1;
+
+        }
+
+
+        /* =====================================================
+           MATERIAŁY
+        ===================================================== */
+
+        .materials-list {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+        }
+
+
+        .material {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 10px 14px;
+
+            color: white;
+
+            text-decoration: none;
+
+            background:
+                rgba(24,176,214,.06);
+
+            border:
+                1px solid
+                rgba(24,176,214,.18);
+
+            border-radius: 9px;
+
+            font-size: 13px;
+
+            transition:
+                background .25s ease,
+                border-color .25s ease,
+                transform .25s ease;
+
+        }
+
+
+        .material:hover {
+
+            background:
+                rgba(24,176,214,.13);
+
+            border-color:
+                rgba(24,176,214,.45);
+
+            transform:
+                translateY(-2px);
+
+        }
+
+
+        /* =====================================================
+           PODGLĄD ZDJĘCIA
+        ===================================================== */
+
+        #imageViewer {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 9999;
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 30px;
+
+            background:
+                rgba(0,0,0,.86);
+
+            backdrop-filter:
+                blur(12px);
+
+            cursor: pointer;
+
+        }
+
+
+        #imageViewer.active {
+
+            display: flex;
+
+        }
+
+
+        #imageViewer img {
+
+            max-width: 95vw;
+
+            max-height: 90vh;
+
+            object-fit: contain;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 20px 80px
+                rgba(0,0,0,.6);
+
+            cursor: default;
+
+            animation:
+                imageOpen .3s ease both;
+
+        }
+
+
+        .image-close {
+
+            position: fixed;
+
+            top: 20px;
+
+            right: 25px;
+
+            width: 45px;
+
+            height: 45px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: white;
+
+            background:
+                rgba(255,255,255,.08);
+
+            border:
+                1px solid
+                rgba(255,255,255,.15);
+
+            border-radius: 50%;
+
+            font-size: 22px;
+
+            cursor: pointer;
+
+        }
+
+
+        /* =====================================================
+           INNE
+        ===================================================== */
 
         .empty {
-            padding: 30px;
+
+            padding: 45px 20px;
+
             text-align: center;
-            color: #748096;
-            background: rgba(255,255,255,.025);
-            border-radius: 15px;
+
+            color:
+                rgba(255,255,255,.35);
+
         }
 
-        .image-modal {
-            position: fixed;
-            inset: 0;
-            z-index: 500;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 25px;
-            background: rgba(0,0,0,.88);
+
+        .loading {
+
+            padding: 40px;
+
+            text-align: center;
+
+            color:
+                rgba(255,255,255,.4);
+
         }
 
-        .image-modal.show {
-            display: flex;
-        }
 
-        .image-modal img {
-            max-width: 95vw;
-            max-height: 90vh;
-            border-radius: 12px;
-            object-fit: contain;
-        }
+        /* =====================================================
+           ANIMACJE
+        ===================================================== */
 
-        .close-modal {
-            position: fixed;
-            top: 20px;
-            right: 25px;
-            border: 0;
-            background: rgba(255,255,255,.1);
-            color: white;
-            font-size: 25px;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
+        @keyframes dayAppear {
 
-        @media (max-width: 700px) {
+            from {
 
-            nav {
-                height: 68px;
-                padding: 0 17px;
+                opacity: 0;
+
+                transform:
+                    translateY(15px);
+
             }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+
+        @keyframes detailsAppear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(15px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+
+        @keyframes imageOpen {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    scale(.96);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    scale(1);
+
+            }
+
+        }
+
+
+        /* =====================================================
+           TELEFON
+        ===================================================== */
+
+        @media (max-width:700px) {
 
             .lessons-page {
-                padding: 90px 15px 60px;
+
+                padding:
+                    90px
+                    15px
+                    60px;
+
             }
 
-            h1 {
-                font-size: 29px;
+
+            .lessons-box {
+
+                padding: 22px;
+
             }
 
-            .days {
+
+            .photo-gallery {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+
+            .day-card {
+
+                padding: 18px;
+
+            }
+
+
+            .day-icon {
+
+                width: 42px;
+
+                height: 42px;
+
+            }
+
+        }
+
+
+        @media (max-width:450px) {
+
+            .photo-gallery {
+
                 grid-template-columns: 1fr;
+
             }
 
-            .attachment-item {
-                width: 100%;
-            }
 
-            .attachment-item img {
-                height: 190px;
+            .day-arrow {
+
+                display: none;
+
             }
 
         }
 
     </style>
+
 </head>
+
 
 <body>
 
-<nav>
-    <div class="logo">LEKCJE</div>
+
+<!-- TŁO -->
+
+<div class="background">
+
+    <div class="background-glow glow-one"></div>
+
+    <div class="background-glow glow-two"></div>
+
+    <div class="grid"></div>
+
+</div>
+
+
+<!-- NAWIGACJA -->
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+        <a
+            href="glowna.html"
+            class="logo"
+        >
+
+            LEKCJE
+
+        </a>
+
+
+        <div class="menu">
+
+            <a href="glowna.html">
+
+                Strona główna
+
+            </a>
+
+
+            <a
+                href="lekcje.html"
+                class="active"
+            >
+
+                Lekcje
+
+            </a>
+
+
+            <a href="plan.html">
+
+                Plan lekcji
+
+            </a>
+
+        </div>
+
+    </div>
+
 </nav>
 
 
-<main class="lessons-page">
+<!-- TREŚĆ -->
+
+<main>
+
+<section class="lessons-page">
+
+
+    <!-- NAGŁÓWEK -->
+
+    <div class="lessons-header">
+
+        <div class="hero-label">
+
+            LEKCJE
+
+        </div>
+
+
+        <h1>
+
+            Lista <strong>lekcji.</strong>
+
+        </h1>
+
+
+        <p>
+
+            Tutaj znajdziesz zapis tego, co danego dnia
+            było robione w szkole, wraz z dodatkowymi
+            materiałami i zdjęciami.
+
+        </p>
+
+    </div>
+
+
+    <!-- LISTA DNI -->
 
     <div id="daysView">
 
-        <div class="hero-label">LEKCJE</div>
+        <div id="daysList">
 
-        <h1>Historia lekcji</h1>
+            <div class="loading">
 
-        <p class="subtitle">
-            Wybierz dzień, aby zobaczyć zapisane lekcje.
-        </p>
+                Ładowanie lekcji...
 
-        <div id="days" class="days"></div>
+            </div>
+
+        </div>
 
     </div>
 
 
-    <div id="detailsView" class="details">
+    <!-- SZCZEGÓŁY DNIA -->
 
-        <button class="back" onclick="showDays()">
-            ← Wróć do dni
+    <div id="dayDetails">
+
+        <button
+            class="back-button"
+            onclick="showDays()"
+        >
+
+            ← Wszystkie dni
+
         </button>
 
-        <div id="detailDate" class="detail-date"></div>
 
-        <div id="detailTitle" class="detail-title"></div>
+        <div class="details-header">
 
-        <div id="lessons"></div>
+            <div
+                class="date-label"
+                id="detailDate"
+            ></div>
+
+
+            <div
+                class="weekday-label"
+                id="detailWeekday"
+            ></div>
+
+
+            <h2>
+
+                Lekcje
+
+            </h2>
+
+        </div>
+
+
+        <div class="lessons-box">
+
+            <div id="lessonList"></div>
+
+
+            <div
+                class="materials"
+                id="materials"
+            >
+
+                <div class="materials-title">
+
+                    Materiały
+
+                </div>
+
+
+                <div
+                    id="photoGallery"
+                    class="photo-gallery"
+                ></div>
+
+
+                <div
+                    id="materialsList"
+                    class="materials-list"
+                ></div>
+
+            </div>
+
+        </div>
 
     </div>
+
+</section>
 
 </main>
 
 
+<!-- PODGLĄD ZDJĘCIA -->
+
 <div
-    id="imageModal"
-    class="image-modal"
-    onclick="closeImage()"
+    id="imageViewer"
+    onclick="closeImage(event)"
 >
 
     <button
-        class="close-modal"
-        onclick="event.stopPropagation(); closeImage()"
+        class="image-close"
+        onclick="closeImage()"
+        aria-label="Zamknij"
     >
+
         ×
+
     </button>
 
+
     <img
-        id="modalImage"
+        id="viewerImage"
         src=""
-        alt=""
+        alt="Podgląd zdjęcia"
         onclick="event.stopPropagation()"
     >
 
 </div>
 
 
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="footer-container">
+
+        <strong>
+
+            LEKCJE
+
+        </strong>
+
+
+        <span>
+
+            © 2026 — Archiwum lekcji
+
+        </span>
+
+    </div>
+
+</footer>
+
+
 <script>
+
 
 const API =
     "https://old-term-d35c.oliwierbielicki.workers.dev";
 
+
 let allDays = [];
 
 
-/* =========================
-   START
-========================= */
+/* =====================================================
+   DNI TYGODNIA
+===================================================== */
+
+const WEEK_DAYS = {
+
+    0: "niedziela",
+    1: "poniedziałek",
+    2: "wtorek",
+    3: "środa",
+    4: "czwartek",
+    5: "piątek",
+    6: "sobota"
+
+};
+
 
 loadLessons();
 
 
+/* =====================================================
+   POBIERANIE
+===================================================== */
+
 async function loadLessons() {
 
     const container =
-        document.getElementById("days");
+        document.getElementById("daysList");
 
 
     try {
 
         const response =
-            await fetch(`${API}/lessons`);
-
-
-        const data =
-            await response.json();
+            await fetch(
+                `${API}/lessons`
+            );
 
 
         if (!response.ok) {
 
             throw new Error(
-                data.error || "Nie udało się pobrać lekcji."
+                "Nie udało się pobrać lekcji."
             );
 
         }
 
 
-        allDays = Array.isArray(data)
-            ? data
-            : [];
+        allDays =
+            await response.json();
+
+
+        allDays.sort(
+            (a, b) =>
+                a.date.localeCompare(b.date)
+        );
 
 
         renderDays();
@@ -440,493 +1381,985 @@ async function loadLessons() {
 
     } catch (error) {
 
-        container.innerHTML =
-            `<div class="empty">
-                Nie udało się załadować lekcji.<br><br>
-                ${escapeHtml(error.message)}
-            </div>`;
+        container.innerHTML = `
+
+            <div class="empty">
+
+                Nie udało się pobrać
+                listy lekcji.
+
+                <br><br>
+
+                ${escapeHtml(
+                    error.message
+                )}
+
+            </div>
+
+        `;
 
     }
 
 }
 
 
-/* =========================
-   LISTA DNI
-========================= */
+/* =====================================================
+   DNI
+===================================================== */
 
 function renderDays() {
 
     const container =
-        document.getElementById("days");
-
-
-    if (!allDays.length) {
-
-        container.innerHTML =
-            `<div class="empty">
-                Nie ma jeszcze żadnych zapisanych lekcji.
-            </div>`;
-
-        return;
-    }
+        document.getElementById("daysList");
 
 
     container.innerHTML = "";
 
 
-    [...allDays]
-        .sort((a, b) =>
-            a.date.localeCompare(b.date)
-        )
-        .forEach(day => {
+    if (!allDays.length) {
 
-            const count =
-                Array.isArray(day.lessons)
-                    ? day.lessons.length
-                    : 0;
+        container.innerHTML = `
 
+            <div class="empty">
+
+                Nie ma jeszcze
+                zapisanych lekcji.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    allDays.forEach(
+        (day, index) => {
 
             const card =
                 document.createElement("div");
 
 
-            card.className = "day";
+            card.className =
+                "day-card";
 
 
-            card.onclick = () =>
-                showDay(day.date);
+            card.style.animationDelay =
+                `${index * .05}s`;
+
+
+            const lessonCount =
+                Array.isArray(day.lessons)
+                    ? day.lessons.length
+                    : 0;
+
+
+            const weekday =
+                getWeekdayName(day.date);
 
 
             card.innerHTML = `
 
-                <div class="day-date">
-                    ${escapeHtml(formatDate(day.date))}
+                <div class="day-left">
+
+                    <div class="day-icon">
+
+                        📚
+
+                    </div>
+
+
+                    <div class="day-info">
+
+                        <h2>
+
+                            ${escapeHtml(
+                                formatDate(day.date)
+                            )}
+
+                        </h2>
+
+
+                        <p>
+
+                            ${escapeHtml(
+                                weekday
+                            )}
+                            -
+                            ${lessonCount}
+                            ${lessonWord(
+                                lessonCount
+                            )}
+
+                        </p>
+
+                    </div>
+
                 </div>
 
-                <div class="day-info">
-                    ${escapeHtml(getWeekdayName(day.date))}
-                    - ${count} ${lessonWord(count)}
+
+                <div class="day-arrow">
+
+                    →
+
                 </div>
 
             `;
 
 
+            card.addEventListener(
+                "click",
+                () => showDay(day)
+            );
+
+
             container.appendChild(card);
 
-        });
+        }
+    );
 
 }
 
 
-/* =========================
-   KONKRETNY DZIEŃ
-========================= */
+/* =====================================================
+   POKAŻ DZIEŃ
+===================================================== */
 
-function showDay(date) {
+function showDay(day) {
 
-    const day =
-        allDays.find(item =>
-            item.date === date
-        );
-
-
-    if (!day) return;
-
-
-    document.getElementById("daysView")
+    document
+        .getElementById("daysView")
         .style.display = "none";
 
 
-    document.getElementById("detailsView")
-        .style.display = "block";
+    document
+        .getElementById("dayDetails")
+        .classList.add("active");
 
 
-    document.getElementById("detailDate")
+    document
+        .getElementById("detailDate")
         .textContent =
             formatDate(day.date);
 
 
-    const count =
-        Array.isArray(day.lessons)
-            ? day.lessons.length
-            : 0;
-
-
-    document.getElementById("detailTitle")
+    document
+        .getElementById("detailWeekday")
         .textContent =
-            `${capitalize(getWeekdayName(day.date))} - ${count} ${lessonWord(count)}`;
+            getWeekdayName(day.date);
 
 
-    renderLessons(day.lessons || []);
+    renderLessons(day.lessons);
 
-}
-
-
-function showDays() {
-
-    document.getElementById("detailsView")
-        .style.display = "none";
+    renderMaterials(day.files);
 
 
-    document.getElementById("daysView")
-        .style.display = "block";
+    window.scrollTo({
 
-}
+        top: 0,
 
-
-/* =========================
-   LEKCJE
-========================= */
-
-function renderLessons(lessons) {
-
-    const container =
-        document.getElementById("lessons");
-
-
-    container.innerHTML = "";
-
-
-    if (!lessons.length) {
-
-        container.innerHTML =
-            `<div class="empty">
-                Brak lekcji tego dnia.
-            </div>`;
-
-        return;
-    }
-
-
-    lessons.forEach((lesson, index) => {
-
-        const card =
-            document.createElement("div");
-
-
-        card.className = "lesson-card";
-
-
-        const attachments =
-            Array.isArray(lesson.attachments)
-                ? lesson.attachments
-                : [];
-
-
-        card.innerHTML = `
-
-            <div class="lesson-top">
-
-                <div class="lesson-number">
-                    ${index + 1}
-                </div>
-
-                <div class="lesson-subject">
-                    ${escapeHtml(
-                        lesson.subject || "Bez przedmiotu"
-                    )}
-                </div>
-
-            </div>
-
-            ${
-                lesson.content
-                    ? `
-                        <div class="lesson-content">
-                            ${escapeHtml(lesson.content)}
-                        </div>
-                    `
-                    : ""
-            }
-
-            ${
-                attachments.length
-                    ? `
-                        <button
-                            class="attachment-button"
-                            onclick="toggleAttachments(this)"
-                        >
-                            📎 Załączniki (${attachments.length})
-                        </button>
-
-                        <div class="attachments">
-
-                            <div class="attachment-title">
-                                Załączniki do tej lekcji
-                            </div>
-
-                            <div class="attachment-list">
-
-                                ${renderAttachments(attachments)}
-
-                            </div>
-
-                        </div>
-                    `
-                    : ""
-            }
-
-        `;
-
-
-        container.appendChild(card);
+        behavior: "smooth"
 
     });
 
 }
 
 
-/* =========================
-   ZAŁĄCZNIKI
-========================= */
+/* =====================================================
+   WRÓĆ
+===================================================== */
 
-function renderAttachments(attachments) {
+function showDays() {
 
-    return attachments.map(file => {
-
-        const name =
-            file.name || "Załącznik";
-
-        const url =
-            file.url || "";
+    document
+        .getElementById("dayDetails")
+        .classList.remove("active");
 
 
-        if (!url) return "";
+    document
+        .getElementById("daysView")
+        .style.display = "block";
 
 
-        if (isImage(url)) {
+    window.scrollTo({
 
-            return `
+        top: 0,
 
-                <div class="attachment-item">
+        behavior: "smooth"
 
-                    <img
-                        src="${escapeAttribute(url)}"
-                        alt="${escapeAttribute(name)}"
-                        loading="lazy"
-                        onclick="openImage('${escapeAttribute(url)}')"
-                        onerror="this.parentElement.style.display='none'"
-                    >
+    });
 
-                    <span class="attachment-name">
-                        ${escapeHtml(name)}
-                    </span>
-
-                </div>
-
-            `;
-
-        }
+}
 
 
-        return `
+/* =====================================================
+   LEKCJE
+===================================================== */
 
-            <div class="attachment-item">
+function renderLessons(lessons) {
 
-                <a
-                    class="file-link"
-                    href="${escapeAttribute(url)}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    📄 ${escapeHtml(name)}
-                </a>
+    const container =
+        document.getElementById("lessonList");
+
+
+    container.innerHTML = "";
+
+
+    if (
+        !Array.isArray(lessons) ||
+        !lessons.length
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                Brak informacji
+                o lekcjach.
 
             </div>
 
         `;
 
-    }).join("");
-
-}
-
-
-function toggleAttachments(button) {
-
-    const attachments =
-        button.nextElementSibling;
-
-
-    attachments.classList.toggle("show");
-
-
-    if (attachments.classList.contains("show")) {
-
-        button.textContent =
-            "📎 Ukryj załączniki";
-
-    } else {
-
-        const count =
-            attachments.querySelectorAll(
-                ".attachment-item"
-            ).length;
-
-
-        button.textContent =
-            `📎 Załączniki (${count})`;
+        return;
 
     }
 
-}
+
+    lessons.forEach(
+        (lesson, index) => {
+
+            const element =
+                document.createElement("div");
 
 
-function isImage(url) {
-
-    const cleanUrl =
-        url.split("?")[0].toLowerCase();
+            element.className =
+                "lesson";
 
 
-    return (
-        cleanUrl.endsWith(".jpg") ||
-        cleanUrl.endsWith(".jpeg") ||
-        cleanUrl.endsWith(".png") ||
-        cleanUrl.endsWith(".webp") ||
-        cleanUrl.endsWith(".gif") ||
-        cleanUrl.endsWith(".avif")
-    );
-
-}
+            const attachments =
+                Array.isArray(
+                    lesson.attachments
+                )
+                    ? lesson.attachments
+                    : [];
 
 
-/* =========================
-   POWIĘKSZANIE ZDJĘCIA
-========================= */
+            element.innerHTML = `
 
-function openImage(url) {
+                <div class="lesson-number">
 
-    document.getElementById("modalImage")
-        .src = url;
+                    LEKCJA ${index + 1}
 
-
-    document.getElementById("imageModal")
-        .classList.add("show");
-
-}
+                </div>
 
 
-function closeImage() {
+                <h3>
 
-    document.getElementById("imageModal")
-        .classList.remove("show");
+                    ${escapeHtml(
+                        lesson.subject ||
+                        "Bez nazwy"
+                    )}
 
-
-    document.getElementById("modalImage")
-        .src = "";
-
-}
+                </h3>
 
 
-/* =========================
-   DATY
-========================= */
+                <p>
 
-function formatDate(dateString) {
+                    ${escapeHtml(
+                        lesson.content ||
+                        "Brak informacji."
+                    )}
 
-    const [year, month, day] =
-        dateString.split("-");
-
-
-    const date =
-        new Date(
-            Number(year),
-            Number(month) - 1,
-            Number(day)
-        );
+                </p>
 
 
-    return date.toLocaleDateString(
-        "pl-PL",
-        {
-            day: "numeric",
-            month: "long",
-            year: "numeric"
+                ${
+                    attachments.length
+                        ? `
+
+                            <div class="lesson-attachments">
+
+                                <button
+                                    type="button"
+                                    class="lesson-attachments-button"
+                                >
+
+                                    📎 Załączniki
+                                    (${attachments.length})
+
+                                </button>
+
+
+                                <div
+                                    class="lesson-attachments-content"
+                                >
+
+                                    <div
+                                        class="photo-gallery"
+                                    ></div>
+
+
+                                    <div
+                                        class="lesson-attachment-links"
+                                    ></div>
+
+                                </div>
+
+                            </div>
+
+                        `
+                        : ""
+                }
+
+            `;
+
+
+            if (attachments.length) {
+
+                const button =
+                    element.querySelector(
+                        ".lesson-attachments-button"
+                    );
+
+
+                const content =
+                    element.querySelector(
+                        ".lesson-attachments-content"
+                    );
+
+
+                const gallery =
+                    element.querySelector(
+                        ".photo-gallery"
+                    );
+
+
+                const links =
+                    element.querySelector(
+                        ".lesson-attachment-links"
+                    );
+
+
+                let photoCount = 0;
+
+
+                attachments.forEach(
+                    file => {
+
+                        if (
+                            !file ||
+                            !file.url
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        const url =
+                            String(
+                                file.url
+                            ).trim();
+
+
+                        const name =
+                            file.name ||
+                            "Załącznik";
+
+
+                        if (isImage(url)) {
+
+                            photoCount++;
+
+
+                            const card =
+                                document.createElement(
+                                    "div"
+                                );
+
+
+                            card.className =
+                                "photo-card";
+
+
+                            const image =
+                                document.createElement(
+                                    "img"
+                                );
+
+
+                            image.src =
+                                url;
+
+
+                            image.alt =
+                                name;
+
+
+                            image.loading =
+                                "lazy";
+
+
+                            image.onerror =
+                                () => {
+
+                                    card.remove();
+
+                                };
+
+
+                            card.appendChild(
+                                image
+                            );
+
+
+                            card.addEventListener(
+                                "click",
+                                () => {
+
+                                    openImage(
+                                        url,
+                                        name
+                                    );
+
+                                }
+                            );
+
+
+                            gallery.appendChild(
+                                card
+                            );
+
+                        } else {
+
+                            const link =
+                                document.createElement(
+                                    "a"
+                                );
+
+
+                            link.className =
+                                "material";
+
+
+                            link.href =
+                                url;
+
+
+                            link.target =
+                                "_blank";
+
+
+                            link.rel =
+                                "noopener noreferrer";
+
+
+                            link.textContent =
+                                `🔗 ${name}`;
+
+
+                            links.appendChild(
+                                link
+                            );
+
+                        }
+
+                    }
+                );
+
+
+                if (!photoCount) {
+
+                    gallery.style.display =
+                        "none";
+
+                }
+
+
+                if (
+                    !links.children.length
+                ) {
+
+                    links.style.display =
+                        "none";
+
+                }
+
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        content.classList.toggle(
+                            "active"
+                        );
+
+
+                        if (
+                            content.classList.contains(
+                                "active"
+                            )
+                        ) {
+
+                            button.textContent =
+                                `📎 Ukryj załączniki`;
+
+                        } else {
+
+                            button.textContent =
+                                `📎 Załączniki (${attachments.length})`;
+
+                        }
+
+                    }
+                );
+
+            }
+
+
+            container.appendChild(
+                element
+            );
+
         }
     );
 
 }
 
 
-function getWeekdayName(dateString) {
+/* =====================================================
+   MATERIAŁY DNIA
+===================================================== */
 
-    const [year, month, day] =
-        dateString.split("-");
+function renderMaterials(files) {
 
-
-    const date =
-        new Date(
-            Number(year),
-            Number(month) - 1,
-            Number(day)
+    const section =
+        document.getElementById(
+            "materials"
         );
 
 
-    const names = [
-        "niedziela",
-        "poniedziałek",
-        "wtorek",
-        "środa",
-        "czwartek",
-        "piątek",
-        "sobota"
-    ];
+    const gallery =
+        document.getElementById(
+            "photoGallery"
+        );
 
 
-    return names[date.getDay()];
+    const links =
+        document.getElementById(
+            "materialsList"
+        );
+
+
+    gallery.innerHTML = "";
+
+    links.innerHTML = "";
+
+
+    if (
+        !Array.isArray(files) ||
+        !files.length
+    ) {
+
+        section.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    section.style.display =
+        "block";
+
+
+    let photoCount = 0;
+
+
+    files.forEach(
+        file => {
+
+            if (
+                !file ||
+                !file.url
+            ) {
+
+                return;
+
+            }
+
+
+            const url =
+                String(
+                    file.url
+                ).trim();
+
+
+            const name =
+                file.name ||
+                "Materiał";
+
+
+            if (isImage(url)) {
+
+                photoCount++;
+
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.className =
+                    "photo-card";
+
+
+                const image =
+                    document.createElement(
+                        "img"
+                    );
+
+
+                image.src =
+                    url;
+
+
+                image.alt =
+                    name;
+
+
+                image.loading =
+                    "lazy";
+
+
+                image.onerror =
+                    () => {
+
+                        card.remove();
+
+                    };
+
+
+                card.appendChild(
+                    image
+                );
+
+
+                card.addEventListener(
+                    "click",
+                    () =>
+                        openImage(
+                            url,
+                            name
+                        )
+                );
+
+
+                gallery.appendChild(
+                    card
+                );
+
+            } else {
+
+                const link =
+                    document.createElement(
+                        "a"
+                    );
+
+
+                link.className =
+                    "material";
+
+
+                link.href =
+                    url;
+
+
+                link.target =
+                    "_blank";
+
+
+                link.rel =
+                    "noopener noreferrer";
+
+
+                link.textContent =
+                    `🔗 ${name}`;
+
+
+                links.appendChild(
+                    link
+                );
+
+            }
+
+        }
+    );
+
+
+    if (!photoCount) {
+
+        gallery.style.display =
+            "none";
+
+    } else {
+
+        gallery.style.display =
+            "grid";
+
+    }
+
+
+    if (!links.children.length) {
+
+        links.style.display =
+            "none";
+
+    } else {
+
+        links.style.display =
+            "flex";
+
+    }
+
+
+    if (
+        !gallery.children.length &&
+        !links.children.length
+    ) {
+
+        section.style.display =
+            "none";
+
+    }
 
 }
 
 
+/* =====================================================
+   CZY LINK JEST ZDJĘCIEM
+===================================================== */
+
+function isImage(url) {
+
+    const clean =
+        url
+            .split("?")[0]
+            .split("#")[0]
+            .toLowerCase();
+
+
+    return (
+
+        clean.endsWith(".jpg") ||
+        clean.endsWith(".jpeg") ||
+        clean.endsWith(".png") ||
+        clean.endsWith(".webp") ||
+        clean.endsWith(".gif") ||
+        clean.endsWith(".avif")
+
+    );
+
+}
+
+
+/* =====================================================
+   PODGLĄD ZDJĘCIA
+===================================================== */
+
+function openImage(
+    url,
+    name
+) {
+
+    const viewer =
+        document.getElementById(
+            "imageViewer"
+        );
+
+
+    const image =
+        document.getElementById(
+            "viewerImage"
+        );
+
+
+    image.src =
+        url;
+
+
+    image.alt =
+        name ||
+        "Zdjęcie";
+
+
+    viewer.classList.add(
+        "active"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+function closeImage(event) {
+
+    if (
+        event &&
+        event.target &&
+        event.target.id ===
+            "viewerImage"
+    ) {
+
+        return;
+
+    }
+
+
+    document
+        .getElementById(
+            "imageViewer"
+        )
+        .classList.remove(
+            "active"
+        );
+
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+/* =====================================================
+   ESC ZAMYKA ZDJĘCIE
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeImage();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   SŁOWO "LEKCJA"
+===================================================== */
+
 function lessonWord(count) {
 
-    if (count === 1) return "lekcja";
+    if (count === 1) {
+
+        return " lekcja";
+
+    }
+
 
     if (
         count >= 2 &&
         count <= 4
     ) {
-        return "lekcje";
+
+        return " lekcje";
+
     }
 
-    return "lekcji";
+
+    return " lekcji";
 
 }
 
 
-function capitalize(text) {
+/* =====================================================
+   DATA
+===================================================== */
 
-    if (!text) return "";
+function formatDate(date) {
 
-    return text.charAt(0).toUpperCase() +
-        text.slice(1);
+    const [
+        year,
+        month,
+        day
+    ] = date.split("-");
+
+
+    const months = [
+
+        "",
+        "stycznia",
+        "lutego",
+        "marca",
+        "kwietnia",
+        "maja",
+        "czerwca",
+        "lipca",
+        "sierpnia",
+        "września",
+        "października",
+        "listopada",
+        "grudnia"
+
+    ];
+
+
+    return `${Number(day)} ${
+        months[Number(month)]
+    } ${year}`;
 
 }
 
 
-/* =========================
-   BEZPIECZNE HTML
-========================= */
+/* =====================================================
+   DZIEŃ TYGODNIA
+===================================================== */
 
-function escapeHtml(value) {
+function getWeekdayName(date) {
 
-    return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+    const dateObject =
+        new Date(
+            `${date}T12:00:00`
+        );
+
+
+    return WEEK_DAYS[
+        dateObject.getDay()
+    ];
 
 }
 
 
-function escapeAttribute(value) {
+/* =====================================================
+   ESCAPE
+===================================================== */
 
-    return escapeHtml(value);
+function escapeHtml(text) {
+
+    return String(text ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 
 }
 
 </script>
 
+
 </body>
+
 </html>
