@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>LEKCJE | Manager</title>
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="Polak.png"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style-index.css"
+    >
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        .manager-page {
+
+            width: 100%;
+
+            max-width: 950px;
+
+            margin: auto;
+
+            padding:
+                150px
+                20px
+                80px;
+
+        }
+
+
+        .manager-header {
+
+            text-align:
+                center;
+
+            margin-bottom:
+                45px;
+
+        }
+
+
+        .manager-header h1 {
+
+            margin:
+                0 0 15px;
+
+            font-size:
+                clamp(40px,6vw,65px);
+
+            font-weight:
+                800;
+
+        }
+
+
+        .manager-header h1 span {
+
+            color:
+                var(--blue-light);
+
+        }
+
+
+        .manager-header p {
+
+            margin: 0;
+
+            color:
+                rgba(255,255,255,.45);
+
+        }
+
+
+        .panel {
+
+            padding:
+                28px;
+
+            margin-bottom:
+                18px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.055),
+                    rgba(255,255,255,.018)
+                );
+
+            border:
+                1px solid
+                rgba(255,255,255,.08);
+
+            border-radius:
+                17px;
+
+            backdrop-filter:
+                blur(15px);
+
+        }
+
+
+        .panel h2 {
+
+            margin:
+                0 0 22px;
+
+            font-size:
+                21px;
+
+        }
+
+
+        label {
+
+            display:
+                block;
+
+            margin-bottom:
+                7px;
+
+            color:
+                rgba(255,255,255,.55);
+
+            font-size:
+                12px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        input,
+        textarea {
+
+            width: 100%;
+
+            padding:
+                13px 14px;
+
+            color: white;
+
+            background:
+                rgba(0,0,0,.25);
+
+            border:
+                1px solid
+                rgba(255,255,255,.1);
+
+            border-radius:
+                9px;
+
+            outline: none;
+
+            font-family:
+                inherit;
+
+            font-size:
+                14px;
+
+        }
+
+
+        input:focus,
+        textarea:focus {
+
+            border-color:
+                rgba(24,176,214,.5);
+
+        }
+
+
+        textarea {
+
+            min-height:
+                110px;
+
+            resize:
+                vertical;
+
+        }
+
+
+        .form-group {
+
+            margin-bottom:
+                18px;
+
+        }
+
+
+        /* ==============================
+           LEKCJA
+        ============================== */
+
+        .lesson {
+
+            padding:
+                22px;
+
+            margin-bottom:
+                13px;
+
+            background:
+                rgba(255,255,255,.03);
+
+            border:
+                1px solid
+                rgba(255,255,255,.08);
+
+            border-radius:
+                13px;
+
+        }
+
+
+        .lesson-number {
+
+            margin-bottom:
+                17px;
+
+            color:
+                var(--blue-light);
+
+            font-size:
+                10px;
+
+            font-weight:
+                700;
+
+            letter-spacing:
+                2px;
+
+        }
+
+
+        .lesson-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr;
+
+            gap:
+                14px;
+
+        }
+
+
+        /* ==============================
+           MATERIAŁY
+        ============================== */
+
+        .file-row {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr 2fr auto;
+
+            gap:
+                10px;
+
+            margin-bottom:
+                10px;
+
+        }
+
+
+        /* ==============================
+           PRZYCISKI
+        ============================== */
+
+        .buttons {
+
+            display:
+                flex;
+
+            flex-wrap:
+                wrap;
+
+            gap:
+                10px;
+
+        }
+
+
+        button {
+
+            min-height:
+                44px;
+
+            padding:
+                10px 17px;
+
+            color:
+                white;
+
+            background:
+                rgba(255,255,255,.05);
+
+            border:
+                1px solid
+                rgba(255,255,255,.1);
+
+            border-radius:
+                9px;
+
+            cursor:
+                pointer;
+
+            font-family:
+                inherit;
+
+            font-size:
+                13px;
+
+            font-weight:
+                700;
+
+            transition:
+                transform .25s ease,
+                background .25s ease,
+                border-color .25s ease;
+
+        }
+
+
+        button:hover {
+
+            transform:
+                translateY(-2px);
+
+            background:
+                rgba(24,176,214,.08);
+
+            border-color:
+                rgba(24,176,214,.35);
+
+        }
+
+
+        .primary {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--blue),
+                    var(--blue-light)
+                );
+
+            border:
+                none;
+
+        }
+
+
+        .danger {
+
+            color:
+                #ff9292;
+
+        }
+
+
+        /* ==============================
+           STATUS
+        ============================== */
+
+        #status {
+
+            margin-top:
+                18px;
+
+            padding:
+                13px 15px;
+
+            color:
+                rgba(255,255,255,.5);
+
+            background:
+                rgba(255,255,255,.025);
+
+            border-radius:
+                9px;
+
+            font-size:
+                13px;
+
+        }
+
+
+        #status.success {
+
+            color:
+                #76efaa;
+
+        }
+
+
+        #status.error {
+
+            color:
+                #ff8b8b;
+
+        }
+
+
+        /* ==============================
+           ZAPISANE DNI
+        ============================== */
+
+        .saved-day {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                15px;
+
+            padding:
+                16px;
+
+            margin-bottom:
+                9px;
+
+            background:
+                rgba(255,255,255,.03);
+
+            border:
+                1px solid
+                rgba(255,255,255,.07);
+
+            border-radius:
+                11px;
+
+        }
+
+
+        .saved-day strong {
+
+            display:
+                block;
+
+            margin-bottom:
+                4px;
+
+        }
+
+
+        .saved-day span {
+
+            color:
+                rgba(255,255,255,.38);
+
+            font-size:
+                12px;
+
+        }
+
+
+        .hidden {
+
+            display:
+                none !important;
+
+        }
+
+
+        @media (max-width:650px) {
+
+            .manager-page {
+
+                padding:
+                    120px
+                    15px
+                    60px;
+
+            }
+
+
+            .panel {
+
+                padding:
+                    20px;
+
+            }
+
+
+            .file-row {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .saved-day {
+
+                align-items:
+                    flex-start;
+
+                flex-direction:
+                    column;
+
+            }
+
+
+            .buttons {
+
+                flex-direction:
+                    column;
+
+            }
+
+
+            button {
+
+                width: 100%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="background">
+
+    <div class="background-glow glow-one"></div>
+
+    <div class="background-glow glow-two"></div>
+
+    <div class="grid"></div>
+
+</div>
+
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+        <a
+            href="index.html"
+            class="logo"
+        >
+            LEKCJE
+        </a>
+
+        <div class="menu">
+
+            <a href="index.html">
+                Strona główna
+            </a>
+
+            <a href="lekcje.html">
+                Lekcje
+            </a>
+
+            <a href="plan.html">
+                Plan lekcji
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<main>
+
+<section class="manager-page">
+
+
+    <div class="manager-header">
+
+        <div class="hero-label">
+
+            <span></span>
+
+            PANEL ADMINISTRACYJNY
+
+        </div>
+
+        <h1>
+            Manager <span>lekcji.</span>
+        </h1>
+
+        <p>
+            Zarządzaj listą lekcji.
+        </p>
+
+    </div>
+
+
+    <!-- ==============================
+         LOGOWANIE
+    ============================== -->
+
+    <div
+        class="panel"
+        id="loginPanel"
+    >
+
+        <h2>
+            Dostęp administratora
+        </h2>
+
+        <div class="form-group">
+
+            <label>
+                ADMIN_TOKEN
+            </label>
+
+            <input
+                type="password"
+                id="token"
+                placeholder="Wpisz token administratora"
+                autocomplete="off"
+            >
+
+        </div>
+
+        <button
+            class="primary"
+            onclick="login()"
+        >
+            Wejdź do managera
+        </button>
+
+    </div>
+
+
+    <!-- ==============================
+         MANAGER
+    ============================== -->
+
+    <div
+        id="manager"
+        class="hidden"
+    >
+
+
+        <!-- DATA -->
+
+        <div class="panel">
+
+            <h2>
+                Data
+            </h2>
+
+            <div class="form-group">
+
+                <label>
+                    Dzień lekcji
+                </label>
+
+                <input
+                    type="date"
+                    id="date"
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- LEKCJE -->
+
+        <div class="panel">
+
+            <h2>
+                Lekcje
+            </h2>
+
+            <div
+                id="lessons"
+            ></div>
+
+            <button
+                onclick="addLesson()"
+            >
+                + Dodaj lekcję
+            </button>
+
+        </div>
+
+
+        <!-- MATERIAŁY -->
+
+        <div class="panel">
+
+            <h2>
+                Materiały
+            </h2>
+
+            <p
+                style="
+                    margin:-10px 0 20px;
+                    color:rgba(255,255,255,.38);
+                    font-size:13px;
+                    line-height:1.6;
+                "
+            >
+                Dodaj link do zdjęcia, PDF-a,
+                dokumentu lub innego materiału.
+            </p>
+
+            <div
+                id="files"
+            ></div>
+
+            <button
+                onclick="addFile()"
+            >
+                + Dodaj materiał
+            </button>
+
+        </div>
+
+
+        <!-- AKCJE -->
+
+        <div class="panel">
+
+            <div class="buttons">
+
+                <button
+                    class="primary"
+                    onclick="saveDay()"
+                >
+                    💾 Zapisz dzień
+                </button>
+
+                <button
+                    class="danger"
+                    onclick="deleteDay()"
+                >
+                    🗑 Usuń dzień
+                </button>
+
+                <button
+                    onclick="logout()"
+                >
+                    Wyloguj
+                </button>
+
+            </div>
+
+
+            <div id="status">
+                Gotowy.
+            </div>
+
+        </div>
+
+
+        <!-- ZAPISANE DNI -->
+
+        <div class="panel">
+
+            <h2>
+                Zapisane dni
+            </h2>
+
+            <div id="savedDays">
+                Ładowanie...
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+</main>
+
+
+<footer>
+
+    <div class="footer-container">
+
+        <strong>
+            LEKCJE
+        </strong>
+
+        <span>
+            © 2026 — Manager
+        </span>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+
+// ======================================
+// API
+// ======================================
+
+const API =
+    "https://old-term-d35c.oliwierbielicki.workers.dev";
+
+
+// ======================================
+// ZMIENNE
+// ======================================
+
+let token = "";
+
+let savedDays = [];
+
+
+// ======================================
+// LOGOWANIE
+// ======================================
+
+function login() {
+
+    const value =
+        document
+            .getElementById("token")
+            .value
+            .trim();
+
+
+    if (!value) {
+
+        alert(
+            "Wpisz ADMIN_TOKEN."
+        );
+
+        return;
+
+    }
+
+
+    token = value;
+
+
+    document
+        .getElementById(
+            "loginPanel"
+        )
+        .classList.add(
+            "hidden"
+        );
+
+
+    document
+        .getElementById(
+            "manager"
+        )
+        .classList.remove(
+            "hidden"
+        );
+
+
+    document
+        .getElementById(
+            "lessons"
+        )
+        .innerHTML = "";
+
+
+    document
+        .getElementById(
+            "files"
+        )
+        .innerHTML = "";
+
+
+    addLesson();
+
+    loadSavedDays();
+
+}
+
+
+// ======================================
+// WYLOGOWANIE
+// ======================================
+
+function logout() {
+
+    token = "";
+
+
+    document
+        .getElementById(
+            "manager"
+        )
+        .classList.add(
+            "hidden"
+        );
+
+
+    document
+        .getElementById(
+            "loginPanel"
+        )
+        .classList.remove(
+            "hidden"
+        );
+
+
+    document
+        .getElementById(
+            "token"
+        )
+        .value = "";
+
+}
+
+
+// ======================================
+// DODAJ LEKCJĘ
+// ======================================
+
+function addLesson(
+    subject = "",
+    content = ""
+) {
+
+    const container =
+        document.getElementById(
+            "lessons"
+        );
+
+
+    const lesson =
+        document.createElement(
+            "div"
+        );
+
+
+    lesson.className =
+        "lesson";
+
+
+    lesson.innerHTML = `
+
+        <div class="lesson-number">
+            LEKCJA
+        </div>
+
+        <div class="lesson-grid">
+
+            <div>
+
+                <label>
+                    Przedmiot
+                </label>
+
+                <input
+                    type="text"
+                    class="subject"
+                    placeholder="np. Matematyka"
+                    value="${escapeAttribute(
+                        subject
+                    )}"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Co było na lekcji?
+                </label>
+
+                <textarea
+                    class="content"
+                    placeholder="Np. Równania liniowe..."
+                >${escapeHtml(
+                    content
+                )}</textarea>
+
+            </div>
+
+        </div>
+
+
+        <div
+            style="
+                margin-top:15px;
+            "
+        >
+
+            <button
+                class="danger"
+                onclick="removeLesson(this)"
+            >
+                Usuń lekcję
+            </button>
+
+        </div>
+
+    `;
+
+
+    container.appendChild(
+        lesson
+    );
+
+
+    updateNumbers();
+
+}
+
+
+// ======================================
+// USUŃ LEKCJĘ
+// ======================================
+
+function removeLesson(
+    button
+) {
+
+    const lesson =
+        button.closest(
+            ".lesson"
+        );
+
+
+    if (lesson) {
+
+        lesson.remove();
+
+    }
+
+
+    updateNumbers();
+
+}
+
+
+// ======================================
+// NUMERY
+// ======================================
+
+function updateNumbers() {
+
+    document
+        .querySelectorAll(
+            ".lesson"
+        )
+        .forEach(
+            (lesson, index) => {
+
+                lesson
+                    .querySelector(
+                        ".lesson-number"
+                    )
+                    .textContent =
+                        `LEKCJA ${
+                            index + 1
+                        }`;
+
+            }
+        );
+
+}
+
+
+// ======================================
+// DODAJ MATERIAŁ
+// ======================================
+
+function addFile(
+    name = "",
+    url = ""
+) {
+
+    const container =
+        document.getElementById(
+            "files"
+        );
+
+
+    const row =
+        document.createElement(
+            "div"
+        );
+
+
+    row.className =
+        "file-row";
+
+
+    row.innerHTML = `
+
+        <input
+            type="text"
+            class="file-name"
+            placeholder="Nazwa materiału"
+            value="${escapeAttribute(
+                name
+            )}"
+        >
+
+        <input
+            type="url"
+            class="file-url"
+            placeholder="https://..."
+            value="${escapeAttribute(
+                url
+            )}"
+        >
+
+        <button
+            class="danger"
+            onclick="
+                this.parentElement.remove()
+            "
+        >
+            Usuń
+        </button>
+
+    `;
+
+
+    container.appendChild(
+        row
+    );
+
+}
+
+
+// ======================================
+// ZAPIS
+// ======================================
+
+async function saveDay() {
+
+    const date =
+        document
+            .getElementById(
+                "date"
+            )
+            .value;
+
+
+    if (!date) {
+
+        showStatus(
+            "Wybierz datę.",
+            true
+        );
+
+        return;
+
+    }
+
+
+    const lessons = [];
+
+
+    document
+        .querySelectorAll(
+            ".lesson"
+        )
+        .forEach(
+            lesson => {
+
+                const subject =
+                    lesson
+                        .querySelector(
+                            ".subject"
+                        )
+                        .value
+                        .trim();
+
+
+                const content =
+                    lesson
+                        .querySelector(
+                            ".content"
+                        )
+                        .value
+                        .trim();
+
+
+                if (
+                    subject ||
+                    content
+                ) {
+
+                    lessons.push({
+
+                        subject,
+
+                        content
+
+                    });
+
+                }
+
+            }
+        );
+
+
+    const files = [];
+
+
+    document
+        .querySelectorAll(
+            ".file-row"
+        )
+        .forEach(
+            row => {
+
+                const name =
+                    row
+                        .querySelector(
+                            ".file-name"
+                        )
+                        .value
+                        .trim();
+
+
+                const url =
+                    row
+                        .querySelector(
+                            ".file-url"
+                        )
+                        .value
+                        .trim();
+
+
+                if (url) {
+
+                    files.push({
+
+                        name:
+                            name ||
+                            "Materiał",
+
+                        url
+
+                    });
+
+                }
+
+            }
+        );
+
+
+    try {
+
+        showStatus(
+            "Zapisywanie..."
+        );
+
+
+        const response =
+            await fetch(
+                `${API}/lessons`,
+                {
+
+                    method:
+                        "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        "Authorization":
+                            `Bearer ${token}`
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            date,
+
+                            lessons,
+
+                            files
+
+                        })
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.error ||
+                "Błąd zapisu."
+            );
+
+        }
+
+
+        showStatus(
+            "✓ Lekcje zostały zapisane.",
+            false
+        );
+
+
+        await loadSavedDays();
+
+
+    } catch (error) {
+
+        showStatus(
+            error.message,
+            true
+        );
+
+    }
+
+}
+
+
+// ======================================
+// WCZYTAJ DNI
+// ======================================
+
+async function loadSavedDays() {
+
+    const container =
+        document.getElementById(
+            "savedDays"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API}/lessons`
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Nie udało się pobrać dni."
+            );
+
+        }
+
+
+        savedDays =
+            await response.json();
+
+
+        renderSavedDays();
+
+
+    } catch (error) {
+
+        container.textContent =
+            error.message;
+
+    }
+
+}
+
+
+// ======================================
+// WYŚWIETL ZAPISANE DNI
+// ======================================
+
+function renderSavedDays() {
+
+    const container =
+        document.getElementById(
+            "savedDays"
+        );
+
+
+    container.innerHTML = "";
+
+
+    if (
+        !savedDays.length
+    ) {
+
+        container.innerHTML = `
+
+            <p
+                style="
+                    color:rgba(255,255,255,.35);
+                "
+            >
+                Brak zapisanych dni.
+            </p>
+
+        `;
+
+        return;
+
+    }
+
+
+    savedDays.forEach(
+        day => {
+
+            const element =
+                document.createElement(
+                    "div"
+                );
+
+
+            element.className =
+                "saved-day";
+
+
+            const count =
+                Array.isArray(
+                    day.lessons
+                )
+                    ? day.lessons.length
+                    : 0;
+
+
+            element.innerHTML = `
+
+                <div>
+
+                    <strong>
+                        ${formatDate(
+                            day.date
+                        )}
+                    </strong>
+
+                    <span>
+                        ${count}
+                        ${
+                            count === 1
+                                ? "lekcja"
+                                : "lekcji"
+                        }
+                    </span>
+
+                </div>
+
+
+                <button
+                    onclick="
+                        editDay(
+                            '${day.date}'
+                        )
+                    "
+                >
+                    Edytuj
+                </button>
+
+            `;
+
+
+            container.appendChild(
+                element
+            );
+
+        }
+    );
+
+}
+
+
+// ======================================
+// EDYCJA
+// ======================================
+
+function editDay(
+    date
+) {
+
+    const day =
+        savedDays.find(
+            item =>
+                item.date === date
+        );
+
+
+    if (!day) {
+
+        return;
+
+    }
+
+
+    document
+        .getElementById(
+            "date"
+        )
+        .value = date;
+
+
+    document
+        .getElementById(
+            "lessons"
+        )
+        .innerHTML = "";
+
+
+    document
+        .getElementById(
+            "files"
+        )
+        .innerHTML = "";
+
+
+    day.lessons.forEach(
+        lesson => {
+
+            addLesson(
+                lesson.subject,
+                lesson.content
+            );
+
+        }
+    );
+
+
+    if (
+        Array.isArray(day.files)
+    ) {
+
+        day.files.forEach(
+            file => {
+
+                addFile(
+                    file.name,
+                    file.url
+                );
+
+            }
+        );
+
+    }
+
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+
+    showStatus(
+        `Edytujesz ${formatDate(
+            date
+        )}.`
+    );
+
+}
+
+
+// ======================================
+// USUWANIE DNIA
+// ======================================
+
+async function deleteDay() {
+
+    const date =
+        document
+            .getElementById(
+                "date"
+            )
+            .value;
+
+
+    if (!date) {
+
+        showStatus(
+            "Wybierz dzień.",
+            true
+        );
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+            `Czy na pewno chcesz usunąć ${formatDate(
+                date
+            )}?`
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API}/lessons/${date}`,
+                {
+
+                    method:
+                        "DELETE",
+
+                    headers: {
+
+                        "Authorization":
+                            `Bearer ${token}`
+
+                    }
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.error ||
+                "Nie udało się usunąć."
+            );
+
+        }
+
+
+        document
+            .getElementById(
+                "date"
+            )
+            .value = "";
+
+
+        document
+            .getElementById(
+                "lessons"
+            )
+            .innerHTML = "";
+
+
+        document
+            .getElementById(
+                "files"
+            )
+            .innerHTML = "";
+
+
+        addLesson();
+
+
+        showStatus(
+            "✓ Dzień został usunięty.",
+            false
+        );
+
+
+        await loadSavedDays();
+
+
+    } catch (error) {
+
+        showStatus(
+            error.message,
+            true
+        );
+
+    }
+
+}
+
+
+// ======================================
+// STATUS
+// ======================================
+
+function showStatus(
+    text,
+    error = false
+) {
+
+    const element =
+        document.getElementById(
+            "status"
+        );
+
+
+    element.textContent =
+        text;
+
+
+    element.className =
+        error
+            ? "error"
+            : "success";
+
+}
+
+
+// ======================================
+// DATA
+// ======================================
+
+function formatDate(
+    date
+) {
+
+    const [
+        year,
+        month,
+        day
+    ] = date.split("-");
+
+
+    const months = [
+
+        "",
+        "stycznia",
+        "lutego",
+        "marca",
+        "kwietnia",
+        "maja",
+        "czerwca",
+        "lipca",
+        "sierpnia",
+        "września",
+        "października",
+        "listopada",
+        "grudnia"
+
+    ];
+
+
+    return `${Number(day)} ${
+        months[Number(month)]
+    } ${year}`;
+
+}
+
+
+// ======================================
+// ESCAPE
+// ======================================
+
+function escapeHtml(
+    text
+) {
+
+    return String(text ?? "")
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+function escapeAttribute(
+    text
+) {
+
+    return escapeHtml(text);
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
