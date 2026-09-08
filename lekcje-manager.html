@@ -1,888 +1,399 @@
 <!DOCTYPE html>
 <html lang="pl">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel administracyjny — Lekcje</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>LEKCJE | Manager</title>
-
-    <link
-        rel="icon"
-        type="image/png"
-        href="Polak.png"
-    >
-
-    <link
-        rel="stylesheet"
-        href="style-index.css"
-    >
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
-
         * {
             box-sizing: border-box;
         }
 
-        .manager-page {
-
-            width: 100%;
-
-            max-width: 950px;
-
-            margin: auto;
-
-            padding:
-                105px
-                20px
-                80px;
-
-        }
-
-
-        /* =====================================================
-           NAGŁÓWEK
-        ===================================================== */
-
-        .manager-header {
-
-            text-align: center;
-
-            margin-bottom: 40px;
-
-        }
-
-
-        .manager-header h1 {
-
-            margin:
-                0 0 15px;
-
-            font-size:
-                clamp(40px,6vw,65px);
-
-            font-weight: 800;
-
-            letter-spacing: -2px;
-
-        }
-
-
-        .manager-header h1 span {
-
-            color:
-                var(--blue-light);
-
-        }
-
-
-        .manager-header p {
-
+        body {
             margin: 0;
-
-            color:
-                rgba(255,255,255,.45);
-
+            font-family: 'Montserrat', sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(40, 120, 255, .12), transparent 35%),
+                radial-gradient(circle at bottom right, rgba(0, 180, 255, .08), transparent 35%),
+                #070b12;
+            color: white;
+            min-height: 100vh;
         }
 
+        nav {
+            height: 76px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+            background: rgba(7, 11, 18, .78);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(255,255,255,.06);
+        }
 
-        /* =====================================================
-           PANEL
-        ===================================================== */
+        nav .logo {
+            font-size: 19px;
+            font-weight: 800;
+            letter-spacing: .5px;
+        }
+
+        .manager-page {
+            max-width: 1100px;
+            margin: auto;
+            padding: 105px 20px 80px;
+        }
+
+        .hero-label {
+            color: #4ea1ff;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 38px;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            color: #8c98aa;
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
 
         .panel {
-
-            padding: 28px;
-
-            margin-bottom: 18px;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(255,255,255,.055),
-                    rgba(255,255,255,.018)
-                );
-
-            border:
-                1px solid
-                rgba(255,255,255,.08);
-
-            border-radius: 17px;
-
+            background: rgba(15, 22, 34, .72);
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,.25);
             backdrop-filter: blur(15px);
-
+            margin-bottom: 22px;
         }
-
 
         .panel h2 {
-
-            margin:
-                0 0 22px;
-
-            font-size: 21px;
-
+            margin-top: 0;
+            font-size: 20px;
         }
-
-
-        label {
-
-            display: block;
-
-            margin-bottom: 7px;
-
-            color:
-                rgba(255,255,255,.55);
-
-            font-size: 12px;
-
-            font-weight: 700;
-
-        }
-
 
         input,
         textarea {
-
             width: 100%;
-
-            padding: 13px 14px;
-
+            background: rgba(255,255,255,.045);
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 11px;
             color: white;
-
-            background:
-                rgba(0,0,0,.25);
-
-            border:
-                1px solid
-                rgba(255,255,255,.1);
-
-            border-radius: 9px;
-
+            padding: 13px 14px;
             outline: none;
-
             font-family: inherit;
-
-            font-size: 14px;
-
+            transition: .2s;
         }
-
 
         input:focus,
         textarea:focus {
-
-            border-color:
-                rgba(24,176,214,.5);
-
+            border-color: rgba(78,161,255,.7);
+            box-shadow: 0 0 0 3px rgba(78,161,255,.08);
         }
-
 
         textarea {
-
-            min-height: 110px;
-
+            min-height: 90px;
             resize: vertical;
-
         }
 
-
-        .form-group {
-
-            margin-bottom: 18px;
-
-        }
-
-
-        /* =====================================================
-           LEKCJA
-        ===================================================== */
-
-        .lesson {
-
-            padding: 22px;
-
-            margin-bottom: 13px;
-
-            background:
-                rgba(255,255,255,.03);
-
-            border:
-                1px solid
-                rgba(255,255,255,.08);
-
-            border-radius: 13px;
-
-        }
-
-
-        .lesson-number {
-
-            margin-bottom: 17px;
-
-            color:
-                var(--blue-light);
-
-            font-size: 10px;
-
+        label {
+            display: block;
+            color: #aeb8c8;
+            font-size: 12px;
             font-weight: 700;
-
-            letter-spacing: 2px;
-
+            margin-bottom: 7px;
         }
 
-
-        .lesson-grid {
-
-            display: grid;
-
-            grid-template-columns: 1fr;
-
-            gap: 14px;
-
+        .field {
+            margin-bottom: 15px;
         }
-
-
-        /* =====================================================
-           MATERIAŁY
-        ===================================================== */
-
-        .file-row {
-
-            display: grid;
-
-            grid-template-columns:
-                1fr
-                2fr
-                auto;
-
-            gap: 10px;
-
-            margin-bottom: 10px;
-
-        }
-
-
-        .file-help {
-
-            margin:
-                -10px 0 20px;
-
-            color:
-                rgba(255,255,255,.38);
-
-            font-size: 13px;
-
-            line-height: 1.7;
-
-        }
-
-
-        .file-help strong {
-
-            color:
-                rgba(255,255,255,.6);
-
-        }
-
-
-        /* =====================================================
-           PRZYCISKI
-        ===================================================== */
-
-        .buttons {
-
-            display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 10px;
-
-        }
-
 
         button {
-
-            min-height: 44px;
-
-            padding: 10px 17px;
-
-            color: white;
-
-            background:
-                rgba(255,255,255,.05);
-
-            border:
-                1px solid
-                rgba(255,255,255,.1);
-
-            border-radius: 9px;
-
+            border: 0;
             cursor: pointer;
-
             font-family: inherit;
-
-            font-size: 13px;
-
             font-weight: 700;
-
-            transition:
-                transform .25s ease,
-                background .25s ease,
-                border-color .25s ease;
-
+            border-radius: 10px;
+            padding: 11px 15px;
+            transition: .2s;
         }
-
-
-        button:hover {
-
-            transform: translateY(-2px);
-
-            background:
-                rgba(24,176,214,.08);
-
-            border-color:
-                rgba(24,176,214,.35);
-
-        }
-
 
         .primary {
-
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--blue),
-                    var(--blue-light)
-                );
-
-            border: none;
-
+            background: #398cff;
+            color: white;
         }
 
+        .primary:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.08);
+        }
+
+        .secondary {
+            background: rgba(255,255,255,.07);
+            color: #dce5f2;
+            border: 1px solid rgba(255,255,255,.08);
+        }
+
+        .secondary:hover {
+            background: rgba(255,255,255,.11);
+        }
 
         .danger {
-
-            color:
-                #ff9292;
-
+            background: rgba(255,70,70,.12);
+            color: #ff7777;
+            border: 1px solid rgba(255,70,70,.15);
         }
 
-
-        /* =====================================================
-           STATUS
-        ===================================================== */
-
-        #status {
-
-            margin-top: 18px;
-
-            padding: 13px 15px;
-
-            color:
-                rgba(255,255,255,.5);
-
-            background:
-                rgba(255,255,255,.025);
-
-            border-radius: 9px;
-
-            font-size: 13px;
-
+        .danger:hover {
+            background: rgba(255,70,70,.2);
         }
 
-
-        #status.success {
-
-            color:
-                #76efaa;
-
+        .login-panel {
+            max-width: 500px;
+            margin: 120px auto 0;
         }
 
-
-        #status.error {
-
-            color:
-                #ff8b8b;
-
+        .manager {
+            display: none;
         }
 
+        .lesson {
+            position: relative;
+            padding: 20px;
+            border-radius: 16px;
+            background: rgba(255,255,255,.035);
+            border: 1px solid rgba(255,255,255,.07);
+            margin-bottom: 15px;
+        }
 
-        /* =====================================================
-           ZAPISANE DNI
-        ===================================================== */
+        .lesson-number {
+            color: #4ea1ff;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .lesson-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 13px;
+        }
+
+        .lesson-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 13px;
+        }
+
+        .attachments {
+            margin-top: 13px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .attachment {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .attachment input {
+            flex: 1;
+        }
 
         .saved-day {
-
             display: flex;
-
-            align-items: center;
-
             justify-content: space-between;
-
+            align-items: center;
             gap: 15px;
-
             padding: 16px;
-
-            margin-bottom: 9px;
-
-            background:
-                rgba(255,255,255,.03);
-
-            border:
-                1px solid
-                rgba(255,255,255,.07);
-
-            border-radius: 11px;
-
+            background: rgba(255,255,255,.035);
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 14px;
+            margin-bottom: 10px;
         }
 
-
-        .saved-day strong {
-
-            display: block;
-
-            margin-bottom: 4px;
-
-        }
-
-
-        .saved-day span {
-
-            color:
-                rgba(255,255,255,.38);
-
-            font-size: 12px;
-
-        }
-
-
-        .hidden {
-
-            display: none !important;
-
-        }
-
-
-        /* =====================================================
-           PLAN DNIA
-        ===================================================== */
-
-        .plan-info {
-
-            margin-top: -8px;
-
-            margin-bottom: 20px;
-
-            color:
-                var(--blue-light);
-
-            font-size: 13px;
-
+        .saved-day-date {
             font-weight: 700;
-
         }
 
+        .saved-day-info {
+            color: #8793a6;
+            font-size: 12px;
+            margin-top: 5px;
+        }
 
-        @media (max-width:650px) {
+        .saved-day-actions {
+            display: flex;
+            gap: 7px;
+        }
+
+        .status {
+            margin-top: 15px;
+            color: #8d9aae;
+            font-size: 13px;
+        }
+
+        .empty {
+            color: #758195;
+            padding: 10px 0;
+        }
+
+        @media (max-width: 650px) {
+            nav {
+                height: 68px;
+                padding: 0 17px;
+            }
 
             .manager-page {
-
-                padding:
-                    90px
-                    15px
-                    60px;
-
+                padding: 90px 15px 60px;
             }
 
+            h1 {
+                font-size: 28px;
+            }
 
             .panel {
-
-                padding: 20px;
-
+                padding: 17px;
+                border-radius: 16px;
             }
-
-
-            .file-row {
-
-                grid-template-columns: 1fr;
-
-            }
-
 
             .saved-day {
-
                 align-items: flex-start;
-
                 flex-direction: column;
-
             }
 
-
-            .buttons {
-
-                flex-direction: column;
-
-            }
-
-
-            button {
-
+            .saved-day-actions {
                 width: 100%;
-
             }
 
+            .saved-day-actions button {
+                flex: 1;
+            }
         }
-
     </style>
-
 </head>
-
 
 <body>
 
+<nav>
+    <div class="logo">LEKCJE</div>
+</nav>
 
-<!-- TŁO -->
+<div id="loginPanel" class="login-panel panel">
+    <div class="hero-label">PANEL ADMINISTRACYJNY</div>
 
-<div class="background">
+    <h1>Zaloguj się</h1>
 
-    <div class="background-glow glow-one"></div>
+    <p class="subtitle">
+        Podaj token administratora, aby zarządzać lekcjami.
+    </p>
 
-    <div class="background-glow glow-two"></div>
+    <div class="field">
+        <label>Token administratora</label>
+        <input
+            type="password"
+            id="token"
+            placeholder="Wpisz ADMIN_TOKEN"
+        >
+    </div>
 
-    <div class="grid"></div>
+    <button class="primary" onclick="login()">
+        Zaloguj
+    </button>
 
+    <div id="loginStatus" class="status"></div>
 </div>
 
 
-<!-- NAWIGACJA -->
+<div id="manager" class="manager">
 
-<nav class="navbar">
+    <main class="manager-page">
 
-    <div class="nav-container">
+        <div class="hero-label">PANEL ADMINISTRACYJNY</div>
 
-        <a
-            href="glowna.html"
-            class="logo"
-        >
-            LEKCJE
-        </a>
+        <h1>Zarządzanie lekcjami</h1>
 
-
-        <div class="menu">
-
-            <a href="glowna.html">
-                Strona główna
-            </a>
-
-            <a href="lekcje.html">
-                Lekcje
-            </a>
-
-            <a href="plan.html">
-                Plan lekcji
-            </a>
-
-        </div>
-
-    </div>
-
-</nav>
-
-
-<!-- TREŚĆ -->
-
-<main>
-
-<section class="manager-page">
-
-
-    <!-- NAGŁÓWEK -->
-
-    <div class="manager-header">
-
-        <div class="hero-label">
-
-            <span></span>
-
-            PANEL ADMINISTRACYJNY
-
-        </div>
-
-
-        <h1>
-
-            Manager <span>lekcji.</span>
-
-        </h1>
-
-
-        <p>
-
-            Dodawaj i edytuj lekcje oraz materiały.
-
+        <p class="subtitle">
+            Dodawaj lekcje, materiały i zdjęcia przypisane do konkretnych zajęć.
         </p>
 
-    </div>
 
+        <section class="panel">
 
-    <!-- LOGOWANIE -->
+            <h2>Nowy dzień</h2>
 
-    <div
-        class="panel"
-        id="loginPanel"
-    >
-
-        <h2>
-            Dostęp administratora
-        </h2>
-
-
-        <div class="form-group">
-
-            <label>
-                ADMIN_TOKEN
-            </label>
-
-
-            <input
-                type="password"
-                id="token"
-                placeholder="Wpisz token administratora"
-                autocomplete="off"
-            >
-
-        </div>
-
-
-        <button
-            class="primary"
-            onclick="login()"
-        >
-
-            Wejdź do managera
-
-        </button>
-
-    </div>
-
-
-    <!-- MANAGER -->
-
-    <div
-        id="manager"
-        class="hidden"
-    >
-
-
-        <!-- DATA -->
-
-        <div class="panel">
-
-            <h2>
-                Data
-            </h2>
-
-
-            <div class="form-group">
-
-                <label>
-                    Dzień lekcji
-                </label>
-
+            <div class="field">
+                <label>Data</label>
 
                 <input
                     type="date"
                     id="date"
+                    onchange="handleDateChange()"
                 >
-
             </div>
 
+            <div id="lessonsContainer"></div>
 
-            <div
-                id="planInfo"
-                class="plan-info"
-            ></div>
-
-        </div>
-
-
-        <!-- LEKCJE -->
-
-        <div class="panel">
-
-            <h2>
-                Lekcje
-            </h2>
-
-
-            <div id="lessons"></div>
-
-
-            <button
-                onclick="addLesson()"
-            >
-
+            <button class="secondary" onclick="addLesson()">
                 + Dodaj lekcję
-
             </button>
 
-        </div>
+            <div style="height: 15px;"></div>
 
-
-        <!-- MATERIAŁY -->
-
-        <div class="panel">
-
-            <h2>
-                Materiały
-            </h2>
-
-
-            <p class="file-help">
-
-                Dodaj link do materiału.
-
-                <br>
-
-                <strong>
-                    Zdjęcia JPG, PNG, WEBP itd.
-                </strong>
-                zostaną automatycznie wyświetlone
-                na stronie jako galeria.
-
-                <br>
-
-                PDF-y i inne pliki będą pokazane
-                jako przyciski.
-
-            </p>
-
-
-            <div id="files"></div>
-
-
-            <button
-                onclick="addFile()"
-            >
-
-                + Dodaj materiał
-
+            <button class="primary" onclick="saveDay()">
+                💾 Zapisz dzień
             </button>
 
-        </div>
+            <div id="saveStatus" class="status"></div>
+
+        </section>
 
 
-        <!-- AKCJE -->
+        <section class="panel">
 
-        <div class="panel">
-
-            <div class="buttons">
-
-                <button
-                    class="primary"
-                    onclick="saveDay()"
-                >
-
-                    💾 Zapisz dzień
-
-                </button>
-
-
-                <button
-                    class="danger"
-                    onclick="deleteDay()"
-                >
-
-                    🗑 Usuń dzień
-
-                </button>
-
-
-                <button
-                    onclick="logout()"
-                >
-
-                    Wyloguj
-
-                </button>
-
-            </div>
-
-
-            <div id="status">
-
-                Gotowy.
-
-            </div>
-
-        </div>
-
-
-        <!-- ZAPISANE DNI -->
-
-        <div class="panel">
-
-            <h2>
-                Zapisane dni
-            </h2>
-
+            <h2>Zapisane dni</h2>
 
             <div id="savedDays">
-
-                Ładowanie...
-
+                <div class="empty">Ładowanie...</div>
             </div>
 
-        </div>
+        </section>
 
-    </div>
+    </main>
 
-</section>
-
-</main>
-
-
-<!-- FOOTER -->
-
-<footer>
-
-    <div class="footer-container">
-
-        <strong>
-            LEKCJE
-        </strong>
-
-
-        <span>
-            © 2026 — Manager
-        </span>
-
-    </div>
-
-</footer>
+</div>
 
 
 <script>
 
+const API = "https://old-term-d35c.oliwierbielicki.workers.dev";
 
-const API =
-    "https://old-term-d35c.oliwierbielicki.workers.dev";
-
-
-let token = "";
-
-let savedDays = [];
+let ADMIN_TOKEN = "";
+let savedDaysData = [];
 
 
-/* =====================================================
+/* =========================
    PLAN LEKCJI
-===================================================== */
+========================= */
 
-const WEEK_PLANS = {
+const WEEKDAY_SCHEDULES = {
 
     1: [
         "Chemia",
@@ -938,456 +449,336 @@ const WEEK_PLANS = {
 };
 
 
-const WEEK_DAYS = {
+function getWeekdayIndex(dateString) {
 
-    0: "niedziela",
-    1: "poniedziałek",
-    2: "wtorek",
-    3: "środa",
-    4: "czwartek",
-    5: "piątek",
-    6: "sobota"
+    if (!dateString) return null;
 
-};
+    const parts = dateString.split("-");
+
+    const date = new Date(
+        Number(parts[0]),
+        Number(parts[1]) - 1,
+        Number(parts[2])
+    );
+
+    const day = date.getDay();
+
+    return day === 0 ? 7 : day;
+}
 
 
-/* =====================================================
+function getScheduleForDate(dateString) {
+
+    const day = getWeekdayIndex(dateString);
+
+    return WEEKDAY_SCHEDULES[day] || [];
+}
+
+
+function getTodayLocal() {
+
+    const now = new Date();
+
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+}
+
+
+/* =========================
    LOGOWANIE
-===================================================== */
+========================= */
 
 function login() {
 
-    const value =
-        document
-            .getElementById("token")
-            .value
-            .trim();
+    const tokenInput = document.getElementById("token");
+    const status = document.getElementById("loginStatus");
 
+    ADMIN_TOKEN = tokenInput.value.trim();
 
-    if (!value) {
+    if (!ADMIN_TOKEN) {
 
-        alert("Wpisz ADMIN_TOKEN.");
-
+        status.textContent = "Wpisz token.";
         return;
-
     }
 
+    document.getElementById("loginPanel").style.display = "none";
+    document.getElementById("manager").style.display = "block";
 
-    token = value;
+    const dateInput = document.getElementById("date");
 
+    dateInput.value = getTodayLocal();
 
-    document
-        .getElementById("loginPanel")
-        .classList.add("hidden");
-
-
-    document
-        .getElementById("manager")
-        .classList.remove("hidden");
-
-
-    document
-        .getElementById("lessons")
-        .innerHTML = "";
-
-
-    document
-        .getElementById("files")
-        .innerHTML = "";
-
-
-    /*
-       Ustawiamy dzisiejszą datę,
-       dzięki czemu plan od razu
-       może zostać wygenerowany.
-    */
-
-    const dateInput =
-        document.getElementById("date");
-
-
-    if (!dateInput.value) {
-
-        const today =
-            new Date();
-
-
-        const year =
-            today.getFullYear();
-
-
-        const month =
-            String(
-                today.getMonth() + 1
-            ).padStart(2, "0");
-
-
-        const day =
-            String(
-                today.getDate()
-            ).padStart(2, "0");
-
-
-        dateInput.value =
-            `${year}-${month}-${day}`;
-
-    }
-
-
-    loadPlanForDate();
-
+    fillDefaultLessons();
 
     loadSavedDays();
-
 }
 
 
-/* =====================================================
-   WYLOGOWANIE
-===================================================== */
+/* =========================
+   LEKCJE
+========================= */
 
-function logout() {
+function fillDefaultLessons() {
 
-    token = "";
+    const container = document.getElementById("lessonsContainer");
 
+    container.innerHTML = "";
 
-    document
-        .getElementById("manager")
-        .classList.add("hidden");
-
-
-    document
-        .getElementById("loginPanel")
-        .classList.remove("hidden");
-
-
-    document
-        .getElementById("token")
-        .value = "";
-
-}
-
-
-/* =====================================================
-   ZMIANA DATY
-===================================================== */
-
-document
-    .getElementById("date")
-    .addEventListener(
-        "change",
-        () => {
-
-            loadPlanForDate();
-
-        }
+    const schedule = getScheduleForDate(
+        document.getElementById("date").value
     );
 
+    if (!schedule.length) {
 
-/* =====================================================
-   ZAŁADOWANIE PLANU DLA DATY
-===================================================== */
+        addLesson("", "");
 
-function loadPlanForDate() {
+        return;
+    }
 
-    const date =
-        document
-            .getElementById("date")
-            .value;
+    schedule.forEach(subject => {
 
+        addLesson(subject, "");
+
+    });
+}
+
+
+function handleDateChange() {
+
+    const date = document.getElementById("date").value;
 
     if (!date) {
 
-        return;
+        document.getElementById("lessonsContainer").innerHTML = "";
 
-    }
-
-
-    const dateObject =
-        new Date(
-            `${date}T12:00:00`
-        );
-
-
-    const weekday =
-        dateObject.getDay();
-
-
-    const dayName =
-        WEEK_DAYS[weekday];
-
-
-    const plan =
-        WEEK_PLANS[weekday];
-
-
-    const planInfo =
-        document.getElementById("planInfo");
-
-
-    document
-        .getElementById("lessons")
-        .innerHTML = "";
-
-
-    if (!plan) {
-
-        planInfo.textContent =
-            `${dayName} — brak lekcji w planie`;
-
-
-        addLesson();
+        addLesson("", "");
 
         return;
-
     }
 
+    fillDefaultLessons();
 
-    planInfo.textContent =
-        `${dayName} — ${plan.length} lekcji`;
+    const schedule = getScheduleForDate(date);
 
+    const dayNames = [
+        "",
+        "poniedziałek",
+        "wtorek",
+        "środa",
+        "czwartek",
+        "piątek",
+        "sobota",
+        "niedziela"
+    ];
 
-    plan.forEach(
-        subject => {
+    const day = getWeekdayIndex(date);
 
-            addLesson(subject);
-
-        }
-    );
-
+    document.getElementById("saveStatus").textContent =
+        schedule.length
+            ? `${dayNames[day]} — domyślnie ${schedule.length} lekcji.`
+            : `${dayNames[day]} — brak domyślnego planu.`;
 }
 
 
-/* =====================================================
-   LEKCJA
-===================================================== */
+function addLesson(subject = undefined, content = "", attachments = []) {
 
-function addLesson(
-    subject = "",
-    content = ""
-) {
+    const container = document.getElementById("lessonsContainer");
 
-    const container =
-        document.getElementById("lessons");
+    const lessonIndex = container.children.length;
+
+    /*
+        Jeżeli nie podano przedmiotu,
+        pobierz go automatycznie z planu.
+    */
+
+    if (subject === undefined) {
+
+        const schedule = getScheduleForDate(
+            document.getElementById("date").value
+        );
+
+        subject = schedule[lessonIndex] || "";
+
+    }
 
 
-    const lesson =
-        document.createElement("div");
+    const lesson = document.createElement("div");
 
-
-    lesson.className =
-        "lesson";
-
+    lesson.className = "lesson";
 
     lesson.innerHTML = `
 
         <div class="lesson-number">
-            LEKCJA
+            LEKCJA ${lessonIndex + 1}
         </div>
-
 
         <div class="lesson-grid">
 
-            <div>
+            <div class="field">
 
-                <label>
-                    Przedmiot
-                </label>
-
+                <label>Przedmiot</label>
 
                 <input
+                    class="lesson-subject"
                     type="text"
-                    class="subject"
+                    value="${escapeAttribute(subject)}"
                     placeholder="np. Matematyka"
                 >
 
             </div>
 
+            <div class="field">
 
-            <div>
-
-                <label>
-                    Co było na lekcji?
-                </label>
-
+                <label>Co było na lekcji?</label>
 
                 <textarea
-                    class="content"
-                    placeholder="Np. Równania liniowe..."
-                ></textarea>
+                    class="lesson-content"
+                    placeholder="Wpisz, co było na lekcji..."
+                >${escapeHtml(content)}</textarea>
 
             </div>
 
         </div>
 
-
-        <div style="margin-top:15px;">
+        <div class="lesson-actions">
 
             <button
+                type="button"
+                class="secondary"
+                onclick="addAttachment(this)"
+            >
+                📎 Dodaj załącznik
+            </button>
+
+            <button
+                type="button"
                 class="danger"
                 onclick="removeLesson(this)"
             >
-
-                Usuń lekcję
-
+                🗑 Usuń lekcję
             </button>
 
         </div>
 
+        <div class="attachments"></div>
     `;
-
-
-    lesson
-        .querySelector(".subject")
-        .value =
-            subject;
-
-
-    lesson
-        .querySelector(".content")
-        .value =
-            content;
 
 
     container.appendChild(lesson);
 
 
-    updateNumbers();
+    const attachmentContainer =
+        lesson.querySelector(".attachments");
 
+
+    attachments.forEach(file => {
+
+        createAttachment(
+            attachmentContainer,
+            file.name || "",
+            file.url || ""
+        );
+
+    });
+
+
+    updateLessonNumbers();
 }
 
-
-/* =====================================================
-   USUŃ LEKCJĘ
-===================================================== */
 
 function removeLesson(button) {
 
-    const lesson =
-        button.closest(".lesson");
+    const lesson = button.closest(".lesson");
 
+    lesson.remove();
 
-    if (lesson) {
-
-        lesson.remove();
-
-    }
-
-
-    updateNumbers();
-
+    updateLessonNumbers();
 }
 
 
-/* =====================================================
-   NUMERACJA
-===================================================== */
-
-function updateNumbers() {
+function updateLessonNumbers() {
 
     document
-        .querySelectorAll(".lesson")
-        .forEach(
-            (lesson, index) => {
+        .querySelectorAll("#lessonsContainer .lesson")
+        .forEach((lesson, index) => {
 
-                lesson
-                    .querySelector(".lesson-number")
-                    .textContent =
-                        `LEKCJA ${index + 1}`;
+            const number =
+                lesson.querySelector(".lesson-number");
 
-            }
-        );
+            number.textContent =
+                `LEKCJA ${index + 1}`;
 
+        });
 }
 
 
-/* =====================================================
-   MATERIAŁ
-===================================================== */
+/* =========================
+   ZAŁĄCZNIKI
+========================= */
 
-function addFile(
-    name = "",
-    url = ""
-) {
+function addAttachment(button) {
+
+    const lesson = button.closest(".lesson");
 
     const container =
-        document.getElementById("files");
+        lesson.querySelector(".attachments");
+
+    createAttachment(container, "", "");
+}
 
 
-    const row =
-        document.createElement("div");
+function createAttachment(container, name, url) {
 
+    const attachment = document.createElement("div");
 
-    row.className =
-        "file-row";
+    attachment.className = "attachment";
 
-
-    row.innerHTML = `
+    attachment.innerHTML = `
 
         <input
             type="text"
-            class="file-name"
-            placeholder="Nazwa materiału"
+            class="attachment-name"
+            placeholder="Nazwa, np. Zdjęcie z tablicy"
+            value="${escapeAttribute(name)}"
         >
-
 
         <input
             type="url"
-            class="file-url"
-            placeholder="https://..."
+            class="attachment-url"
+            placeholder="Bezpośredni link do zdjęcia"
+            value="${escapeAttribute(url)}"
         >
 
-
         <button
+            type="button"
             class="danger"
             onclick="this.parentElement.remove()"
         >
-
-            Usuń
-
+            ✕
         </button>
-
     `;
 
-
-    row
-        .querySelector(".file-name")
-        .value =
-            name;
-
-
-    row
-        .querySelector(".file-url")
-        .value =
-            url;
-
-
-    container.appendChild(row);
-
+    container.appendChild(attachment);
 }
 
 
-/* =====================================================
+/* =========================
    ZAPIS
-===================================================== */
+========================= */
 
 async function saveDay() {
 
-    const date =
-        document
-            .getElementById("date")
-            .value;
+    const date = document.getElementById("date").value;
 
+    const status = document.getElementById("saveStatus");
 
     if (!date) {
 
-        showStatus(
-            "Wybierz datę.",
-            true
-        );
-
+        status.textContent = "Wybierz datę.";
         return;
-
     }
 
 
@@ -1395,160 +786,124 @@ async function saveDay() {
 
 
     document
-        .querySelectorAll(".lesson")
-        .forEach(
-            lesson => {
+        .querySelectorAll("#lessonsContainer .lesson")
+        .forEach(lesson => {
 
-                const subject =
-                    lesson
-                        .querySelector(".subject")
-                        .value
-                        .trim();
+            const subject =
+                lesson.querySelector(".lesson-subject").value.trim();
 
-
-                const content =
-                    lesson
-                        .querySelector(".content")
-                        .value
-                        .trim();
+            const content =
+                lesson.querySelector(".lesson-content").value.trim();
 
 
-                if (
-                    subject ||
-                    content
-                ) {
-
-                    lessons.push({
-
-                        subject,
-
-                        content
-
-                    });
-
-                }
-
-            }
-        );
+            const attachments = [];
 
 
-    const files = [];
+            lesson
+                .querySelectorAll(".attachment")
+                .forEach(file => {
+
+                    const name =
+                        file.querySelector(".attachment-name")
+                            .value
+                            .trim();
+
+                    const url =
+                        file.querySelector(".attachment-url")
+                            .value
+                            .trim();
 
 
-    document
-        .querySelectorAll(".file-row")
-        .forEach(
-            row => {
+                    if (url) {
 
-                const name =
-                    row
-                        .querySelector(".file-name")
-                        .value
-                        .trim();
+                        attachments.push({
+                            name: name || "Załącznik",
+                            url: url
+                        });
 
+                    }
 
-                const url =
-                    row
-                        .querySelector(".file-url")
-                        .value
-                        .trim();
+                });
 
 
-                if (url) {
+            lessons.push({
 
-                    files.push({
+                subject: subject,
 
-                        name:
-                            name ||
-                            "Materiał",
+                content: content,
 
-                        url
+                attachments: attachments
 
-                    });
+            });
 
-                }
+        });
 
-            }
-        );
+
+    status.textContent = "Zapisywanie...";
 
 
     try {
 
-        showStatus(
-            "Zapisywanie..."
+        const response = await fetch(
+            `${API}/lessons`,
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${ADMIN_TOKEN}`
+                },
+
+                body: JSON.stringify({
+
+                    date: date,
+
+                    lessons: lessons,
+
+                    /*
+                       files pozostawiamy dla zgodności
+                       z obecną bazą.
+                    */
+
+                    files: []
+
+                })
+            }
         );
 
 
-        const response =
-            await fetch(
-                `${API}/lessons`,
-                {
-
-                    method: "POST",
-
-                    headers: {
-
-                        "Content-Type":
-                            "application/json",
-
-                        "Authorization":
-                            `Bearer ${token}`
-
-                    },
-
-                    body:
-                        JSON.stringify({
-
-                            date,
-
-                            lessons,
-
-                            files
-
-                        })
-
-                }
-            );
-
-
-        const result =
-            await response.json();
+        const data = await response.json();
 
 
         if (!response.ok) {
 
             throw new Error(
-                result.error ||
-                "Błąd zapisu."
+                data.error || "Nie udało się zapisać."
             );
 
         }
 
 
-        showStatus(
-            "✓ Lekcje zostały zapisane.",
-            false
-        );
+        status.textContent =
+            "✓ Dzień został zapisany.";
 
 
-        await loadSavedDays();
+        loadSavedDays();
 
 
     } catch (error) {
 
-        showStatus(
-            error.message,
-            true
-        );
+        status.textContent =
+            "Błąd: " + error.message;
 
     }
 
 }
 
 
-/* =====================================================
-   WCZYTAJ DNI
-===================================================== */
+/* =========================
+   WCZYTYWANIE DNI
+========================= */
 
 async function loadSavedDays() {
 
@@ -1559,46 +914,38 @@ async function loadSavedDays() {
     try {
 
         const response =
-            await fetch(
-                `${API}/lessons`
-            );
+            await fetch(`${API}/lessons`);
+
+
+        const data =
+            await response.json();
 
 
         if (!response.ok) {
 
             throw new Error(
-                "Nie udało się pobrać dni."
+                data.error || "Błąd pobierania."
             );
 
         }
 
 
-        savedDays =
-            await response.json();
-
-
-        savedDays.sort(
-            (a, b) =>
-                a.date.localeCompare(b.date)
-        );
-
+        savedDaysData = data;
 
         renderSavedDays();
 
 
     } catch (error) {
 
-        container.textContent =
-            error.message;
+        container.innerHTML =
+            `<div class="empty">
+                Błąd: ${escapeHtml(error.message)}
+            </div>`;
 
     }
 
 }
 
-
-/* =====================================================
-   ZAPISANE DNI
-===================================================== */
 
 function renderSavedDays() {
 
@@ -1606,35 +953,30 @@ function renderSavedDays() {
         document.getElementById("savedDays");
 
 
-    container.innerHTML = "";
+    if (!savedDaysData.length) {
 
-
-    if (!savedDays.length) {
-
-        container.innerHTML = `
-
-            <p style="color:rgba(255,255,255,.35);">
-
-                Brak zapisanych dni.
-
-            </p>
-
-        `;
+        container.innerHTML =
+            `<div class="empty">
+                Nie ma jeszcze zapisanych dni.
+            </div>`;
 
         return;
-
     }
 
 
-    savedDays.forEach(
-        day => {
+    container.innerHTML = "";
 
-            const element =
+
+    [...savedDaysData]
+        .sort((a, b) =>
+            a.date.localeCompare(b.date)
+        )
+        .forEach(day => {
+
+            const div =
                 document.createElement("div");
 
-
-            element.className =
-                "saved-day";
+            div.className = "saved-day";
 
 
             const count =
@@ -1643,207 +985,113 @@ function renderSavedDays() {
                     : 0;
 
 
-            const weekday =
-                getWeekdayName(day.date);
-
-
-            element.innerHTML = `
+            div.innerHTML = `
 
                 <div>
 
-                    <strong>
+                    <div class="saved-day-date">
+                        ${escapeHtml(formatDate(day.date))}
+                    </div>
 
-                        ${escapeHtml(
-                            formatDate(day.date)
-                        )}
-
-                    </strong>
-
-
-                    <span>
-
-                        ${escapeHtml(
-                            weekday
-                        )}
-                        -
-                        ${count}
-                        ${
-                            count === 1
-                                ? "lekcja"
-                                : "lekcji"
-                        }
-
-                    </span>
+                    <div class="saved-day-info">
+                        ${getWeekdayName(day.date)}
+                        — ${count} ${lessonWord(count)}
+                    </div>
 
                 </div>
 
+                <div class="saved-day-actions">
 
-                <button>
+                    <button
+                        class="secondary"
+                        onclick="editDay('${escapeAttribute(day.date)}')"
+                    >
+                        ✏️ Edytuj
+                    </button>
 
-                    Edytuj
+                    <button
+                        class="danger"
+                        onclick="deleteDay('${escapeAttribute(day.date)}')"
+                    >
+                        🗑 Usuń
+                    </button>
 
-                </button>
-
+                </div>
             `;
 
 
-            element
-                .querySelector("button")
-                .addEventListener(
-                    "click",
-                    () => editDay(day.date)
-                );
+            container.appendChild(div);
 
-
-            container.appendChild(element);
-
-        }
-    );
+        });
 
 }
 
 
-/* =====================================================
+/* =========================
    EDYCJA
-===================================================== */
+========================= */
 
 function editDay(date) {
 
     const day =
-        savedDays.find(
-            item =>
-                item.date === date
+        savedDaysData.find(item => item.date === date);
+
+
+    if (!day) return;
+
+
+    document.getElementById("date").value =
+        date;
+
+
+    const container =
+        document.getElementById("lessonsContainer");
+
+
+    container.innerHTML = "";
+
+
+    (day.lessons || []).forEach(lesson => {
+
+        addLesson(
+            lesson.subject || "",
+            lesson.content || "",
+            lesson.attachments || []
         );
-
-
-    if (!day) {
-
-        return;
-
-    }
-
-
-    document
-        .getElementById("date")
-        .value =
-            date;
-
-
-    document
-        .getElementById("lessons")
-        .innerHTML = "";
-
-
-    document
-        .getElementById("files")
-        .innerHTML = "";
-
-
-    const weekday =
-        getWeekdayName(date);
-
-
-    const count =
-        Array.isArray(day.lessons)
-            ? day.lessons.length
-            : 0;
-
-
-    document
-        .getElementById("planInfo")
-        .textContent =
-            `${weekday} — ${count} zapisanych lekcji`;
-
-
-    if (
-        Array.isArray(day.lessons) &&
-        day.lessons.length
-    ) {
-
-        day.lessons.forEach(
-            lesson => {
-
-                addLesson(
-                    lesson.subject || "",
-                    lesson.content || ""
-                );
-
-            }
-        );
-
-    } else {
-
-        addLesson();
-
-    }
-
-
-    if (
-        Array.isArray(day.files)
-    ) {
-
-        day.files.forEach(
-            file => {
-
-                addFile(
-                    file.name || "",
-                    file.url || ""
-                );
-
-            }
-        );
-
-    }
-
-
-    window.scrollTo({
-
-        top: 0,
-
-        behavior: "smooth"
 
     });
 
 
-    showStatus(
-        `Edytujesz ${formatDate(date)}.`
-    );
+    if (!day.lessons || !day.lessons.length) {
 
-}
-
-
-/* =====================================================
-   USUŃ DZIEŃ
-===================================================== */
-
-async function deleteDay() {
-
-    const date =
-        document
-            .getElementById("date")
-            .value;
-
-
-    if (!date) {
-
-        showStatus(
-            "Wybierz dzień.",
-            true
-        );
-
-        return;
+        addLesson("", "");
 
     }
 
 
-    if (
-        !confirm(
-            `Czy na pewno chcesz usunąć ${formatDate(date)}?`
-        )
-    ) {
+    document.getElementById("saveStatus").textContent =
+        "Edytujesz dzień " + formatDate(date);
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =========================
+   USUWANIE
+========================= */
+
+async function deleteDay(date) {
+
+    if (!confirm(
+        `Czy na pewno chcesz usunąć ${formatDate(date)}?`
+    )) {
 
         return;
-
     }
 
 
@@ -1853,176 +1101,134 @@ async function deleteDay() {
             await fetch(
                 `${API}/lessons/${encodeURIComponent(date)}`,
                 {
-
                     method: "DELETE",
 
                     headers: {
-
                         "Authorization":
-                            `Bearer ${token}`
-
+                            `Bearer ${ADMIN_TOKEN}`
                     }
-
                 }
             );
 
 
-        const result =
+        const data =
             await response.json();
 
 
         if (!response.ok) {
 
             throw new Error(
-                result.error ||
-                "Nie udało się usunąć."
+                data.error || "Nie udało się usunąć."
             );
 
         }
 
 
-        document
-            .getElementById("date")
-            .value = "";
+        document.getElementById("saveStatus").textContent =
+            "✓ Dzień został usunięty.";
 
 
-        document
-            .getElementById("lessons")
-            .innerHTML = "";
-
-
-        document
-            .getElementById("files")
-            .innerHTML = "";
-
-
-        document
-            .getElementById("planInfo")
-            .textContent = "";
-
-
-        showStatus(
-            "✓ Dzień został usunięty.",
-            false
-        );
-
-
-        await loadSavedDays();
+        loadSavedDays();
 
 
     } catch (error) {
 
-        showStatus(
-            error.message,
-            true
-        );
+        document.getElementById("saveStatus").textContent =
+            "Błąd: " + error.message;
 
     }
 
 }
 
 
-/* =====================================================
-   STATUS
-===================================================== */
+/* =========================
+   FUNKCJE POMOCNICZE
+========================= */
 
-function showStatus(
-    text,
-    error = false
-) {
+function formatDate(dateString) {
 
-    const element =
-        document.getElementById("status");
+    const [year, month, day] =
+        dateString.split("-");
 
 
-    element.textContent =
-        text;
-
-
-    element.className =
-        error
-            ? "error"
-            : "success";
-
-}
-
-
-/* =====================================================
-   DATA
-===================================================== */
-
-function formatDate(date) {
-
-    const [
-        year,
-        month,
-        day
-    ] = date.split("-");
-
-
-    const months = [
-
-        "",
-        "stycznia",
-        "lutego",
-        "marca",
-        "kwietnia",
-        "maja",
-        "czerwca",
-        "lipca",
-        "sierpnia",
-        "września",
-        "października",
-        "listopada",
-        "grudnia"
-
-    ];
-
-
-    return `${Number(day)} ${
-        months[Number(month)]
-    } ${year}`;
-
-}
-
-
-/* =====================================================
-   DZIEŃ TYGODNIA
-===================================================== */
-
-function getWeekdayName(date) {
-
-    const dateObject =
+    const date =
         new Date(
-            `${date}T12:00:00`
+            Number(year),
+            Number(month) - 1,
+            Number(day)
         );
 
 
-    return WEEK_DAYS[
-        dateObject.getDay()
-    ];
+    return date.toLocaleDateString(
+        "pl-PL",
+        {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        }
+    );
 
 }
 
 
-/* =====================================================
-   ESCAPE
-===================================================== */
+function getWeekdayName(dateString) {
 
-function escapeHtml(text) {
+    const index =
+        getWeekdayIndex(dateString);
 
-    return String(text ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+
+    const names = [
+        "",
+        "poniedziałek",
+        "wtorek",
+        "środa",
+        "czwartek",
+        "piątek",
+        "sobota",
+        "niedziela"
+    ];
+
+
+    return names[index] || "";
+
+}
+
+
+function lessonWord(count) {
+
+    if (count === 1) return "lekcja";
+
+    if (
+        count >= 2 &&
+        count <= 4
+    ) {
+        return "lekcje";
+    }
+
+    return "lekcji";
+
+}
+
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+function escapeAttribute(value) {
+
+    return escapeHtml(value);
 
 }
 
 </script>
 
-
 </body>
-
 </html>
