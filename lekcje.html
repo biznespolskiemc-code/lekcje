@@ -852,40 +852,27 @@
         }
 
 
-        .image-close {
+.image-close {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
 
-            position: fixed;
+    width: 45px;
+    height: 45px;
 
-            top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-            right: 25px;
+    color: white;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 50%;
 
-            width: 45px;
-
-            height: 45px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            color: white;
-
-            background:
-                rgba(255,255,255,.08);
-
-            border:
-                1px solid
-                rgba(255,255,255,.15);
-
-            border-radius: 50%;
-
-            font-size: 22px;
-
-            cursor: pointer;
-
-        }
+    font-size: 22px;
+    cursor: pointer;
+}
 
 
         /* =====================================================
