@@ -416,23 +416,6 @@ a {
     letter-spacing: 2px;
 }
 
-.hero-label span {
-
-    width: 7px;
-    height: 7px;
-
-    border-radius: 50%;
-
-    background: var(--blue-light);
-
-    box-shadow:
-        0 0 14px
-        rgba(24,176,214,.8);
-
-    animation:
-        pulse 2s infinite;
-}
-
 
 /* =====================================================
    HERO TITLE
