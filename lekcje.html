@@ -12,6 +12,11 @@
 
     <title>LEKCJE | Lista lekcji</title>
 
+    <meta
+        name="description"
+        content="Lista lekcji i materiały ze szkoły."
+    >
+
     <link
         rel="icon"
         type="image/png"
@@ -26,6 +31,14 @@
 
     <style>
 
+        * {
+            box-sizing: border-box;
+        }
+
+
+        /* =====================================================
+           GŁÓWNA STRONA
+        ===================================================== */
 
         .lessons-page {
 
@@ -43,6 +56,10 @@
         }
 
 
+        /* =====================================================
+           NAGŁÓWEK
+        ===================================================== */
+
         .lessons-header {
 
             text-align: center;
@@ -52,23 +69,33 @@
         }
 
 
-        .lessons-header h1 {
+        .lessons-header .hero-label {
 
-            margin:
-                0 0 15px;
-
-            font-size:
-                clamp(40px, 6vw, 68px);
-
-            font-weight: 800;
-
-            letter-spacing:
-                -2px;
+            margin-bottom: 18px;
 
         }
 
 
-        .lessons-header h1 span {
+        .lessons-header h1 {
+
+            margin:
+                0 0 18px;
+
+            font-size:
+                clamp(42px, 7vw, 72px);
+
+            font-weight: 800;
+
+            letter-spacing:
+                -2.5px;
+
+            line-height:
+                1.05;
+
+        }
+
+
+        .lessons-header h1 strong {
 
             color:
                 var(--blue-light);
@@ -78,20 +105,26 @@
 
         .lessons-header p {
 
-            margin: 0;
+            max-width: 650px;
+
+            margin:
+                auto;
 
             color:
                 rgba(255,255,255,.45);
 
             line-height:
-                1.7;
+                1.8;
+
+            font-size:
+                15px;
 
         }
 
 
-        /* ==============================
+        /* =====================================================
            LISTA DNI
-        ============================== */
+        ===================================================== */
 
         #daysList {
 
@@ -238,7 +271,8 @@
 
         .day-info p {
 
-            margin: 0;
+            margin:
+                0;
 
             color:
                 rgba(255,255,255,.4);
@@ -275,9 +309,9 @@
         }
 
 
-        /* ==============================
-           SZCZEGÓŁY
-        ============================== */
+        /* =====================================================
+           SZCZEGÓŁY DNIA
+        ===================================================== */
 
         #dayDetails {
 
@@ -331,6 +365,9 @@
             cursor:
                 pointer;
 
+            font-family:
+                inherit;
+
             transition:
                 color .25s ease,
                 transform .25s ease,
@@ -341,7 +378,8 @@
 
         .back-button:hover {
 
-            color: white;
+            color:
+                white;
 
             transform:
                 translateX(-4px);
@@ -380,12 +418,16 @@
             letter-spacing:
                 2px;
 
+            text-transform:
+                uppercase;
+
         }
 
 
         .details-header h2 {
 
-            margin: 0;
+            margin:
+                0;
 
             font-size:
                 clamp(34px,5vw,52px);
@@ -395,6 +437,10 @@
 
         }
 
+
+        /* =====================================================
+           LEKCJE
+        ===================================================== */
 
         .lessons-box {
 
@@ -432,14 +478,16 @@
 
         .lesson:first-child {
 
-            padding-top: 0;
+            padding-top:
+                0;
 
         }
 
 
         .lesson:last-child {
 
-            padding-bottom: 0;
+            padding-bottom:
+                0;
 
             border-bottom:
                 none;
@@ -480,7 +528,8 @@
 
         .lesson p {
 
-            margin: 0;
+            margin:
+                0;
 
             color:
                 rgba(255,255,255,.6);
@@ -494,9 +543,9 @@
         }
 
 
-        /* ==============================
+        /* =====================================================
            MATERIAŁY
-        ============================== */
+        ===================================================== */
 
         .materials {
 
@@ -516,7 +565,7 @@
         .materials-title {
 
             margin-bottom:
-                15px;
+                18px;
 
             font-size:
                 18px;
@@ -526,6 +575,163 @@
 
         }
 
+
+        /* =====================================================
+           GALERIA ZDJĘĆ
+        ===================================================== */
+
+        .photo-gallery {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap:
+                12px;
+
+            margin-bottom:
+                18px;
+
+        }
+
+
+        .photo-card {
+
+            position:
+                relative;
+
+            aspect-ratio:
+                16 / 11;
+
+            overflow:
+                hidden;
+
+            background:
+                rgba(255,255,255,.03);
+
+            border:
+                1px solid
+                rgba(255,255,255,.08);
+
+            border-radius:
+                12px;
+
+            cursor:
+                pointer;
+
+            transition:
+                transform .3s ease,
+                border-color .3s ease;
+
+        }
+
+
+        .photo-card:hover {
+
+            transform:
+                translateY(-3px);
+
+            border-color:
+                rgba(24,176,214,.45);
+
+        }
+
+
+        .photo-card img {
+
+            width:
+                100%;
+
+            height:
+                100%;
+
+            display:
+                block;
+
+            object-fit:
+                cover;
+
+            transition:
+                transform .4s ease;
+
+        }
+
+
+        .photo-card:hover img {
+
+            transform:
+                scale(1.04);
+
+        }
+
+
+        .photo-card::after {
+
+            content:
+                "↗";
+
+            position:
+                absolute;
+
+            right:
+                10px;
+
+            bottom:
+                10px;
+
+            width:
+                30px;
+
+            height:
+                30px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            color:
+                white;
+
+            background:
+                rgba(0,0,0,.6);
+
+            border:
+                1px solid
+                rgba(255,255,255,.15);
+
+            border-radius:
+                8px;
+
+            font-size:
+                15px;
+
+            opacity:
+                0;
+
+            transition:
+                opacity .25s ease;
+
+        }
+
+
+        .photo-card:hover::after {
+
+            opacity:
+                1;
+
+        }
+
+
+        /* =====================================================
+           POZOSTAŁE MATERIAŁY
+        ===================================================== */
 
         .materials-list {
 
@@ -576,7 +782,8 @@
 
             transition:
                 background .25s ease,
-                border-color .25s ease;
+                border-color .25s ease,
+                transform .25s ease;
 
         }
 
@@ -589,8 +796,137 @@
             border-color:
                 rgba(24,176,214,.45);
 
+            transform:
+                translateY(-2px);
+
         }
 
+
+        /* =====================================================
+           POWIĘKSZONE ZDJĘCIE
+        ===================================================== */
+
+        #imageViewer {
+
+            position:
+                fixed;
+
+            inset:
+                0;
+
+            z-index:
+                9999;
+
+            display:
+                none;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            padding:
+                30px;
+
+            background:
+                rgba(0,0,0,.86);
+
+            backdrop-filter:
+                blur(12px);
+
+            cursor:
+                pointer;
+
+        }
+
+
+        #imageViewer.active {
+
+            display:
+                flex;
+
+        }
+
+
+        #imageViewer img {
+
+            max-width:
+                95vw;
+
+            max-height:
+                90vh;
+
+            object-fit:
+                contain;
+
+            border-radius:
+                12px;
+
+            box-shadow:
+                0 20px 80px
+                rgba(0,0,0,.6);
+
+            cursor:
+                default;
+
+            animation:
+                imageOpen .3s ease both;
+
+        }
+
+
+        .image-close {
+
+            position:
+                fixed;
+
+            top:
+                20px;
+
+            right:
+                25px;
+
+            width:
+                45px;
+
+            height:
+                45px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            color:
+                white;
+
+            background:
+                rgba(255,255,255,.08);
+
+            border:
+                1px solid
+                rgba(255,255,255,.15);
+
+            border-radius:
+                50%;
+
+            font-size:
+                22px;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        /* =====================================================
+           INNE
+        ===================================================== */
 
         .empty {
 
@@ -620,15 +956,16 @@
         }
 
 
-        /* ==============================
+        /* =====================================================
            ANIMACJE
-        ============================== */
+        ===================================================== */
 
         @keyframes dayAppear {
 
             from {
 
-                opacity: 0;
+                opacity:
+                    0;
 
                 transform:
                     translateY(15px);
@@ -637,7 +974,8 @@
 
             to {
 
-                opacity: 1;
+                opacity:
+                    1;
 
                 transform:
                     translateY(0);
@@ -651,7 +989,8 @@
 
             from {
 
-                opacity: 0;
+                opacity:
+                    0;
 
                 transform:
                     translateY(15px);
@@ -660,7 +999,8 @@
 
             to {
 
-                opacity: 1;
+                opacity:
+                    1;
 
                 transform:
                     translateY(0);
@@ -670,7 +1010,36 @@
         }
 
 
-        @media (max-width:600px) {
+        @keyframes imageOpen {
+
+            from {
+
+                opacity:
+                    0;
+
+                transform:
+                    scale(.96);
+
+            }
+
+            to {
+
+                opacity:
+                    1;
+
+                transform:
+                    scale(1);
+
+            }
+
+        }
+
+
+        /* =====================================================
+           TELEFON
+        ===================================================== */
+
+        @media (max-width:700px) {
 
             .lessons-page {
 
@@ -678,6 +1047,22 @@
                     120px
                     15px
                     60px;
+
+            }
+
+
+            .lessons-box {
+
+                padding:
+                    22px;
+
+            }
+
+
+            .photo-gallery {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
 
             }
 
@@ -700,11 +1085,23 @@
 
             }
 
+        }
 
-            .lessons-box {
 
-                padding:
-                    22px;
+        @media (max-width:450px) {
+
+            .photo-gallery {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .day-arrow {
+
+                display:
+                    none;
 
             }
 
@@ -718,6 +1115,10 @@
 <body>
 
 
+<!-- =====================================================
+     TŁO
+===================================================== -->
+
 <div class="background">
 
     <div class="background-glow glow-one"></div>
@@ -729,6 +1130,10 @@
 </div>
 
 
+<!-- =====================================================
+     NAWIGACJA
+===================================================== -->
+
 <nav class="navbar">
 
     <div class="nav-container">
@@ -739,6 +1144,7 @@
         >
             LEKCJE
         </a>
+
 
         <div class="menu">
 
@@ -764,14 +1170,18 @@
 </nav>
 
 
+<!-- =====================================================
+     TREŚĆ
+===================================================== -->
+
 <main>
 
 <section class="lessons-page">
 
 
-    <!-- ==============================
+    <!-- =================================================
          NAGŁÓWEK
-    ============================== -->
+    ================================================= -->
 
     <div class="lessons-header">
 
@@ -779,34 +1189,41 @@
 
             <span></span>
 
-            ARCHIWUM LEKCJI
+            LEKCJE
 
         </div>
 
+
         <h1>
-            Lista <span>lekcji.</span>
+
+            Lista <strong>lekcji.</strong>
+
         </h1>
 
+
         <p>
-            Wybierz dzień, aby zobaczyć
-            wszystkie lekcje.
+
+            Tutaj znajdziesz zapis tego, co danego dnia
+            było robione w szkole, wraz z dodatkowymi
+            materiałami i zdjęciami.
+
         </p>
 
     </div>
 
 
-    <!-- ==============================
+    <!-- =================================================
          LISTA DNI
-    ============================== -->
+    ================================================= -->
 
     <div id="daysView">
 
-        <div
-            id="daysList"
-        >
+        <div id="daysList">
 
             <div class="loading">
+
                 Ładowanie lekcji...
+
             </div>
 
         </div>
@@ -814,9 +1231,9 @@
     </div>
 
 
-    <!-- ==============================
+    <!-- =================================================
          SZCZEGÓŁY DNIA
-    ============================== -->
+    ================================================= -->
 
     <div id="dayDetails">
 
@@ -824,7 +1241,9 @@
             class="back-button"
             onclick="showDays()"
         >
+
             ← Wszystkie dni
+
         </button>
 
 
@@ -833,8 +1252,7 @@
             <div
                 class="date-label"
                 id="detailDate"
-            >
-            </div>
+            ></div>
 
             <h2>
                 Lekcje
@@ -845,10 +1263,7 @@
 
         <div class="lessons-box">
 
-            <div
-                id="lessonList"
-            >
-            </div>
+            <div id="lessonList"></div>
 
 
             <div
@@ -857,14 +1272,22 @@
             >
 
                 <div class="materials-title">
+
                     Materiały
+
                 </div>
 
+
                 <div
-                    class="materials-list"
+                    id="photoGallery"
+                    class="photo-gallery"
+                ></div>
+
+
+                <div
                     id="materialsList"
-                >
-                </div>
+                    class="materials-list"
+                ></div>
 
             </div>
 
@@ -872,11 +1295,42 @@
 
     </div>
 
-
 </section>
 
 </main>
 
+
+<!-- =====================================================
+     PODGLĄD ZDJĘCIA
+===================================================== -->
+
+<div
+    id="imageViewer"
+    onclick="closeImage(event)"
+>
+
+    <button
+        class="image-close"
+        onclick="closeImage()"
+        aria-label="Zamknij"
+    >
+        ×
+    </button>
+
+
+    <img
+        id="viewerImage"
+        src=""
+        alt="Podgląd zdjęcia"
+        onclick="event.stopPropagation()"
+    >
+
+</div>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
 <footer>
 
@@ -898,46 +1352,30 @@
 <script>
 
 
-// ======================================
-// API
-// ======================================
-
 const API =
     "https://old-term-d35c.oliwierbielicki.workers.dev";
 
 
-// ======================================
-// DANE
-// ======================================
-
 let allDays = [];
 
-
-// ======================================
-// START
-// ======================================
 
 loadLessons();
 
 
-// ======================================
-// POBIERANIE DANYCH
-// ======================================
+/* =====================================================
+   POBIERANIE
+===================================================== */
 
 async function loadLessons() {
 
     const container =
-        document.getElementById(
-            "daysList"
-        );
+        document.getElementById("daysList");
 
 
     try {
 
         const response =
-            await fetch(
-                `${API}/lessons`
-            );
+            await fetch(`${API}/lessons`);
 
 
         if (!response.ok) {
@@ -951,6 +1389,12 @@ async function loadLessons() {
 
         allDays =
             await response.json();
+
+
+        allDays.sort(
+            (a, b) =>
+                a.date.localeCompare(b.date)
+        );
 
 
         renderDays();
@@ -967,9 +1411,7 @@ async function loadLessons() {
 
                 <br><br>
 
-                ${escapeHtml(
-                    error.message
-                )}
+                ${escapeHtml(error.message)}
 
             </div>
 
@@ -980,24 +1422,20 @@ async function loadLessons() {
 }
 
 
-// ======================================
-// LISTA DNI
-// ======================================
+/* =====================================================
+   DNI
+===================================================== */
 
 function renderDays() {
 
     const container =
-        document.getElementById(
-            "daysList"
-        );
+        document.getElementById("daysList");
 
 
     container.innerHTML = "";
 
 
-    if (
-        !allDays.length
-    ) {
+    if (!allDays.length) {
 
         container.innerHTML = `
 
@@ -1019,9 +1457,7 @@ function renderDays() {
         (day, index) => {
 
             const card =
-                document.createElement(
-                    "div"
-                );
+                document.createElement("div");
 
 
             card.className =
@@ -1029,7 +1465,7 @@ function renderDays() {
 
 
             card.style.animationDelay =
-                `${index * 0.05}s`;
+                `${index * .05}s`;
 
 
             const lessonCount =
@@ -1049,23 +1485,26 @@ function renderDays() {
                     <div class="day-info">
 
                         <h2>
-                            ${formatDate(
-                                day.date
+                            ${escapeHtml(
+                                formatDate(day.date)
                             )}
                         </h2>
 
                         <p>
+
                             ${lessonCount}
                             ${
                                 lessonCount === 1
                                     ? "lekcja"
                                     : "lekcji"
                             }
+
                         </p>
 
                     </div>
 
                 </div>
+
 
                 <div class="day-arrow">
                     →
@@ -1076,17 +1515,11 @@ function renderDays() {
 
             card.addEventListener(
                 "click",
-                () => {
-
-                    showDay(day);
-
-                }
+                () => showDay(day)
             );
 
 
-            container.appendChild(
-                card
-            );
+            container.appendChild(card);
 
         }
     );
@@ -1094,46 +1527,31 @@ function renderDays() {
 }
 
 
-// ======================================
-// POKAŻ DZIEŃ
-// ======================================
+/* =====================================================
+   POKAŻ DZIEŃ
+===================================================== */
 
 function showDay(day) {
 
     document
-        .getElementById(
-            "daysView"
-        )
+        .getElementById("daysView")
         .style.display = "none";
 
 
-    const details =
-        document.getElementById(
-            "dayDetails"
-        );
-
-
-    details.classList.add(
-        "active"
-    );
+    document
+        .getElementById("dayDetails")
+        .classList.add("active");
 
 
     document
-        .getElementById(
-            "detailDate"
-        )
+        .getElementById("detailDate")
         .textContent =
             formatDate(day.date);
 
 
-    renderLessons(
-        day.lessons
-    );
+    renderLessons(day.lessons);
 
-
-    renderMaterials(
-        day.files
-    );
+    renderMaterials(day.files);
 
 
     window.scrollTo({
@@ -1147,27 +1565,20 @@ function showDay(day) {
 }
 
 
-// ======================================
-// WRÓĆ DO DNI
-// ======================================
+/* =====================================================
+   WRÓĆ
+===================================================== */
 
 function showDays() {
 
     document
-        .getElementById(
-            "dayDetails"
-        )
-        .classList.remove(
-            "active"
-        );
+        .getElementById("dayDetails")
+        .classList.remove("active");
 
 
     document
-        .getElementById(
-            "daysView"
-        )
-        .style.display =
-            "block";
+        .getElementById("daysView")
+        .style.display = "block";
 
 
     window.scrollTo({
@@ -1181,18 +1592,14 @@ function showDays() {
 }
 
 
-// ======================================
-// LEKCJE
-// ======================================
+/* =====================================================
+   LEKCJE
+===================================================== */
 
-function renderLessons(
-    lessons
-) {
+function renderLessons(lessons) {
 
     const container =
-        document.getElementById(
-            "lessonList"
-        );
+        document.getElementById("lessonList");
 
 
     container.innerHTML = "";
@@ -1223,9 +1630,7 @@ function renderLessons(
         (lesson, index) => {
 
             const element =
-                document.createElement(
-                    "div"
-                );
+                document.createElement("div");
 
 
             element.className =
@@ -1240,26 +1645,30 @@ function renderLessons(
 
                 </div>
 
+
                 <h3>
+
                     ${escapeHtml(
                         lesson.subject ||
                         "Bez nazwy"
                     )}
+
                 </h3>
 
+
                 <p>
+
                     ${escapeHtml(
                         lesson.content ||
                         "Brak informacji."
                     )}
+
                 </p>
 
             `;
 
 
-            container.appendChild(
-                element
-            );
+            container.appendChild(element);
 
         }
     );
@@ -1267,27 +1676,27 @@ function renderLessons(
 }
 
 
-// ======================================
-// MATERIAŁY
-// ======================================
+/* =====================================================
+   MATERIAŁY
+===================================================== */
 
-function renderMaterials(
-    files
-) {
+function renderMaterials(files) {
 
     const section =
-        document.getElementById(
-            "materials"
-        );
+        document.getElementById("materials");
 
 
-    const container =
-        document.getElementById(
-            "materialsList"
-        );
+    const gallery =
+        document.getElementById("photoGallery");
 
 
-    container.innerHTML = "";
+    const links =
+        document.getElementById("materialsList");
+
+
+    gallery.innerHTML = "";
+
+    links.innerHTML = "";
 
 
     if (
@@ -1307,51 +1716,254 @@ function renderMaterials(
         "block";
 
 
+    let photoCount = 0;
+
+
     files.forEach(
         file => {
 
-            const link =
-                document.createElement(
-                    "a"
+            if (!file || !file.url) {
+
+                return;
+
+            }
+
+
+            const url =
+                String(file.url).trim();
+
+
+            const name =
+                file.name ||
+                "Materiał";
+
+
+            if (isImage(url)) {
+
+                photoCount++;
+
+
+                const card =
+                    document.createElement("div");
+
+
+                card.className =
+                    "photo-card";
+
+
+                const image =
+                    document.createElement("img");
+
+
+                image.src =
+                    url;
+
+
+                image.alt =
+                    name;
+
+
+                image.loading =
+                    "lazy";
+
+
+                image.onerror =
+                    () => {
+
+                        card.remove();
+
+                    };
+
+
+                card.appendChild(image);
+
+
+                card.addEventListener(
+                    "click",
+                    () => openImage(
+                        url,
+                        name
+                    )
                 );
 
 
-            link.className =
-                "material";
+                gallery.appendChild(card);
 
 
-            link.href =
-                file.url;
+            } else {
+
+                const link =
+                    document.createElement("a");
 
 
-            link.target =
-                "_blank";
+                link.className =
+                    "material";
 
 
-            link.rel =
-                "noopener noreferrer";
+                link.href =
+                    url;
 
 
-            link.textContent =
-                `🔗 ${
-                    file.name ||
-                    "Materiał"
-                }`;
+                link.target =
+                    "_blank";
 
 
-            container.appendChild(
-                link
-            );
+                link.rel =
+                    "noopener noreferrer";
+
+
+                link.textContent =
+                    `🔗 ${name}`;
+
+
+                links.appendChild(link);
+
+            }
 
         }
+    );
+
+
+    if (!photoCount) {
+
+        gallery.style.display =
+            "none";
+
+    } else {
+
+        gallery.style.display =
+            "grid";
+
+    }
+
+
+    if (!links.children.length) {
+
+        links.style.display =
+            "none";
+
+    } else {
+
+        links.style.display =
+            "flex";
+
+    }
+
+
+    if (
+        !gallery.children.length &&
+        !links.children.length
+    ) {
+
+        section.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* =====================================================
+   CZY LINK JEST ZDJĘCIEM
+===================================================== */
+
+function isImage(url) {
+
+    const clean =
+        url
+            .split("?")[0]
+            .split("#")[0]
+            .toLowerCase();
+
+
+    return (
+        clean.endsWith(".jpg") ||
+        clean.endsWith(".jpeg") ||
+        clean.endsWith(".png") ||
+        clean.endsWith(".webp") ||
+        clean.endsWith(".gif") ||
+        clean.endsWith(".avif")
     );
 
 }
 
 
-// ======================================
-// FORMAT DATY
-// ======================================
+/* =====================================================
+   PODGLĄD ZDJĘCIA
+===================================================== */
+
+function openImage(url, name) {
+
+    const viewer =
+        document.getElementById("imageViewer");
+
+
+    const image =
+        document.getElementById("viewerImage");
+
+
+    image.src =
+        url;
+
+
+    image.alt =
+        name || "Zdjęcie";
+
+
+    viewer.classList.add("active");
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+function closeImage(event) {
+
+    if (
+        event &&
+        event.target &&
+        event.target.id === "viewerImage"
+    ) {
+
+        return;
+
+    }
+
+
+    document
+        .getElementById("imageViewer")
+        .classList.remove("active");
+
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+/* ESC zamyka zdjęcie */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeImage();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   DATA
+===================================================== */
 
 function formatDate(date) {
 
@@ -1388,36 +2000,20 @@ function formatDate(date) {
 }
 
 
-// ======================================
-// HTML ESCAPE
-// ======================================
+/* =====================================================
+   ESCAPE
+===================================================== */
 
 function escapeHtml(text) {
 
     return String(text ?? "")
-        .replaceAll(
-            "&",
-            "&amp;"
-        )
-        .replaceAll(
-            "<",
-            "&lt;"
-        )
-        .replaceAll(
-            ">",
-            "&gt;"
-        )
-        .replaceAll(
-            '"',
-            "&quot;"
-        )
-        .replaceAll(
-            "'",
-            "&#039;"
-        );
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 
 }
-
 
 </script>
 
