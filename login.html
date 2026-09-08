@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LEKCJE | Logowanie</title>
+
+    <link rel="icon" href="Polak.png">
+    <link rel="stylesheet" href="style-login.css">
+</head>
+
+<body>
+
+    <!-- TŁO -->
+    <div class="background">
+        <div class="glow glow-left"></div>
+        <div class="glow glow-right"></div>
+        <div class="grid"></div>
+    </div>
+
+    <!-- LOGOWANIE -->
+    <main class="login-page">
+
+        <div class="login-card">
+
+            <div class="login-top">
+                <a class="logo">LEKCJE</a>
+
+                <div class="login-label">
+                    <span></span>
+                    SYSTEM WERYFIKACJI
+                </div>
+            </div>
+
+            <div class="login-header">
+                <h1>Witaj ponownie.</h1>
+
+                <p>
+                    Wprowadź hasło, aby kontynuować.
+                </p>
+            </div>
+
+            <form id="loginForm">
+
+                <div class="input-group">
+
+                    <label for="password">
+                        HASŁO
+                    </label>
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Wpisz hasło (dostępne na grupie)"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            id="passwordToggle"
+                            aria-label="Pokaż hasło"
+                        >
+                            <svg
+                                class="eye eye-open"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M2.5 12C2.5 12 6 5.5 12 5.5C18 5.5 21.5 12 21.5 12C21.5 12 18 18.5 12 18.5C6 18.5 2.5 12 2.5 12Z"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+
+                                <circle
+                                    cx="12"
+                                    cy="12"
+                                    r="3"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                />
+                            </svg>
+
+                            <svg
+                                class="eye eye-closed"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M3 3L21 21"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                    stroke-linecap="round"
+                                />
+
+                                <path
+                                    d="M10.6 5.8C11.05 5.7 11.52 5.65 12 5.65C18 5.65 21.5 12 21.5 12C21.5 12 20.1 14.55 17.7 16.35"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                    stroke-linecap="round"
+                                />
+
+                                <path
+                                    d="M6.3 7.65C3.9 9.45 2.5 12 2.5 12C2.5 12 6 18.35 12 18.35C13.35 18.35 14.55 18.1 15.6 17.65"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                    stroke-linecap="round"
+                                />
+                            </svg>
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <button type="submit" class="login-button">
+                    <span>ZALOGUJ SIĘ</span>
+                    <span class="arrow">→</span>
+                </button>
+
+                <div id="loginMessage" class="login-message"></div>
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+<script>
+    const passwordInput =
+        document.getElementById("password");
+
+    const passwordToggle =
+        document.getElementById("passwordToggle");
+
+    const loginForm =
+        document.getElementById("loginForm");
+
+    const loginMessage =
+        document.getElementById("loginMessage");
+
+
+    /* =========================
+       POKAŻ / UKRYJ HASŁO
+    ========================= */
+
+    passwordToggle.addEventListener("click", () => {
+
+        const isPassword =
+            passwordInput.type === "password";
+
+        passwordInput.type =
+            isPassword ? "text" : "password";
+
+        passwordToggle.classList.toggle(
+            "visible",
+            isPassword
+        );
+
+        passwordToggle.setAttribute(
+            "aria-label",
+            isPassword
+                ? "Ukryj hasło"
+                : "Pokaż hasło"
+        );
+
+    });
+
+
+    /* =========================
+       LOGOWANIE
+    ========================= */
+
+    loginForm.addEventListener("submit", (event) => {
+
+        event.preventDefault();
+
+        const password =
+            passwordInput.value.trim();
+
+        // TWOJE HASŁO
+        const correctPassword = "Lekcje123";
+
+
+        if (!password) {
+
+            loginMessage.textContent =
+                "Wpisz hasło.";
+
+            loginMessage.className =
+                "login-message error";
+
+            return;
+        }
+
+
+        if (password === correctPassword) {
+
+            loginMessage.textContent =
+                "Logowanie pomyślne.";
+
+            loginMessage.className =
+                "login-message success";
+
+                    // Zapisz informację o zalogowaniu
+            sessionStorage.setItem("lekcje_logged_in", "true");
+
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 500);
+
+        } else {
+
+            loginMessage.textContent =
+                "Nieprawidłowe hasło.";
+
+            loginMessage.className =
+                "login-message error";
+
+            passwordInput.value = "";
+            passwordInput.focus();
+        }
+
+    });
+
+
+    /* =========================
+       FOCUS
+    ========================= */
+
+    passwordInput.addEventListener("focus", () => {
+        passwordInput.parentElement.classList.add("focused");
+    });
+
+    passwordInput.addEventListener("blur", () => {
+        passwordInput.parentElement.classList.remove("focused");
+    });
+</script>
+
+</body>
+</html>

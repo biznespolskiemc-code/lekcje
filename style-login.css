@@ -1,0 +1,734 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --red: #1775b9;
+    --red-light: #18b0d6;
+    --red-dark: #186e83;
+
+    --black: #050505;
+    --bg: #090909;
+
+    --white: #ffffff;
+    --text: #d6d6d6;
+    --muted: #858585;
+
+    --border: rgba(255, 255, 255, 0.08);
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    font-family: Montserrat, sans-serif;
+    background: var(--bg);
+    color: var(--white);
+    overflow: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
+
+.background {
+    position: fixed;
+    inset: 0;
+
+    overflow: hidden;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(185, 23, 58, 0.045),
+            transparent 45%
+        ),
+        #090909;
+}
+
+
+/* =====================================================
+   GRID
+===================================================== */
+
+.grid {
+    position: absolute;
+    inset: 0;
+
+    opacity: 0.18;
+
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 55px 55px;
+
+    mask-image:
+        radial-gradient(
+            circle at center,
+            black 0%,
+            transparent 75%
+        );
+
+    -webkit-mask-image:
+        radial-gradient(
+            circle at center,
+            black 0%,
+            transparent 75%
+        );
+}
+
+
+/* =====================================================
+   GLOW
+===================================================== */
+
+.glow {
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    border-radius: 50%;
+
+    filter: blur(120px);
+
+    opacity: 0.7;
+}
+
+.glow-left {
+    left: -300px;
+    top: 10%;
+
+    background: rgba(23, 166, 185, 0.12);
+}
+
+.glow-right {
+    right: -300px;
+    bottom: 5%;
+
+    background: rgba(24, 185, 214, 0.1);
+}
+
+
+/* =====================================================
+   LOGIN PAGE
+===================================================== */
+
+.login-page {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+}
+
+
+/* =====================================================
+   LOGIN CARD
+===================================================== */
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+
+    padding: 34px;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.075),
+            rgba(255, 255, 255, 0.025)
+        );
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+
+    box-shadow:
+        0 35px 100px rgba(0, 0, 0, 0.55),
+        0 0 60px rgba(23, 136, 185, 0.035);
+
+    animation:
+        loginAppear 0.7s
+        cubic-bezier(0.25, 1, 0.5, 1)
+        forwards;
+}
+
+
+/* =====================================================
+   TOP
+===================================================== */
+
+.login-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 34px;
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo {
+    position: relative;
+
+    font-size: 16px;
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    transition: 0.3s ease;
+}
+
+.logo::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -5px;
+
+    width: 0;
+    height: 2px;
+
+    border-radius: 10px;
+
+    background: var(--red);
+
+    transition: 0.3s ease;
+}
+
+.logo:hover {
+    color: var(--red);
+}
+
+.logo:hover::after {
+    width: 100%;
+}
+
+
+/* =====================================================
+   PANEL LABEL
+===================================================== */
+
+.login-label {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    color: #777;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+.login-label span {
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: var(--red);
+
+    box-shadow:
+        0 0 12px rgba(23, 155, 185, 0.8);
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.login-header {
+    margin-bottom: 30px;
+}
+
+.login-header h1 {
+    margin-bottom: 9px;
+
+    font-size: 30px;
+
+    line-height: 1.15;
+
+    font-weight: 800;
+
+    letter-spacing: -1px;
+}
+
+.login-header p {
+    color: #858585;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   INPUT GROUP
+===================================================== */
+
+.input-group {
+    margin-bottom: 22px;
+}
+
+.input-group label {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: #858585;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+
+/* =====================================================
+   PASSWORD WRAPPER
+===================================================== */
+
+.password-wrapper {
+    position: relative;
+
+    width: 100%;
+}
+
+
+/* =====================================================
+   PASSWORD INPUT
+===================================================== */
+
+.password-wrapper input {
+    width: 100%;
+    height: 54px;
+
+    padding: 0 55px 0 17px;
+
+    outline: none;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 13px;
+
+    background: rgba(0, 0, 0, 0.25);
+
+    color: white;
+
+    font-size: 13px;
+
+    transition:
+        border-color 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.password-wrapper input::placeholder {
+    color: #555;
+}
+
+.password-wrapper input:hover {
+    border-color: rgba(255, 255, 255, 0.13);
+}
+
+.password-wrapper.focused input,
+.password-wrapper input:focus {
+    border-color: rgba(23, 166, 185, 0.65);
+
+    background: rgba(23, 169, 185, 0.035);
+
+    box-shadow:
+        0 0 0 3px rgba(23, 155, 185, 0.08);
+}
+
+
+/* =====================================================
+   SHOW PASSWORD BUTTON
+===================================================== */
+
+.password-toggle {
+    position: absolute;
+
+    top: 50%;
+    right: 9px;
+
+    width: 37px;
+    height: 37px;
+
+    transform: translateY(-50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: transparent;
+
+    color: #666;
+
+    cursor: pointer;
+
+    transition:
+        color 0.25s ease,
+        background 0.25s ease,
+        transform 0.25s ease;
+}
+
+.password-toggle:hover {
+    color: #aaa;
+
+    background: rgba(255, 255, 255, 0.055);
+}
+
+.password-toggle:active {
+    transform:
+        translateY(-50%)
+        scale(0.92);
+}
+
+.password-toggle.visible {
+    color: var(--red);
+}
+
+
+/* =====================================================
+   EYE ICONS
+===================================================== */
+
+.password-toggle svg {
+    width: 19px;
+    height: 19px;
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+.eye-open {
+    display: block;
+}
+
+.eye-closed {
+    display: none;
+}
+
+.password-toggle.visible .eye-open {
+    display: none;
+}
+
+.password-toggle.visible .eye-closed {
+    display: block;
+}
+
+
+/* =====================================================
+   LOGIN BUTTON
+===================================================== */
+
+.login-button {
+    position: relative;
+
+    width: 100%;
+    height: 54px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 13px;
+
+    border: none;
+
+    border-radius: 13px;
+
+    background: var(--red);
+
+    color: white;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 12px 30px rgba(23, 155, 185, 0.18);
+
+    transition:
+        background 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.login-button::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 70%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            110deg,
+            transparent,
+            rgba(255, 255, 255, 0.35),
+            transparent
+        );
+
+    transform: skewX(-20deg);
+
+    transition: 0.7s ease;
+}
+
+.login-button:hover {
+    background: var(--red-light);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 16px 35px rgba(23, 136, 185, 0.28);
+}
+
+.login-button:hover::before {
+    left: 140%;
+}
+
+.login-button .arrow {
+    font-size: 18px;
+    font-weight: 400;
+
+    transition:
+        transform 0.3s ease;
+}
+
+.login-button:hover .arrow {
+    transform: translateX(4px);
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+.login-message {
+    min-height: 18px;
+
+    margin-top: 12px;
+
+    text-align: center;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    transition: 0.3s ease;
+}
+
+.login-message.error {
+    color: #e65b78;
+}
+
+.login-message.success {
+    color: #72c99a;
+}
+
+
+/* =====================================================
+   BOTTOM
+===================================================== */
+
+.login-bottom {
+    margin-top: 25px;
+
+    padding-top: 22px;
+
+    border-top:
+        1px solid rgba(255, 255, 255, 0.06);
+
+    text-align: center;
+}
+
+.login-bottom a {
+    color: #666;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    transition: 0.3s ease;
+}
+
+.login-bottom a:hover {
+    color: var(--red);
+}
+
+
+/* =====================================================
+   ANIMATION
+===================================================== */
+
+@keyframes loginAppear {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(25px)
+            scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 500px) {
+
+    .login-page {
+        padding: 15px;
+    }
+
+    .login-card {
+        padding: 27px 22px;
+
+        border-radius: 21px;
+    }
+
+    .login-top {
+        margin-bottom: 28px;
+    }
+
+    .login-header {
+        margin-bottom: 25px;
+    }
+
+    .login-header h1 {
+        font-size: 27px;
+    }
+
+    .login-header p {
+        font-size: 12px;
+    }
+
+    .password-wrapper input,
+    .login-button {
+        height: 51px;
+    }
+}
+
+
+/* =====================================================
+   VERY SMALL PHONES
+===================================================== */
+
+@media (max-height: 650px) {
+
+    .login-card {
+        padding: 23px 28px;
+    }
+
+    .login-top {
+        margin-bottom: 22px;
+    }
+
+    .login-header {
+        margin-bottom: 20px;
+    }
+
+    .login-header h1 {
+        font-size: 26px;
+    }
+
+    .input-group {
+        margin-bottom: 16px;
+    }
+
+    .login-bottom {
+        margin-top: 17px;
+
+        padding-top: 15px;
+    }
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+
+        animation-iteration-count: 1 !important;
+
+        transition-duration: 0.01ms !important;
+    }
+}
