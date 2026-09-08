@@ -47,6 +47,10 @@
         }
 
 
+        /* =====================================================
+           NAGŁÓWEK
+        ===================================================== */
+
         .manager-header {
 
             text-align:
@@ -69,6 +73,9 @@
             font-weight:
                 800;
 
+            letter-spacing:
+                -2px;
+
         }
 
 
@@ -82,13 +89,18 @@
 
         .manager-header p {
 
-            margin: 0;
+            margin:
+                0;
 
             color:
                 rgba(255,255,255,.45);
 
         }
 
+
+        /* =====================================================
+           PANEL
+        ===================================================== */
 
         .panel {
 
@@ -152,12 +164,14 @@
         input,
         textarea {
 
-            width: 100%;
+            width:
+                100%;
 
             padding:
                 13px 14px;
 
-            color: white;
+            color:
+                white;
 
             background:
                 rgba(0,0,0,.25);
@@ -169,7 +183,8 @@
             border-radius:
                 9px;
 
-            outline: none;
+            outline:
+                none;
 
             font-family:
                 inherit;
@@ -208,9 +223,9 @@
         }
 
 
-        /* ==============================
+        /* =====================================================
            LEKCJA
-        ============================== */
+        ===================================================== */
 
         .lesson {
 
@@ -267,9 +282,9 @@
         }
 
 
-        /* ==============================
+        /* =====================================================
            MATERIAŁY
-        ============================== */
+        ===================================================== */
 
         .file-row {
 
@@ -288,9 +303,34 @@
         }
 
 
-        /* ==============================
+        .file-help {
+
+            margin:
+                -10px 0 20px;
+
+            color:
+                rgba(255,255,255,.38);
+
+            font-size:
+                13px;
+
+            line-height:
+                1.7;
+
+        }
+
+
+        .file-help strong {
+
+            color:
+                rgba(255,255,255,.6);
+
+        }
+
+
+        /* =====================================================
            PRZYCISKI
-        ============================== */
+        ===================================================== */
 
         .buttons {
 
@@ -384,9 +424,9 @@
         }
 
 
-        /* ==============================
+        /* =====================================================
            STATUS
-        ============================== */
+        ===================================================== */
 
         #status {
 
@@ -427,9 +467,9 @@
         }
 
 
-        /* ==============================
+        /* =====================================================
            ZAPISANE DNI
-        ============================== */
+        ===================================================== */
 
         .saved-day {
 
@@ -543,7 +583,8 @@
 
             button {
 
-                width: 100%;
+                width:
+                    100%;
 
             }
 
@@ -557,6 +598,10 @@
 <body>
 
 
+<!-- =====================================================
+     TŁO
+===================================================== -->
+
 <div class="background">
 
     <div class="background-glow glow-one"></div>
@@ -568,20 +613,25 @@
 </div>
 
 
+<!-- =====================================================
+     NAWIGACJA
+===================================================== -->
+
 <nav class="navbar">
 
     <div class="nav-container">
 
         <a
-            href="index.html"
+            href="glowna.html"
             class="logo"
         >
             LEKCJE
         </a>
 
+
         <div class="menu">
 
-            <a href="index.html">
+            <a href="glowna.html">
                 Strona główna
             </a>
 
@@ -600,10 +650,18 @@
 </nav>
 
 
+<!-- =====================================================
+     TREŚĆ
+===================================================== -->
+
 <main>
 
 <section class="manager-page">
 
+
+    <!-- =================================================
+         NAGŁÓWEK
+    ================================================= -->
 
     <div class="manager-header">
 
@@ -615,20 +673,26 @@
 
         </div>
 
+
         <h1>
+
             Manager <span>lekcji.</span>
+
         </h1>
 
+
         <p>
-            Zarządzaj listą lekcji.
+
+            Dodawaj i edytuj lekcje oraz materiały.
+
         </p>
 
     </div>
 
 
-    <!-- ==============================
+    <!-- =================================================
          LOGOWANIE
-    ============================== -->
+    ================================================= -->
 
     <div
         class="panel"
@@ -639,11 +703,13 @@
             Dostęp administratora
         </h2>
 
+
         <div class="form-group">
 
             <label>
                 ADMIN_TOKEN
             </label>
+
 
             <input
                 type="password"
@@ -654,19 +720,22 @@
 
         </div>
 
+
         <button
             class="primary"
             onclick="login()"
         >
+
             Wejdź do managera
+
         </button>
 
     </div>
 
 
-    <!-- ==============================
+    <!-- =================================================
          MANAGER
-    ============================== -->
+    ================================================= -->
 
     <div
         id="manager"
@@ -682,11 +751,13 @@
                 Data
             </h2>
 
+
             <div class="form-group">
 
                 <label>
                     Dzień lekcji
                 </label>
+
 
                 <input
                     type="date"
@@ -706,14 +777,16 @@
                 Lekcje
             </h2>
 
-            <div
-                id="lessons"
-            ></div>
+
+            <div id="lessons"></div>
+
 
             <button
                 onclick="addLesson()"
             >
+
                 + Dodaj lekcję
+
             </button>
 
         </div>
@@ -727,26 +800,36 @@
                 Materiały
             </h2>
 
-            <p
-                style="
-                    margin:-10px 0 20px;
-                    color:rgba(255,255,255,.38);
-                    font-size:13px;
-                    line-height:1.6;
-                "
-            >
-                Dodaj link do zdjęcia, PDF-a,
-                dokumentu lub innego materiału.
+
+            <p class="file-help">
+
+                Dodaj link do materiału.
+
+                <br>
+
+                <strong>
+                    Zdjęcia JPG, PNG, WEBP itd.
+                </strong>
+                zostaną automatycznie wyświetlone
+                na stronie jako galeria.
+
+                <br>
+
+                PDF-y i inne pliki będą pokazane
+                jako przyciski.
+
             </p>
 
-            <div
-                id="files"
-            ></div>
+
+            <div id="files"></div>
+
 
             <button
                 onclick="addFile()"
             >
+
                 + Dodaj materiał
+
             </button>
 
         </div>
@@ -762,27 +845,37 @@
                     class="primary"
                     onclick="saveDay()"
                 >
+
                     💾 Zapisz dzień
+
                 </button>
+
 
                 <button
                     class="danger"
                     onclick="deleteDay()"
                 >
+
                     🗑 Usuń dzień
+
                 </button>
+
 
                 <button
                     onclick="logout()"
                 >
+
                     Wyloguj
+
                 </button>
 
             </div>
 
 
             <div id="status">
+
                 Gotowy.
+
             </div>
 
         </div>
@@ -796,20 +889,25 @@
                 Zapisane dni
             </h2>
 
+
             <div id="savedDays">
+
                 Ładowanie...
+
             </div>
 
         </div>
 
-
     </div>
-
 
 </section>
 
 </main>
 
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
 <footer>
 
@@ -818,6 +916,7 @@
         <strong>
             LEKCJE
         </strong>
+
 
         <span>
             © 2026 — Manager
@@ -831,26 +930,18 @@
 <script>
 
 
-// ======================================
-// API
-// ======================================
-
 const API =
     "https://old-term-d35c.oliwierbielicki.workers.dev";
 
-
-// ======================================
-// ZMIENNE
-// ======================================
 
 let token = "";
 
 let savedDays = [];
 
 
-// ======================================
-// LOGOWANIE
-// ======================================
+/* =====================================================
+   LOGOWANIE
+===================================================== */
 
 function login() {
 
@@ -872,38 +963,27 @@ function login() {
     }
 
 
-    token = value;
+    token =
+        value;
 
 
     document
-        .getElementById(
-            "loginPanel"
-        )
-        .classList.add(
-            "hidden"
-        );
+        .getElementById("loginPanel")
+        .classList.add("hidden");
 
 
     document
-        .getElementById(
-            "manager"
-        )
-        .classList.remove(
-            "hidden"
-        );
+        .getElementById("manager")
+        .classList.remove("hidden");
 
 
     document
-        .getElementById(
-            "lessons"
-        )
+        .getElementById("lessons")
         .innerHTML = "";
 
 
     document
-        .getElementById(
-            "files"
-        )
+        .getElementById("files")
         .innerHTML = "";
 
 
@@ -914,9 +994,9 @@ function login() {
 }
 
 
-// ======================================
-// WYLOGOWANIE
-// ======================================
+/* =====================================================
+   WYLOGOWANIE
+===================================================== */
 
 function logout() {
 
@@ -924,35 +1004,25 @@ function logout() {
 
 
     document
-        .getElementById(
-            "manager"
-        )
-        .classList.add(
-            "hidden"
-        );
+        .getElementById("manager")
+        .classList.add("hidden");
 
 
     document
-        .getElementById(
-            "loginPanel"
-        )
-        .classList.remove(
-            "hidden"
-        );
+        .getElementById("loginPanel")
+        .classList.remove("hidden");
 
 
     document
-        .getElementById(
-            "token"
-        )
+        .getElementById("token")
         .value = "";
 
 }
 
 
-// ======================================
-// DODAJ LEKCJĘ
-// ======================================
+/* =====================================================
+   LEKCJA
+===================================================== */
 
 function addLesson(
     subject = "",
@@ -960,15 +1030,11 @@ function addLesson(
 ) {
 
     const container =
-        document.getElementById(
-            "lessons"
-        );
+        document.getElementById("lessons");
 
 
     const lesson =
-        document.createElement(
-            "div"
-        );
+        document.createElement("div");
 
 
     lesson.className =
@@ -981,6 +1047,7 @@ function addLesson(
             LEKCJA
         </div>
 
+
         <div class="lesson-grid">
 
             <div>
@@ -989,13 +1056,11 @@ function addLesson(
                     Przedmiot
                 </label>
 
+
                 <input
                     type="text"
                     class="subject"
                     placeholder="np. Matematyka"
-                    value="${escapeAttribute(
-                        subject
-                    )}"
                 >
 
             </div>
@@ -1007,34 +1072,43 @@ function addLesson(
                     Co było na lekcji?
                 </label>
 
+
                 <textarea
                     class="content"
                     placeholder="Np. Równania liniowe..."
-                >${escapeHtml(
-                    content
-                )}</textarea>
+                ></textarea>
 
             </div>
 
         </div>
 
 
-        <div
-            style="
-                margin-top:15px;
-            "
-        >
+        <div style="margin-top:15px;">
 
             <button
                 class="danger"
                 onclick="removeLesson(this)"
             >
+
                 Usuń lekcję
+
             </button>
 
         </div>
 
     `;
+
+
+    lesson
+        .querySelector(".subject")
+        .value =
+            subject;
+
+
+    lesson
+        .querySelector(".content")
+        .value =
+            content;
 
 
     container.appendChild(
@@ -1047,18 +1121,14 @@ function addLesson(
 }
 
 
-// ======================================
-// USUŃ LEKCJĘ
-// ======================================
+/* =====================================================
+   USUŃ LEKCJĘ
+===================================================== */
 
-function removeLesson(
-    button
-) {
+function removeLesson(button) {
 
     const lesson =
-        button.closest(
-            ".lesson"
-        );
+        button.closest(".lesson");
 
 
     if (lesson) {
@@ -1073,27 +1143,21 @@ function removeLesson(
 }
 
 
-// ======================================
-// NUMERY
-// ======================================
+/* =====================================================
+   NUMERACJA
+===================================================== */
 
 function updateNumbers() {
 
     document
-        .querySelectorAll(
-            ".lesson"
-        )
+        .querySelectorAll(".lesson")
         .forEach(
             (lesson, index) => {
 
                 lesson
-                    .querySelector(
-                        ".lesson-number"
-                    )
+                    .querySelector(".lesson-number")
                     .textContent =
-                        `LEKCJA ${
-                            index + 1
-                        }`;
+                        `LEKCJA ${index + 1}`;
 
             }
         );
@@ -1101,9 +1165,9 @@ function updateNumbers() {
 }
 
 
-// ======================================
-// DODAJ MATERIAŁ
-// ======================================
+/* =====================================================
+   MATERIAŁ
+===================================================== */
 
 function addFile(
     name = "",
@@ -1111,15 +1175,11 @@ function addFile(
 ) {
 
     const container =
-        document.getElementById(
-            "files"
-        );
+        document.getElementById("files");
 
 
     const row =
-        document.createElement(
-            "div"
-        );
+        document.createElement("div");
 
 
     row.className =
@@ -1132,30 +1192,38 @@ function addFile(
             type="text"
             class="file-name"
             placeholder="Nazwa materiału"
-            value="${escapeAttribute(
-                name
-            )}"
         >
+
 
         <input
             type="url"
             class="file-url"
             placeholder="https://..."
-            value="${escapeAttribute(
-                url
-            )}"
         >
+
 
         <button
             class="danger"
-            onclick="
-                this.parentElement.remove()
-            "
+            onclick="this.parentElement.remove()"
         >
+
             Usuń
+
         </button>
 
     `;
+
+
+    row
+        .querySelector(".file-name")
+        .value =
+            name;
+
+
+    row
+        .querySelector(".file-url")
+        .value =
+            url;
 
 
     container.appendChild(
@@ -1165,17 +1233,15 @@ function addFile(
 }
 
 
-// ======================================
-// ZAPIS
-// ======================================
+/* =====================================================
+   ZAPIS
+===================================================== */
 
 async function saveDay() {
 
     const date =
         document
-            .getElementById(
-                "date"
-            )
+            .getElementById("date")
             .value;
 
 
@@ -1195,26 +1261,20 @@ async function saveDay() {
 
 
     document
-        .querySelectorAll(
-            ".lesson"
-        )
+        .querySelectorAll(".lesson")
         .forEach(
             lesson => {
 
                 const subject =
                     lesson
-                        .querySelector(
-                            ".subject"
-                        )
+                        .querySelector(".subject")
                         .value
                         .trim();
 
 
                 const content =
                     lesson
-                        .querySelector(
-                            ".content"
-                        )
+                        .querySelector(".content")
                         .value
                         .trim();
 
@@ -1242,26 +1302,20 @@ async function saveDay() {
 
 
     document
-        .querySelectorAll(
-            ".file-row"
-        )
+        .querySelectorAll(".file-row")
         .forEach(
             row => {
 
                 const name =
                     row
-                        .querySelector(
-                            ".file-name"
-                        )
+                        .querySelector(".file-name")
                         .value
                         .trim();
 
 
                 const url =
                     row
-                        .querySelector(
-                            ".file-url"
-                        )
+                        .querySelector(".file-url")
                         .value
                         .trim();
 
@@ -1359,24 +1413,20 @@ async function saveDay() {
 }
 
 
-// ======================================
-// WCZYTAJ DNI
-// ======================================
+/* =====================================================
+   WCZYTAJ DNI
+===================================================== */
 
 async function loadSavedDays() {
 
     const container =
-        document.getElementById(
-            "savedDays"
-        );
+        document.getElementById("savedDays");
 
 
     try {
 
         const response =
-            await fetch(
-                `${API}/lessons`
-            );
+            await fetch(`${API}/lessons`);
 
 
         if (!response.ok) {
@@ -1392,6 +1442,12 @@ async function loadSavedDays() {
             await response.json();
 
 
+        savedDays.sort(
+            (a, b) =>
+                a.date.localeCompare(b.date)
+        );
+
+
         renderSavedDays();
 
 
@@ -1405,33 +1461,27 @@ async function loadSavedDays() {
 }
 
 
-// ======================================
-// WYŚWIETL ZAPISANE DNI
-// ======================================
+/* =====================================================
+   ZAPISANE DNI
+===================================================== */
 
 function renderSavedDays() {
 
     const container =
-        document.getElementById(
-            "savedDays"
-        );
+        document.getElementById("savedDays");
 
 
     container.innerHTML = "";
 
 
-    if (
-        !savedDays.length
-    ) {
+    if (!savedDays.length) {
 
         container.innerHTML = `
 
-            <p
-                style="
-                    color:rgba(255,255,255,.35);
-                "
-            >
+            <p style="color:rgba(255,255,255,.35);">
+
                 Brak zapisanych dni.
+
             </p>
 
         `;
@@ -1445,9 +1495,7 @@ function renderSavedDays() {
         day => {
 
             const element =
-                document.createElement(
-                    "div"
-                );
+                document.createElement("div");
 
 
             element.className =
@@ -1455,9 +1503,7 @@ function renderSavedDays() {
 
 
             const count =
-                Array.isArray(
-                    day.lessons
-                )
+                Array.isArray(day.lessons)
                     ? day.lessons.length
                     : 0;
 
@@ -1467,34 +1513,43 @@ function renderSavedDays() {
                 <div>
 
                     <strong>
-                        ${formatDate(
-                            day.date
+
+                        ${escapeHtml(
+                            formatDate(day.date)
                         )}
+
                     </strong>
 
+
                     <span>
+
                         ${count}
                         ${
                             count === 1
                                 ? "lekcja"
                                 : "lekcji"
                         }
+
                     </span>
 
                 </div>
 
 
-                <button
-                    onclick="
-                        editDay(
-                            '${day.date}'
-                        )
-                    "
-                >
+                <button>
+
                     Edytuj
+
                 </button>
 
             `;
+
+
+            element
+                .querySelector("button")
+                .addEventListener(
+                    "click",
+                    () => editDay(day.date)
+                );
 
 
             container.appendChild(
@@ -1507,13 +1562,11 @@ function renderSavedDays() {
 }
 
 
-// ======================================
-// EDYCJA
-// ======================================
+/* =====================================================
+   EDYCJA
+===================================================== */
 
-function editDay(
-    date
-) {
+function editDay(date) {
 
     const day =
         savedDays.find(
@@ -1530,36 +1583,42 @@ function editDay(
 
 
     document
-        .getElementById(
-            "date"
-        )
-        .value = date;
+        .getElementById("date")
+        .value =
+            date;
 
 
     document
-        .getElementById(
-            "lessons"
-        )
+        .getElementById("lessons")
         .innerHTML = "";
 
 
     document
-        .getElementById(
-            "files"
-        )
+        .getElementById("files")
         .innerHTML = "";
 
 
-    day.lessons.forEach(
-        lesson => {
+    if (
+        Array.isArray(day.lessons) &&
+        day.lessons.length
+    ) {
 
-            addLesson(
-                lesson.subject,
-                lesson.content
-            );
+        day.lessons.forEach(
+            lesson => {
 
-        }
-    );
+                addLesson(
+                    lesson.subject || "",
+                    lesson.content || ""
+                );
+
+            }
+        );
+
+    } else {
+
+        addLesson();
+
+    }
 
 
     if (
@@ -1570,8 +1629,8 @@ function editDay(
             file => {
 
                 addFile(
-                    file.name,
-                    file.url
+                    file.name || "",
+                    file.url || ""
                 );
 
             }
@@ -1590,25 +1649,21 @@ function editDay(
 
 
     showStatus(
-        `Edytujesz ${formatDate(
-            date
-        )}.`
+        `Edytujesz ${formatDate(date)}.`
     );
 
 }
 
 
-// ======================================
-// USUWANIE DNIA
-// ======================================
+/* =====================================================
+   USUŃ DZIEŃ
+===================================================== */
 
 async function deleteDay() {
 
     const date =
         document
-            .getElementById(
-                "date"
-            )
+            .getElementById("date")
             .value;
 
 
@@ -1624,15 +1679,11 @@ async function deleteDay() {
     }
 
 
-    const confirmed =
-        confirm(
-            `Czy na pewno chcesz usunąć ${formatDate(
-                date
-            )}?`
-        );
-
-
-    if (!confirmed) {
+    if (
+        !confirm(
+            `Czy na pewno chcesz usunąć ${formatDate(date)}?`
+        )
+    ) {
 
         return;
 
@@ -1643,7 +1694,7 @@ async function deleteDay() {
 
         const response =
             await fetch(
-                `${API}/lessons/${date}`,
+                `${API}/lessons/${encodeURIComponent(date)}`,
                 {
 
                     method:
@@ -1675,23 +1726,17 @@ async function deleteDay() {
 
 
         document
-            .getElementById(
-                "date"
-            )
+            .getElementById("date")
             .value = "";
 
 
         document
-            .getElementById(
-                "lessons"
-            )
+            .getElementById("lessons")
             .innerHTML = "";
 
 
         document
-            .getElementById(
-                "files"
-            )
+            .getElementById("files")
             .innerHTML = "";
 
 
@@ -1719,9 +1764,9 @@ async function deleteDay() {
 }
 
 
-// ======================================
-// STATUS
-// ======================================
+/* =====================================================
+   STATUS
+===================================================== */
 
 function showStatus(
     text,
@@ -1729,9 +1774,7 @@ function showStatus(
 ) {
 
     const element =
-        document.getElementById(
-            "status"
-        );
+        document.getElementById("status");
 
 
     element.textContent =
@@ -1746,13 +1789,11 @@ function showStatus(
 }
 
 
-// ======================================
-// DATA
-// ======================================
+/* =====================================================
+   DATA
+===================================================== */
 
-function formatDate(
-    date
-) {
+function formatDate(date) {
 
     const [
         year,
@@ -1787,47 +1828,20 @@ function formatDate(
 }
 
 
-// ======================================
-// ESCAPE
-// ======================================
+/* =====================================================
+   ESCAPE
+===================================================== */
 
-function escapeHtml(
-    text
-) {
+function escapeHtml(text) {
 
     return String(text ?? "")
-        .replaceAll(
-            "&",
-            "&amp;"
-        )
-        .replaceAll(
-            "<",
-            "&lt;"
-        )
-        .replaceAll(
-            ">",
-            "&gt;"
-        )
-        .replaceAll(
-            '"',
-            "&quot;"
-        )
-        .replaceAll(
-            "'",
-            "&#039;"
-        );
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 
 }
-
-
-function escapeAttribute(
-    text
-) {
-
-    return escapeHtml(text);
-
-}
-
 
 </script>
 
