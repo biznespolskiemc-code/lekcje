@@ -475,7 +475,7 @@
             color:
                 rgba(255,255,255,.6);
 
-            line-height: 1.0;
+            line-height: 0.73;
 
             white-space: pre-wrap;
 
@@ -1138,6 +1138,32 @@
             }
 
         }
+
+        .image-close {
+    position: fixed !important;
+    top: 20px !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: translateX(-50%) !important;
+
+    z-index: 10001 !important;
+
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 50%;
+
+    font-size: 22px;
+    cursor: pointer;
+}
 
     </style>
 
