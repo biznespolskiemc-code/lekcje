@@ -1,2584 +1,1313 @@
-<!DOCTYPE html>
-<html lang="pl">
-
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>LEKCJE | Lista lekcji</title>
-
-    <meta
-        name="description"
-        content="Lista lekcji i materiały ze szkoły."
-    >
-
-    <link
-        rel="icon"
-        type="image/png"
-        href="Polak.png"
-    >
-
-    <link
-        rel="stylesheet"
-        href="style-index.css"
-    >
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-
-        /* =====================================================
-           GŁÓWNA STRONA
-        ===================================================== */
-
-        .lessons-page {
-
-            position: relative;
-
-            z-index: 1;
-
-            width: 90%;
-
-            max-width: 1150px;
-
-            margin: auto;
-
-            padding:
-                125px
-                0
-                80px;
-
-        }
-
-
-        /* =====================================================
-           NAGŁÓWEK
-        ===================================================== */
-
-        .lessons-header {
-
-            text-align: center;
-
-            margin-bottom: 45px;
-
-        }
-
-
-        .lessons-header h1 {
-
-            margin:
-                0 0 18px;
-
-            font-size:
-                clamp(42px, 7vw, 72px);
-
-            font-weight: 800;
-
-            letter-spacing:
-                -2.5px;
-
-            line-height:
-                1.05;
-
-        }
-
-
-        .lessons-header h1 strong {
-
-            color:
-                var(--blue-light);
-
-        }
-
-
-        .lessons-header p {
-
-            max-width: 650px;
-
-            margin: auto;
-
-            color:
-                rgba(255,255,255,.45);
-
-            line-height: 1.8;
-
-            font-size: 15px;
-
-        }
-
-
-        /* =====================================================
-           LISTA DNI
-        ===================================================== */
-
-        #daysList {
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 12px;
-
-        }
-
-
-        .day-card {
-
-            position: relative;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            gap: 20px;
-
-            padding: 22px 25px;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(255,255,255,.055),
-                    rgba(255,255,255,.018)
-                );
-
-            border:
-                1px solid
-                rgba(255,255,255,.08);
-
-            border-radius: 15px;
-
-            cursor: pointer;
-
-            opacity: 0;
-
-            animation:
-                dayAppear .5s ease forwards;
-
-            transition:
-                transform .3s ease,
-                background .3s ease,
-                border-color .3s ease;
-
-        }
-
-
-        .day-card:hover {
-
-            transform:
-                translateX(5px);
-
-            background:
-                rgba(24,176,214,.055);
-
-            border-color:
-                rgba(24,176,214,.4);
-
-        }
-
-
-        .day-left {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 18px;
-
-            min-width: 0;
-
-        }
-
-
-        .day-icon {
-
-            width: 48px;
-
-            height: 48px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            flex-shrink: 0;
-
-            color:
-                var(--blue-light);
-
-            background:
-                rgba(24,176,214,.08);
-
-            border:
-                1px solid
-                rgba(24,176,214,.15);
-
-            border-radius: 12px;
-
-            font-size: 20px;
-
-        }
-
-
-        .day-info {
-
-            min-width: 0;
-
-        }
-
-
-        .day-info h2 {
-
-            margin:
-                0 0 5px;
-
-            font-size: 18px;
-
-        }
-
-
-        .day-info p {
-
-            margin: 0;
-
-            color:
-                rgba(255,255,255,.4);
-
-            font-size: 13px;
-
-            text-transform: lowercase;
-
-        }
-
-
-        .day-arrow {
-
-            flex-shrink: 0;
-
-            color:
-                rgba(255,255,255,.3);
-
-            font-size: 22px;
-
-            transition:
-                transform .3s ease,
-                color .3s ease;
-
-        }
-
-
-        .day-card:hover .day-arrow {
-
-            color:
-                var(--blue-light);
-
-            transform:
-                translateX(5px);
-
-        }
-
-
-        /* =====================================================
-           SZCZEGÓŁY DNIA
-        ===================================================== */
-
-        #dayDetails {
-
-            display: none;
-
-            animation:
-                detailsAppear .45s ease both;
-
-        }
-
-
-        #dayDetails.active {
-
-            display: block;
-
-        }
-
-
-        .back-button {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 9px;
-
-            margin-bottom: 30px;
-
-            padding: 10px 16px;
-
-            color:
-                rgba(255,255,255,.55);
-
-            background:
-                rgba(255,255,255,.035);
-
-            border:
-                1px solid
-                rgba(255,255,255,.08);
-
-            border-radius: 9px;
-
-            cursor: pointer;
-
-            font-family: inherit;
-
-            transition:
-                color .25s ease,
-                transform .25s ease,
-                border-color .25s ease;
-
-        }
-
-
-        .back-button:hover {
-
-            color: white;
-
-            transform:
-                translateX(-4px);
-
-            border-color:
-                rgba(24,176,214,.4);
-
-        }
-
-
-        .details-header {
-
-            margin-bottom: 30px;
-
-            text-align: center;
-
-        }
-
-
-        .details-header .date-label {
-
-            margin-bottom: 7px;
-
-            color:
-                var(--blue-light);
-
-            font-size: 11px;
-
-            font-weight: 700;
-
-            letter-spacing: 2px;
-
-            text-transform: uppercase;
-
-        }
-
-
-        .details-header .weekday-label {
-
-            margin-bottom: 10px;
-
-            color:
-                rgba(255,255,255,.4);
-
-            font-size: 14px;
-
-            font-weight: 600;
-
-        }
-
-
-        .details-header h2 {
-
-            margin: 0;
-
-            font-size:
-                clamp(34px,5vw,52px);
-
-            font-weight: 800;
-
-        }
-
-
-        /* =====================================================
-           LEKCJE
-        ===================================================== */
-
-        .lessons-box {
-
-            width: 100%;
-
-            padding: 30px;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(255,255,255,.045),
-                    rgba(255,255,255,.018)
-                );
-
-            border:
-                1px solid
-                rgba(255,255,255,.08);
-
-            border-radius: 18px;
-
-        }
-
-
-        .lesson {
-
-            width: 100%;
-
-            padding: 25px 0;
-
-            border-bottom:
-                1px solid
-                rgba(255,255,255,.08);
-
-            text-align: left;
-
-        }
-
-
-        .lesson:first-child {
-
-            padding-top: 0;
-
-        }
-
-
-        .lesson:last-child {
-
-            padding-bottom: 0;
-
-            border-bottom: none;
-
-        }
-
-
-        .lesson-number {
-
-            margin-bottom: 7px;
-
-            color:
-                var(--blue-light);
-
-            font-size: 10px;
-
-            font-weight: 700;
-
-            letter-spacing: 2px;
-
-            text-align: left;
-
-        }
-
-
-        .lesson h3 {
-
-            width: 100%;
-
-            margin:
-                0 0 6px;
-
-            color: white;
-
-            font-size: 22px;
-
-            font-weight: 800;
-
-            line-height: 1.3;
-
-            text-align: left;
-
-        }
-
-
-        .lesson p {
-
-            width: 100%;
-
-            margin: 0;
-
-            color:
-                rgba(255,255,255,.6);
-
-            font-size: 13px;
-
-            line-height: 1.6;
-
-            white-space: pre-wrap;
-
-            overflow-wrap: anywhere;
-
-            text-align: left;
-
-        }
-
-
-        /* =====================================================
-           ZAŁĄCZNIKI LEKCJI
-        ===================================================== */
-
-        .lesson-attachments {
-
-            margin-top: 16px;
-
-        }
-
-
-        .lesson-attachments-button {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-            padding: 9px 13px;
-
-            color: white;
-
-            background:
-                rgba(24,176,214,.06);
-
-            border:
-                1px solid
-                rgba(24,176,214,.18);
-
-            border-radius: 9px;
-
-            cursor: pointer;
-
-            font-family: inherit;
-
-            font-size: 13px;
-
-            font-weight: 700;
-
-            transition:
-                background .25s ease,
-                border-color .25s ease,
-                transform .25s ease;
-
-        }
-
-
-        .lesson-attachments-button:hover {
-
-            background:
-                rgba(24,176,214,.13);
-
-            border-color:
-                rgba(24,176,214,.45);
-
-            transform:
-                translateY(-2px);
-
-        }
-
-
-        .lesson-attachments-content {
-
-            display: none;
-
-            margin-top: 15px;
-
-        }
-
-
-        .lesson-attachments-content.active {
-
-            display: block;
-
-        }
-
-
-        .lesson-attachment-links {
-
-            display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 10px;
-
-            margin-top: 12px;
-
-        }
-
-
-        /* =====================================================
-           MATERIAŁY
-        ===================================================== */
-
-        .materials {
-
-            margin-top: 30px;
-
-            padding-top: 25px;
-
-            border-top:
-                1px solid
-                rgba(255,255,255,.08);
-
-        }
-
-
-        .materials-title {
-
-            margin-bottom: 18px;
-
-            font-size: 18px;
-
-            font-weight: 700;
-
-        }
-
-
-        /* =====================================================
-           GALERIA
-        ===================================================== */
-
-        .photo-gallery {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 12px;
-
-            margin-bottom: 18px;
-
-        }
-
-
-        .photo-card {
-
-            position: relative;
-
-            aspect-ratio: 16 / 11;
-
-            overflow: hidden;
-
-            background:
-                rgba(255,255,255,.03);
-
-            border:
-                1px solid
-                rgba(255,255,255,.08);
-
-            border-radius: 12px;
-
-            cursor: pointer;
-
-            transition:
-                transform .3s ease,
-                border-color .3s ease;
-
-        }
-
-
-        .photo-card:hover {
-
-            transform:
-                translateY(-3px);
-
-            border-color:
-                rgba(24,176,214,.45);
-
-        }
-
-
-        .photo-card img {
-
-            width: 100%;
-
-            height: 100%;
-
-            display: block;
-
-            object-fit: cover;
-
-            transition:
-                transform .4s ease;
-
-        }
-
-
-        .photo-card:hover img {
-
-            transform:
-                scale(1.04);
-
-        }
-
-
-        .photo-card::after {
-
-            content: "↗";
-
-            position: absolute;
-
-            right: 10px;
-
-            bottom: 10px;
-
-            width: 30px;
-
-            height: 30px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            color: white;
-
-            background:
-                rgba(0,0,0,.6);
-
-            border:
-                1px solid
-                rgba(255,255,255,.15);
-
-            border-radius: 8px;
-
-            font-size: 15px;
-
-            opacity: 0;
-
-            transition:
-                opacity .25s ease;
-
-        }
-
-
-        .photo-card:hover::after {
-
-            opacity: 1;
-
-        }
-
-
-        /* =====================================================
-           MATERIAŁY
-        ===================================================== */
-
-        .materials-list {
-
-            display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 10px;
-
-        }
-
-
-        .material {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-            padding: 10px 14px;
-
-            color: white;
-
-            text-decoration: none;
-
-            background:
-                rgba(24,176,214,.06);
-
-            border:
-                1px solid
-                rgba(24,176,214,.18);
-
-            border-radius: 9px;
-
-            font-size: 13px;
-
-            transition:
-                background .25s ease,
-                border-color .25s ease,
-                transform .25s ease;
-
-        }
-
-
-        .material:hover {
-
-            background:
-                rgba(24,176,214,.13);
-
-            border-color:
-                rgba(24,176,214,.45);
-
-            transform:
-                translateY(-2px);
-
-        }
-
-
-        /* =====================================================
-           PODGLĄD ZDJĘCIA
-        ===================================================== */
-
-        #imageViewer {
-
-            position: fixed;
-
-            inset: 0;
-
-            z-index: 9999;
-
-            display: none;
-
-            align-items: center;
-
-            justify-content: center;
-
-            padding: 30px;
-
-            background:
-                rgba(0,0,0,.86);
-
-            backdrop-filter:
-                blur(12px);
-
-            cursor: pointer;
-
-        }
-
-
-        #imageViewer.active {
-
-            display: flex;
-
-        }
-
-
-        #imageViewer img {
-
-            max-width: 95vw;
-
-            max-height: 90vh;
-
-            object-fit: contain;
-
-            border-radius: 12px;
-
-            box-shadow:
-                0 20px 80px
-                rgba(0,0,0,.6);
-
-            cursor: default;
-
-            animation:
-                imageOpen .3s ease both;
-
-        }
-
-
-        .image-close {
-
-            position: fixed;
-
-            top: 20px;
-
-            right: 25px;
-
-            width: 45px;
-
-            height: 45px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            color: white;
-
-            background:
-                rgba(255,255,255,.08);
-
-            border:
-                1px solid
-                rgba(255,255,255,.15);
-
-            border-radius: 50%;
-
-            font-size: 22px;
-
-            cursor: pointer;
-
-        }
-
-
-        /* =====================================================
-           INNE
-        ===================================================== */
-
-        .empty {
-
-            padding: 45px 20px;
-
-            text-align: center;
-
-            color:
-                rgba(255,255,255,.35);
-
-        }
-
-
-        .loading {
-
-            padding: 40px;
-
-            text-align: center;
-
-            color:
-                rgba(255,255,255,.4);
-
-        }
-
-
-        /* =====================================================
-           ANIMACJE
-        ===================================================== */
-
-        @keyframes dayAppear {
-
-            from {
-
-                opacity: 0;
-
-                transform:
-                    translateY(15px);
-
-            }
-
-            to {
-
-                opacity: 1;
-
-                transform:
-                    translateY(0);
-
-            }
-
-        }
-
-
-        @keyframes detailsAppear {
-
-            from {
-
-                opacity: 0;
-
-                transform:
-                    translateY(15px);
-
-            }
-
-            to {
-
-                opacity: 1;
-
-                transform:
-                    translateY(0);
-
-            }
-
-        }
-
-
-        @keyframes imageOpen {
-
-            from {
-
-                opacity: 0;
-
-                transform:
-                    scale(.96);
-
-            }
-
-            to {
-
-                opacity: 1;
-
-                transform:
-                    scale(1);
-
-            }
-
-        }
-
-
-        /* =====================================================
-           TABLET
-        ===================================================== */
-
-        @media (max-width:850px) {
-
-            .lessons-page {
-
-                width: 88%;
-
-            }
-
-            .photo-gallery {
-
-                grid-template-columns:
-                    repeat(2, 1fr);
-
-            }
-
-        }
-
-
-        /* =====================================================
-           TELEFON
-           Dopasowane do style-index.css
-        ===================================================== */
-
-        @media (max-width:600px) {
-
-            .lessons-page {
-
-                width: 88%;
-
-                padding:
-                    105px
-                    0
-                    60px;
-
-            }
-
-
-            .lessons-header {
-
-                margin-bottom: 35px;
-
-            }
-
-
-            .lessons-header h1 {
-
-                font-size: 40px;
-
-                letter-spacing: -2px;
-
-            }
-
-
-            .lessons-header p {
-
-                font-size: 13px;
-
-                line-height: 1.7;
-
-            }
-
-
-            .day-card {
-
-                padding: 18px;
-
-            }
-
-
-            .day-left {
-
-                gap: 13px;
-
-            }
-
-
-            .day-icon {
-
-                width: 42px;
-
-                height: 42px;
-
-                font-size: 18px;
-
-            }
-
-
-            .day-info h2 {
-
-                font-size: 16px;
-
-            }
-
-
-            .day-info p {
-
-                font-size: 11px;
-
-            }
-
-
-            .day-arrow {
-
-                font-size: 19px;
-
-            }
-
-
-            .lessons-box {
-
-                padding: 22px;
-
-            }
-
-
-            .lesson {
-
-                padding: 20px 0;
-
-            }
-
-
-            .lesson-number {
-
-                margin-bottom: 6px;
-
-                font-size: 9px;
-
-                letter-spacing: 1.5px;
-
-            }
-
-
-            .lesson h3 {
-
-                margin:
-                    0 0 6px;
-
-                font-size: 19px;
-
-                line-height: 1.3;
-
-            }
-
-
-            .lesson p {
-
-                font-size: 13px;
-
-                line-height: 1.6;
-
-            }
-
-
-            .details-header {
-
-                margin-bottom: 25px;
-
-            }
-
-
-            .details-header h2 {
-
-                font-size: 34px;
-
-            }
-
-
-            .photo-gallery {
-
-                grid-template-columns:
-                    repeat(2, 1fr);
-
-                gap: 10px;
-
-            }
-
-
-            .materials {
-
-                margin-top: 25px;
-
-                padding-top: 20px;
-
-            }
-
-
-            .lesson-attachments-button {
-
-                font-size: 12px;
-
-            }
-
-        }
-
-
-        /* =====================================================
-           MAŁY TELEFON
-        ===================================================== */
-
-        @media (max-width:450px) {
-
-            .lessons-page {
-
-                width: 88%;
-
-                padding:
-                    100px
-                    0
-                    50px;
-
-            }
-
-
-            .lessons-box {
-
-                padding: 18px;
-
-            }
-
-
-            .lesson h3 {
-
-                font-size: 18px;
-
-            }
-
-
-            .lesson p {
-
-                font-size: 13px;
-
-                line-height: 1.6;
-
-            }
-
-
-            .photo-gallery {
-
-                grid-template-columns: 1fr;
-
-            }
-
-
-            .day-arrow {
-
-                display: none;
-
-            }
-
-        }
-
-    </style>
-
-</head>
-
-
-<body>
-
-
-<div class="background">
-
-    <div class="background-glow glow-one"></div>
-
-    <div class="background-glow glow-two"></div>
-
-    <div class="grid"></div>
-
-</div>
-
-
-<nav class="navbar">
-
-    <div class="nav-container">
-
-        <a
-            href="glowna.html"
-            class="logo"
-        >
-
-            LEKCJE
-
-        </a>
-
-
-        <div class="menu">
-
-            <a href="glowna.html">
-                Strona główna
-            </a>
-
-            <a
-                href="lekcje.html"
-                class="active"
-            >
-                Lekcje
-            </a>
-
-            <a href="plan.html">
-                Plan lekcji
-            </a>
-
-        </div>
-
-    </div>
-
-</nav>
-
-
-<main>
-
-<section class="lessons-page">
-
-
-    <div class="lessons-header">
-
-        <div class="hero-label">
-
-            LEKCJE
-
-        </div>
-
-
-        <h1>
-
-            Lista <strong>lekcji.</strong>
-
-        </h1>
-
-
-        <p>
-
-            Tutaj znajdziesz zapis tego, co danego dnia
-            było robione w szkole, wraz z dodatkowymi
-            materiałami i zdjęciami.
-
-        </p>
-
-    </div>
-
-
-    <div id="daysView">
-
-        <div id="daysList">
-
-            <div class="loading">
-
-                Ładowanie lekcji...
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div id="dayDetails">
-
-        <button
-            class="back-button"
-            onclick="showDays()"
-        >
-
-            ← Wszystkie dni
-
-        </button>
-
-
-        <div class="details-header">
-
-            <div
-                class="date-label"
-                id="detailDate"
-            ></div>
-
-
-            <div
-                class="weekday-label"
-                id="detailWeekday"
-            ></div>
-
-
-            <h2>
-
-                Lekcje
-
-            </h2>
-
-        </div>
-
-
-        <div class="lessons-box">
-
-            <div id="lessonList"></div>
-
-
-            <div
-                class="materials"
-                id="materials"
-            >
-
-                <div class="materials-title">
-
-                    Materiały
-
-                </div>
-
-
-                <div
-                    id="photoGallery"
-                    class="photo-gallery"
-                ></div>
-
-
-                <div
-                    id="materialsList"
-                    class="materials-list"
-                ></div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-</main>
-
-
-<div
-    id="imageViewer"
-    onclick="closeImage(event)"
->
-
-    <button
-        class="image-close"
-        onclick="closeImage()"
-        aria-label="Zamknij"
-    >
-
-        ×
-
-    </button>
-
-
-    <img
-        id="viewerImage"
-        src=""
-        alt="Podgląd zdjęcia"
-        onclick="event.stopPropagation()"
-    >
-
-</div>
-
-
-<footer>
-
-    <div class="footer-container">
-
-        <strong>
-            LEKCJE
-        </strong>
-
-
-        <span>
-            © 2026 — Archiwum lekcji
-        </span>
-
-    </div>
-
-</footer>
-
-
-<script>
-
-
-const API =
-    "https://old-term-d35c.oliwierbielicki.workers.dev";
-
-
-let allDays = [];
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
 
 
 /* =====================================================
-   DNI TYGODNIA
+   RESET
 ===================================================== */
 
-const WEEK_DAYS = {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    0: "niedziela",
-    1: "poniedziałek",
-    2: "wtorek",
-    3: "środa",
-    4: "czwartek",
-    5: "piątek",
-    6: "sobota"
+html {
+    scroll-behavior: smooth;
+}
 
-};
+body {
+    font-family: Montserrat, sans-serif;
 
+    background: #090909;
 
-loadLessons();
+    color: #ffffff;
+
+    min-height: 100vh;
+
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
 
 
 /* =====================================================
-   POBIERANIE
+   ZMIENNE
 ===================================================== */
 
-async function loadLessons() {
+:root {
 
-    const container =
-        document.getElementById("daysList");
+    --blue: #1775b9;
+    --blue-light: #18b0d6;
+    --blue-dark: #186e83;
 
+    --bg: #090909;
+    --card: #121212;
 
-    try {
+    --white: #ffffff;
+    --text: #d6d6d6;
+    --muted: #858585;
 
-        const response =
-            await fetch(
-                `${API}/lessons`
-            );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Nie udało się pobrać lekcji."
-            );
-
-        }
+    --border: rgba(255,255,255,.08);
+}
 
 
-        allDays =
-            await response.json();
+/* =====================================================
+   TŁO
+===================================================== */
+
+.background {
+
+    position: fixed;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: 0;
+
+    background:
+
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(23,117,185,.055),
+            transparent 42%
+        ),
+
+        #090909;
+}
 
 
-        allDays.sort(
-            (a, b) =>
-                a.date.localeCompare(b.date)
+/* =====================================================
+   GRID
+===================================================== */
+
+.grid {
+
+    position: absolute;
+
+    inset: 0;
+
+    opacity: .18;
+
+    background-image:
+
+        linear-gradient(
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
         );
 
-
-        renderDays();
-
-
-    } catch (error) {
-
-        container.innerHTML = `
-
-            <div class="empty">
-
-                Nie udało się pobrać
-                listy lekcji.
-
-                <br><br>
-
-                ${escapeHtml(
-                    error.message
-                )}
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-/* =====================================================
-   DNI
-===================================================== */
-
-function renderDays() {
-
-    const container =
-        document.getElementById("daysList");
-
-
-    container.innerHTML = "";
-
-
-    if (!allDays.length) {
-
-        container.innerHTML = `
-
-            <div class="empty">
-
-                Nie ma jeszcze
-                zapisanych lekcji.
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    allDays.forEach(
-        (day, index) => {
-
-            const card =
-                document.createElement("div");
-
-
-            card.className =
-                "day-card";
-
-
-            card.style.animationDelay =
-                `${index * .05}s`;
-
-
-            const lessonCount =
-                Array.isArray(day.lessons)
-                    ? day.lessons.length
-                    : 0;
-
-
-            const weekday =
-                getWeekdayName(day.date);
-
-
-            card.innerHTML = `
-
-                <div class="day-left">
-
-                    <div class="day-icon">
-
-                        📚
-
-                    </div>
-
-
-                    <div class="day-info">
-
-                        <h2>
-
-                            ${escapeHtml(
-                                formatDate(day.date)
-                            )}
-
-                        </h2>
-
-
-                        <p>
-
-                            ${escapeHtml(
-                                weekday
-                            )}
-                            -
-                            ${lessonCount}
-                            ${lessonWord(
-                                lessonCount
-                            )}
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="day-arrow">
-
-                    →
-
-                </div>
-
-            `;
-
-
-            card.addEventListener(
-                "click",
-                () => showDay(day)
-            );
-
-
-            container.appendChild(card);
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   POKAŻ DZIEŃ
-===================================================== */
-
-function showDay(day) {
-
-    document
-        .getElementById("daysView")
-        .style.display = "none";
-
-
-    document
-        .getElementById("dayDetails")
-        .classList.add("active");
-
-
-    document
-        .getElementById("detailDate")
-        .textContent =
-            formatDate(day.date);
-
-
-    document
-        .getElementById("detailWeekday")
-        .textContent =
-            getWeekdayName(day.date);
-
-
-    renderLessons(day.lessons);
-
-    renderMaterials(day.files);
-
-
-    window.scrollTo({
-
-        top: 0,
-
-        behavior: "smooth"
-
-    });
-
-}
-
-
-/* =====================================================
-   WRÓĆ
-===================================================== */
-
-function showDays() {
-
-    document
-        .getElementById("dayDetails")
-        .classList.remove("active");
-
-
-    document
-        .getElementById("daysView")
-        .style.display = "block";
-
-
-    window.scrollTo({
-
-        top: 0,
-
-        behavior: "smooth"
-
-    });
-
-}
-
-
-/* =====================================================
-   CZYSZCZENIE TREŚCI LEKCJI
-===================================================== */
-
-function cleanLessonContent(text) {
-
-    return String(text ?? "")
-
-        .replace(/&#x20;/gi, " ")
-
-        .replace(/^[ \t]+/gm, "")
-
-        .trim();
-
-}
-
-
-/* =====================================================
-   LEKCJE
-===================================================== */
-
-function renderLessons(lessons) {
-
-    const container =
-        document.getElementById("lessonList");
-
-
-    container.innerHTML = "";
-
-
-    if (
-        !Array.isArray(lessons) ||
-        !lessons.length
-    ) {
-
-        container.innerHTML = `
-
-            <div class="empty">
-
-                Brak informacji
-                o lekcjach.
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    lessons.forEach(
-        (lesson, index) => {
-
-            const element =
-                document.createElement("div");
-
-
-            element.className =
-                "lesson";
-
-
-            const attachments =
-                Array.isArray(
-                    lesson.attachments
-                )
-                    ? lesson.attachments
-                    : [];
-
-
-            const content =
-                cleanLessonContent(
-                    lesson.content ||
-                    "Brak informacji."
-                );
-
-
-            element.innerHTML = `
-
-                <div class="lesson-number">
-
-                    LEKCJA ${index + 1}
-
-                </div>
-
-
-                <h3>
-
-                    ${escapeHtml(
-                        lesson.subject ||
-                        "Bez nazwy"
-                    )}
-
-                </h3>
-
-
-                <p>${escapeHtml(content)}</p>
-
-
-                ${
-                    attachments.length
-                        ? `
-
-                            <div class="lesson-attachments">
-
-                                <button
-                                    type="button"
-                                    class="lesson-attachments-button"
-                                >
-
-                                    📎 Załączniki
-                                    (${attachments.length})
-
-                                </button>
-
-
-                                <div
-                                    class="lesson-attachments-content"
-                                >
-
-                                    <div
-                                        class="photo-gallery"
-                                    ></div>
-
-
-                                    <div
-                                        class="lesson-attachment-links"
-                                    ></div>
-
-                                </div>
-
-                            </div>
-
-                        `
-                        : ""
-                }
-
-            `;
-
-
-            if (attachments.length) {
-
-                const button =
-                    element.querySelector(
-                        ".lesson-attachments-button"
-                    );
-
-
-                const contentBox =
-                    element.querySelector(
-                        ".lesson-attachments-content"
-                    );
-
-
-                const gallery =
-                    element.querySelector(
-                        ".photo-gallery"
-                    );
-
-
-                const links =
-                    element.querySelector(
-                        ".lesson-attachment-links"
-                    );
-
-
-                let photoCount = 0;
-
-
-                attachments.forEach(
-                    file => {
-
-                        if (
-                            !file ||
-                            !file.url
-                        ) {
-
-                            return;
-
-                        }
-
-
-                        const url =
-                            String(
-                                file.url
-                            ).trim();
-
-
-                        const name =
-                            file.name ||
-                            "Załącznik";
-
-
-                        if (isImage(url)) {
-
-                            photoCount++;
-
-
-                            const card =
-                                document.createElement(
-                                    "div"
-                                );
-
-
-                            card.className =
-                                "photo-card";
-
-
-                            const image =
-                                document.createElement(
-                                    "img"
-                                );
-
-
-                            image.src =
-                                url;
-
-
-                            image.alt =
-                                name;
-
-
-                            image.loading =
-                                "lazy";
-
-
-                            image.onerror =
-                                () => {
-
-                                    card.remove();
-
-                                };
-
-
-                            card.appendChild(
-                                image
-                            );
-
-
-                            card.addEventListener(
-                                "click",
-                                () => {
-
-                                    openImage(
-                                        url,
-                                        name
-                                    );
-
-                                }
-                            );
-
-
-                            gallery.appendChild(
-                                card
-                            );
-
-                        } else {
-
-                            const link =
-                                document.createElement(
-                                    "a"
-                                );
-
-
-                            link.className =
-                                "material";
-
-
-                            link.href =
-                                url;
-
-
-                            link.target =
-                                "_blank";
-
-
-                            link.rel =
-                                "noopener noreferrer";
-
-
-                            link.textContent =
-                                `🔗 ${name}`;
-
-
-                            links.appendChild(
-                                link
-                            );
-
-                        }
-
-                    }
-                );
-
-
-                if (!photoCount) {
-
-                    gallery.style.display =
-                        "none";
-
-                }
-
-
-                if (
-                    !links.children.length
-                ) {
-
-                    links.style.display =
-                        "none";
-
-                }
-
-
-                button.addEventListener(
-                    "click",
-                    () => {
-
-                        contentBox.classList.toggle(
-                            "active"
-                        );
-
-
-                        if (
-                            contentBox.classList.contains(
-                                "active"
-                            )
-                        ) {
-
-                            button.textContent =
-                                `📎 Ukryj załączniki`;
-
-                        } else {
-
-                            button.textContent =
-                                `📎 Załączniki (${attachments.length})`;
-
-                        }
-
-                    }
-                );
-
-            }
-
-
-            container.appendChild(
-                element
-            );
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   MATERIAŁY DNIA
-===================================================== */
-
-function renderMaterials(files) {
-
-    const section =
-        document.getElementById(
-            "materials"
+    background-size: 55px 55px;
+
+    mask-image:
+        radial-gradient(
+            circle at center,
+            black 0%,
+            transparent 75%
         );
 
+    -webkit-mask-image:
+        radial-gradient(
+            circle at center,
+            black 0%,
+            transparent 75%
+        );
+}
 
-    const gallery =
-        document.getElementById(
-            "photoGallery"
+
+/* =====================================================
+   GLOW
+===================================================== */
+
+.background-glow {
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    border-radius: 50%;
+
+    filter: blur(120px);
+
+    opacity: .7;
+}
+
+.glow-one {
+
+    left: -300px;
+    top: 10%;
+
+    background:
+        rgba(23,117,185,.12);
+}
+
+.glow-two {
+
+    right: -300px;
+    bottom: 0;
+
+    background:
+        rgba(24,176,214,.10);
+}
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.navbar {
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 76px;
+
+    z-index: 999;
+
+    display: flex;
+    align-items: center;
+
+    background:
+        rgba(5,5,5,.68);
+
+    backdrop-filter:
+        blur(22px)
+        saturate(180%);
+
+    -webkit-backdrop-filter:
+        blur(22px)
+        saturate(180%);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.07);
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.35);
+}
+
+
+.nav-container {
+
+    width: 90%;
+
+    max-width: 1150px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo {
+
+    position: relative;
+
+    font-size: 24px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    transition: .3s ease;
+}
+
+.logo::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    bottom: -6px;
+
+    width: 0;
+
+    height: 2px;
+
+    border-radius: 10px;
+
+    background: var(--blue);
+
+    transition: .3s ease;
+}
+
+.logo:hover {
+
+    color: var(--blue-light);
+}
+
+.logo:hover::after {
+
+    width: 100%;
+}
+
+
+/* =====================================================
+   MENU
+===================================================== */
+
+.menu {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 34px;
+}
+
+.menu a {
+
+    position: relative;
+
+    color: #dddddd;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition:
+        color .3s ease;
+}
+
+.menu a::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+
+    bottom: -9px;
+
+    width: 0;
+
+    height: 2px;
+
+    transform:
+        translateX(-50%);
+
+    border-radius: 10px;
+
+    background: var(--blue);
+
+    transition: .3s ease;
+}
+
+.menu a:hover,
+.menu a.active {
+
+    color: var(--blue-light);
+}
+
+.menu a:hover::after,
+.menu a.active::after {
+
+    width: 100%;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+
+    position: relative;
+
+    z-index: 1;
+
+    min-height: 100vh;
+
+    padding-top: 76px;
+
+    display: flex;
+
+    align-items: center;
+}
+
+
+.hero-container {
+
+    width: 90%;
+
+    max-width: 1150px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        1.25fr
+        .75fr;
+
+    gap: 80px;
+
+    align-items: center;
+}
+
+
+/* =====================================================
+   HERO CONTENT
+===================================================== */
+
+.hero-content {
+
+    max-width: 680px;
+
+    animation:
+        heroAppear .8s
+        cubic-bezier(.25,1,.5,1);
+}
+
+
+/* =====================================================
+   LABEL
+===================================================== */
+
+.hero-label {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-bottom: 24px;
+
+    padding: 9px 14px;
+
+    border:
+        1px solid rgba(23,117,185,.25);
+
+    border-radius: 30px;
+
+    background:
+        rgba(23,117,185,.06);
+
+    color: #82c9ed;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+.hero-label span {
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: var(--blue-light);
+
+    box-shadow:
+        0 0 14px
+        rgba(24,176,214,.8);
+
+    animation:
+        pulse 2s infinite;
+}
+
+
+/* =====================================================
+   HERO TITLE
+===================================================== */
+
+.hero h1 {
+
+    font-size:
+        clamp(42px, 6vw, 72px);
+
+    line-height: 1.05;
+
+    font-weight: 800;
+
+    letter-spacing: -3px;
+
+    max-width: 700px;
+}
+
+.hero h1 span {
+
+    color: var(--blue-light);
+
+    text-shadow:
+        0 0 35px
+        rgba(24,176,214,.15);
+}
+
+
+/* =====================================================
+   HERO DESCRIPTION
+===================================================== */
+
+.hero-content > p {
+
+    max-width: 620px;
+
+    margin-top: 25px;
+
+    color: #999999;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+
+/* =====================================================
+   HERO BUTTON
+===================================================== */
+
+.hero-buttons {
+
+    margin-top: 32px;
+}
+
+.primary-button {
+
+    position: relative;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 13px;
+
+    padding: 15px 25px;
+
+    border-radius: 50px;
+
+    background: var(--blue);
+
+    color: white;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 10px 30px
+        rgba(23,117,185,.20);
+
+    transition:
+        transform .3s ease,
+        background .3s ease,
+        box-shadow .3s ease;
+}
+
+.primary-button::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: -120%;
+
+    top: 0;
+
+    width: 75%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            110deg,
+            transparent,
+            rgba(255,255,255,.35),
+            transparent
         );
 
+    transform: skewX(-20deg);
 
-    const links =
-        document.getElementById(
-            "materialsList"
+    transition: .7s ease;
+}
+
+.primary-button:hover {
+
+    transform:
+        translateY(-3px);
+
+    background:
+        var(--blue-light);
+
+    color: #050505;
+
+    box-shadow:
+        0 15px 35px
+        rgba(24,176,214,.22);
+}
+
+.primary-button:hover::before {
+
+    left: 140%;
+}
+
+.primary-button span {
+
+    font-size: 18px;
+
+    font-weight: 400;
+
+    transition: .3s ease;
+}
+
+.primary-button:hover span {
+
+    transform:
+        translateX(4px);
+}
+
+
+/* =====================================================
+   HERO CARD
+===================================================== */
+
+.hero-card {
+
+    position: relative;
+
+    padding: 42px 35px;
+
+    min-height: 300px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    text-align: center;
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.075),
+            rgba(255,255,255,.025)
         );
 
+    border:
+        1px solid rgba(255,255,255,.09);
 
-    gallery.innerHTML = "";
+    backdrop-filter:
+        blur(20px);
 
-    links.innerHTML = "";
+    -webkit-backdrop-filter:
+        blur(20px);
 
+    box-shadow:
+        0 35px 80px
+        rgba(0,0,0,.45);
 
-    if (
-        !Array.isArray(files) ||
-        !files.length
-    ) {
+    overflow: hidden;
 
-        section.style.display =
-            "none";
+    animation:
+        cardAppear .9s
+        cubic-bezier(.25,1,.5,1);
 
-        return;
+    transition:
+        transform .4s ease,
+        border-color .4s ease,
+        box-shadow .4s ease;
+}
 
-    }
+.hero-card:hover {
 
+    transform:
+        translateY(-8px);
 
-    section.style.display =
-        "block";
+    border-color:
+        rgba(24,176,214,.25);
 
-
-    let photoCount = 0;
-
-
-    files.forEach(
-        file => {
-
-            if (
-                !file ||
-                !file.url
-            ) {
-
-                return;
-
-            }
-
-
-            const url =
-                String(
-                    file.url
-                ).trim();
-
-
-            const name =
-                file.name ||
-                "Materiał";
-
-
-            if (isImage(url)) {
-
-                photoCount++;
-
-
-                const card =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                card.className =
-                    "photo-card";
-
-
-                const image =
-                    document.createElement(
-                        "img"
-                    );
-
-
-                image.src =
-                    url;
-
-
-                image.alt =
-                    name;
-
-
-                image.loading =
-                    "lazy";
-
-
-                image.onerror =
-                    () => {
-
-                        card.remove();
-
-                    };
-
-
-                card.appendChild(
-                    image
-                );
-
-
-                card.addEventListener(
-                    "click",
-                    () =>
-                        openImage(
-                            url,
-                            name
-                        )
-                );
-
-
-                gallery.appendChild(
-                    card
-                );
-
-            } else {
-
-                const link =
-                    document.createElement(
-                        "a"
-                    );
-
-
-                link.className =
-                    "material";
-
-
-                link.href =
-                    url;
-
-
-                link.target =
-                    "_blank";
-
-
-                link.rel =
-                    "noopener noreferrer";
-
-
-                link.textContent =
-                    `🔗 ${name}`;
-
-
-                links.appendChild(
-                    link
-                );
-
-            }
-
-        }
-    );
-
-
-    if (!photoCount) {
-
-        gallery.style.display =
-            "none";
-
-    } else {
-
-        gallery.style.display =
-            "grid";
-
-    }
-
-
-    if (!links.children.length) {
-
-        links.style.display =
-            "none";
-
-    } else {
-
-        links.style.display =
-            "flex";
-
-    }
-
-
-    if (
-        !gallery.children.length &&
-        !links.children.length
-    ) {
-
-        section.style.display =
-            "none";
-
-    }
-
+    box-shadow:
+        0 45px 90px
+        rgba(0,0,0,.55),
+        0 0 45px
+        rgba(24,176,214,.05);
 }
 
 
 /* =====================================================
-   CZY LINK JEST ZDJĘCIEM
+   CARD GLOW
 ===================================================== */
 
-function isImage(url) {
+.card-glow {
 
-    const clean =
-        url
-            .split("?")[0]
-            .split("#")[0]
-            .toLowerCase();
+    position: absolute;
 
+    width: 240px;
+    height: 240px;
 
-    return (
+    top: -130px;
+    left: 50%;
 
-        clean.endsWith(".jpg") ||
-        clean.endsWith(".jpeg") ||
-        clean.endsWith(".png") ||
-        clean.endsWith(".webp") ||
-        clean.endsWith(".gif") ||
-        clean.endsWith(".avif")
+    transform:
+        translateX(-50%);
 
-    );
+    border-radius: 50%;
 
+    background:
+        rgba(24,176,214,.13);
+
+    filter: blur(55px);
 }
 
 
 /* =====================================================
-   PODGLĄD ZDJĘCIA
+   CARD ICON
 ===================================================== */
 
-function openImage(
-    url,
-    name
-) {
+.card-icon {
 
-    const viewer =
-        document.getElementById(
-            "imageViewer"
+    position: relative;
+
+    width: 65px;
+    height: 65px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background:
+        rgba(23,117,185,.10);
+
+    border:
+        1px solid rgba(24,176,214,.15);
+
+    color: var(--blue-light);
+
+    font-size: 28px;
+
+    box-shadow:
+        0 0 30px
+        rgba(24,176,214,.08);
+}
+
+.card-label {
+
+    color: #666;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+}
+
+.hero-card h2 {
+
+    margin-top: 7px;
+
+    font-size: 30px;
+
+    font-weight: 800;
+}
+
+.hero-card p {
+
+    margin-top: 9px;
+
+    color: #888;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+.card-line {
+
+    width: 55px;
+    height: 2px;
+
+    margin: 22px auto;
+
+    border-radius: 10px;
+
+    background:
+        var(--blue-light);
+}
+
+.card-status {
+
+    color: #5c9a9e;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+
+/* =====================================================
+   LEKCJE PREVIEW
+===================================================== */
+
+.lessons-preview {
+
+    position: relative;
+
+    z-index: 1;
+
+    padding: 100px 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0c0c0c,
+            #080808
+        );
+}
+
+
+.container {
+
+    width: 90%;
+
+    max-width: 1150px;
+
+    margin: auto;
+}
+
+
+/* =====================================================
+   SECTION HEADING
+===================================================== */
+
+.section-heading {
+
+    margin-bottom: 45px;
+}
+
+.section-heading > span {
+
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: var(--blue-light);
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 4px;
+}
+
+.section-heading h2 {
+
+    font-size:
+        clamp(32px, 5vw, 48px);
+
+    font-weight: 800;
+
+    letter-spacing: -1px;
+}
+
+.section-heading strong {
+
+    color: var(--blue-light);
+}
+
+.heading-line {
+
+    width: 60px;
+    height: 3px;
+
+    margin-top: 17px;
+
+    border-radius: 10px;
+
+    background:
+        var(--blue-light);
+
+    box-shadow:
+        0 0 15px
+        rgba(24,176,214,.15);
+}
+
+
+/* =====================================================
+   LESSON BOX
+===================================================== */
+
+.lesson-box {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 22px;
+
+    padding: 25px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #151515,
+            #101010
         );
 
+    border:
+        1px solid rgba(255,255,255,.07);
 
-    const image =
-        document.getElementById(
-            "viewerImage"
-        );
+    box-shadow:
+        0 25px 60px
+        rgba(0,0,0,.35);
 
+    transition:
+        transform .4s ease,
+        border-color .4s ease,
+        box-shadow .4s ease;
+}
 
-    image.src =
-        url;
+.lesson-box:hover {
 
+    transform:
+        translateY(-5px);
 
-    image.alt =
-        name ||
-        "Zdjęcie";
+    border-color:
+        rgba(24,176,214,.25);
 
-
-    viewer.classList.add(
-        "active"
-    );
-
-
-    document.body.style.overflow =
-        "hidden";
-
+    box-shadow:
+        0 30px 70px
+        rgba(0,0,0,.45);
 }
 
 
-function closeImage(event) {
+/* =====================================================
+   LESSON ICON
+===================================================== */
 
-    if (
-        event &&
-        event.target &&
-        event.target.id ===
-            "viewerImage"
-    ) {
+.lesson-icon {
 
-        return;
+    width: 55px;
+    height: 55px;
 
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background:
+        rgba(23,117,185,.10);
+
+    border:
+        1px solid rgba(24,176,214,.12);
+
+    color:
+        var(--blue-light);
+
+    font-size: 24px;
+}
+
+
+/* =====================================================
+   LESSON TEXT
+===================================================== */
+
+.lesson-text {
+
+    flex: 1;
+}
+
+.lesson-text h3 {
+
+    margin-bottom: 6px;
+
+    font-size: 17px;
+
+    font-weight: 800;
+}
+
+.lesson-text p {
+
+    color: #777;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   LESSON BUTTON
+===================================================== */
+
+.lesson-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 12px 17px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    border:
+        1px solid rgba(255,255,255,.09);
+
+    color: #aaa;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    transition:
+        .3s ease;
+}
+
+.lesson-button span {
+
+    font-size: 16px;
+}
+
+.lesson-button:hover {
+
+    background:
+        var(--blue);
+
+    border-color:
+        var(--blue);
+
+    color: white;
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+
+    position: relative;
+
+    z-index: 1;
+
+    padding: 28px 0;
+
+    border-top:
+        1px solid rgba(255,255,255,.06);
+
+    background:
+        #070707;
+}
+
+.footer-container {
+
+    width: 90%;
+
+    max-width: 1150px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    color: #555;
+
+    font-size: 10px;
+}
+
+.footer-container strong {
+
+    color: #aaa;
+
+    font-size: 13px;
+
+    letter-spacing: 2px;
+}
+
+
+/* =====================================================
+   ANIMACJE
+===================================================== */
+
+@keyframes heroAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(25px);
     }
 
+    to {
 
-    document
-        .getElementById(
-            "imageViewer"
-        )
-        .classList.remove(
-            "active"
-        );
+        opacity: 1;
 
-
-    document.body.style.overflow =
-        "";
-
+        transform:
+            translateY(0);
+    }
 }
 
+@keyframes cardAppear {
 
-/* =====================================================
-   ESC ZAMYKA ZDJĘCIE
-===================================================== */
+    from {
 
-document.addEventListener(
-    "keydown",
-    event => {
+        opacity: 0;
 
-        if (
-            event.key === "Escape"
-        ) {
-
-            closeImage();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   SŁOWO "LEKCJA"
-===================================================== */
-
-function lessonWord(count) {
-
-    if (count === 1) {
-
-        return " lekcja";
-
+        transform:
+            translateY(30px)
+            scale(.97);
     }
 
+    to {
 
-    if (
-        count >= 2 &&
-        count <= 4
-    ) {
+        opacity: 1;
 
-        return " lekcje";
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
 
+@keyframes pulse {
+
+    0%,
+    100% {
+
+        opacity: 1;
+
+        transform:
+            scale(1);
     }
 
+    50% {
 
-    return " lekcji";
+        opacity: .5;
 
+        transform:
+            scale(.75);
+    }
 }
 
 
 /* =====================================================
-   DATA
+   TABLET
 ===================================================== */
 
-function formatDate(date) {
+@media (max-width: 850px) {
 
-    const [
-        year,
-        month,
-        day
-    ] = date.split("-");
+    .hero-container {
 
+        grid-template-columns: 1fr;
 
-    const months = [
+        gap: 45px;
 
-        "",
-        "stycznia",
-        "lutego",
-        "marca",
-        "kwietnia",
-        "maja",
-        "czerwca",
-        "lipca",
-        "sierpnia",
-        "września",
-        "października",
-        "listopada",
-        "grudnia"
+        padding: 80px 0;
+    }
 
-    ];
+    .hero-content {
 
+        max-width: 700px;
 
-    return `${Number(day)} ${
-        months[Number(month)]
-    } ${year}`;
+        text-align: center;
 
+        margin: auto;
+    }
+
+    .hero-label {
+
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-buttons {
+
+        display: flex;
+
+        justify-content: center;
+    }
+
+    .hero-card {
+
+        max-width: 430px;
+
+        width: 100%;
+
+        margin: auto;
+    }
 }
 
 
 /* =====================================================
-   DZIEŃ TYGODNIA
+   MOBILE
 ===================================================== */
 
-function getWeekdayName(date) {
+@media (max-width: 600px) {
 
-    const dateObject =
-        new Date(
-            `${date}T12:00:00`
-        );
+    .navbar {
 
+        height: 68px;
+    }
 
-    return WEEK_DAYS[
-        dateObject.getDay()
-    ];
+    .nav-container {
 
+        width: 88%;
+    }
+
+    .logo {
+
+        font-size: 21px;
+    }
+
+    .menu {
+
+        gap: 20px;
+    }
+
+    .menu a {
+
+        font-size: 11px;
+    }
+
+    .hero {
+
+        padding-top: 68px;
+    }
+
+    .hero-container {
+
+        width: 88%;
+
+        padding: 65px 0;
+    }
+
+    .hero h1 {
+
+        font-size: 40px;
+
+        letter-spacing: -2px;
+    }
+
+    .hero-content > p {
+
+        font-size: 13px;
+    }
+
+    .hero-card {
+
+        min-height: 270px;
+
+        padding: 35px 25px;
+    }
+
+    .lessons-preview {
+
+        padding: 75px 0;
+    }
+
+    .lesson-box {
+
+        align-items: flex-start;
+
+        flex-wrap: wrap;
+    }
+
+    .lesson-text {
+
+        min-width:
+            calc(100% - 80px);
+    }
+
+    .lesson-button {
+
+        width: 100%;
+
+        justify-content: center;
+    }
+
+    .footer-container {
+
+        flex-direction: column;
+
+        gap: 10px;
+
+        text-align: center;
+    }
 }
 
 
 /* =====================================================
-   ESCAPE
+   REDUCED MOTION
 ===================================================== */
 
-function escapeHtml(text) {
+@media (prefers-reduced-motion: reduce) {
 
-    return String(text ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+    html {
 
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration: .01ms !important;
+
+        animation-iteration-count: 1 !important;
+
+        transition-duration: .01ms !important;
+    }
 }
 
-</script>
-
-
-</body>
-
-</html>
