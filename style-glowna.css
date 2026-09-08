@@ -15,30 +15,6 @@ html {
     scroll-behavior: smooth;
 }
 
-@media (max-width: 768px) {
-
-    .hero-container {
-        flex-direction: column;
-        text-align: center;
-        gap: 35px;
-    }
-
-    .hero-image {
-        width: 100%;
-        max-width: 360px;
-        flex: none;
-    }
-
-    .hero-image img {
-        max-width: 100%;
-    }
-
-    .hero-buttons {
-        justify-content: center;
-    }
-
-}
-
 .hero-container {
     display: flex;
     align-items: center;
