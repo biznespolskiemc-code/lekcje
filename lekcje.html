@@ -1165,6 +1165,42 @@
     cursor: pointer;
 }
 
+        .day-new {
+
+    position: absolute;
+
+    top: 12px;
+
+    right: 14px;
+
+    padding:
+        5px
+        9px;
+
+    color: white;
+
+    background: #e53935;
+
+    border:
+        1px solid
+        #ff6b6b;
+
+    border-radius: 6px;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    line-height: 1;
+
+    box-shadow:
+        0 4px 15px
+        rgba(229,57,53,.25);
+
+}
+
     </style>
 
 </head>
@@ -1469,10 +1505,10 @@ async function loadLessons() {
             await response.json();
 
 
-        allDays.sort(
-            (a, b) =>
-                a.date.localeCompare(b.date)
-        );
+allDays.sort(
+    (a, b) =>
+        b.date.localeCompare(a.date)
+);
 
 
         renderDays();
@@ -1558,53 +1594,80 @@ function renderDays() {
                 getWeekdayName(day.date);
 
 
-            card.innerHTML = `
-
-                <div class="day-left">
-
-                    <div class="day-icon">
-
-                        📚
-
-                    </div>
-
-
-                    <div class="day-info">
-
-                        <h2>
-
-                            ${escapeHtml(
-                                formatDate(day.date)
-                            )}
-
-                        </h2>
+const today =
+    new Date()
+        .toLocaleDateString(
+            "sv-SE",
+            {
+                timeZone: "Europe/Warsaw"
+            }
+        );
 
 
-                        <p>
+const isNew =
+    day.date === today;
 
-                            ${escapeHtml(
-                                weekday
-                            )}
-                            -
-                            ${lessonCount}
-                            ${lessonWord(
-                                lessonCount
-                            )}
 
-                        </p>
+card.innerHTML = `
 
-                    </div>
+    ${
+        isNew
+            ? `
+                <div class="day-new">
+
+                    NOWOŚĆ!
 
                 </div>
+            `
+            : ""
+    }
 
 
-                <div class="day-arrow">
+    <div class="day-left">
 
-                    →
+        <div class="day-icon">
 
-                </div>
+            📚
 
-            `;
+        </div>
+
+
+        <div class="day-info">
+
+            <h2>
+
+                ${escapeHtml(
+                    formatDate(day.date)
+                )}
+
+            </h2>
+
+
+            <p>
+
+                ${escapeHtml(
+                    weekday
+                )}
+                -
+                ${lessonCount}
+                ${lessonWord(
+                    lessonCount
+                )}
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="day-arrow">
+
+        →
+
+    </div>
+
+`;
 
 
             card.addEventListener(
