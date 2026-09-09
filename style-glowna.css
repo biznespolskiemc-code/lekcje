@@ -1209,7 +1209,7 @@ footer {
 
     .hero-container {
 
-        grid-template-columns: 1fr;
+        grid-template-columns: 0.5fr;
 
         gap: 45px;
 
