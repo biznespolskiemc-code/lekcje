@@ -428,7 +428,7 @@ a {
     display: grid;
 
     grid-template-columns:
-        1.25fr
+        2fr
         .75fr;
 
     gap: 80px;
@@ -506,6 +506,15 @@ a {
    HERO TITLE
 ===================================================== */
 
+
+.hero h1 {
+    font-size: clamp(42px, 6vw, 72px);
+    line-height: 1.05;
+    font-weight: 800;
+    letter-spacing: -3px;
+    max-width: none;
+    white-space: nowrap;
+}
 .hero h1 span {
 
     color: var(--blue-light);
@@ -1204,7 +1213,7 @@ footer {
 
     .hero-container {
 
-        grid-template-columns: 1fr;
+        grid-template-columns: 1.5fr;
 
         gap: 45px;
 
