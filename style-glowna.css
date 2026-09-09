@@ -506,20 +506,6 @@ a {
    HERO TITLE
 ===================================================== */
 
-.hero h1 {
-
-    font-size:
-        clamp(42px, 6vw, 72px);
-
-    line-height: 1.05;
-
-    font-weight: 800;
-
-    letter-spacing: -3px;
-
-    max-width: 700px;
-}
-
 .hero h1 span {
 
     color: var(--blue-light);
