@@ -418,16 +418,20 @@ a {
 
 
 .hero-container {
+
     width: 90%;
+
     max-width: 1150px;
 
     margin: auto;
 
     display: grid;
 
-    grid-template-columns: 0.5fr .4fr;
+    grid-template-columns:
+        1.25fr
+        .75fr;
 
-    gap: 60px;
+    gap: 80px;
 
     align-items: center;
 }
@@ -502,15 +506,20 @@ a {
    HERO TITLE
 ===================================================== */
 
-
 .hero h1 {
-    font-size: clamp(42px, 6vw, 72px);
+
+    font-size:
+        clamp(42px, 6vw, 72px);
+
     line-height: 1.05;
+
     font-weight: 800;
+
     letter-spacing: -3px;
-    max-width: 700;
-    white-space: nowrap;
+
+    max-width: 700px;
 }
+
 .hero h1 span {
 
     color: var(--blue-light);
@@ -1209,7 +1218,7 @@ footer {
 
     .hero-container {
 
-        grid-template-columns: 4fr;
+        grid-template-columns: 1fr;
 
         gap: 45px;
 
@@ -1388,4 +1397,3 @@ footer {
     height: 100%;
 }
 }
-
