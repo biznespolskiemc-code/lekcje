@@ -36,12 +36,20 @@
            GŁÓWNA STRONA
         ===================================================== */
 
-.lessons-page {
-    width: 100%;
-    max-width: 1000px;
-    margin: auto;
-    padding: 40px 20px 80px;
-}
+        .lessons-page {
+
+            width: 100%;
+
+            max-width: 1000px;
+
+            margin: auto;
+
+            padding:
+                40px
+                20px
+                80px;
+
+        }
 
 
         /* =====================================================
@@ -115,6 +123,65 @@
         }
 
 
+        /* =====================================================
+           PODZIAŁKA NA MIESIĄCE
+        ===================================================== */
+
+        .month-separator {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            margin:
+                22px
+                0
+                10px;
+
+            color:
+                rgba(255,255,255,.35);
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+
+            white-space: nowrap;
+
+        }
+
+
+        .month-separator:first-child {
+
+            margin-top: 0;
+
+        }
+
+
+        .month-separator::before,
+        .month-separator::after {
+
+            content: "";
+
+            flex: 1;
+
+            height: 1px;
+
+            background:
+                rgba(255,255,255,.10);
+
+        }
+
+
+        /* =====================================================
+           KARTA DNIA
+        ===================================================== */
+
         .day-card {
 
             position: relative;
@@ -127,7 +194,9 @@
 
             gap: 20px;
 
-            padding: 22px 25px;
+            padding:
+                22px
+                25px;
 
             background:
                 linear-gradient(
@@ -155,48 +224,6 @@
                 border-color .3s ease;
 
         }
-
-        .week-separator {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 14px;
-
-    margin:
-        14px
-        0;
-
-    color:
-        rgba(255,255,255,.32);
-
-    font-size: 11px;
-
-    font-weight: 700;
-
-    letter-spacing: 1.5px;
-
-    text-transform: uppercase;
-
-    white-space: nowrap;
-
-}
-
-
-.week-separator::before,
-.week-separator::after {
-
-    content: "";
-
-    flex: 1;
-
-    height: 1px;
-
-    background:
-        rgba(255,255,255,.10);
-
-}
 
 
         .day-card:hover {
@@ -305,6 +332,48 @@
 
 
         /* =====================================================
+           NOWOŚĆ
+        ===================================================== */
+
+        .day-new {
+
+            position: absolute;
+
+            top: 12px;
+
+            right: 14px;
+
+            padding:
+                5px
+                9px;
+
+            color: white;
+
+            background:
+                #e53935;
+
+            border:
+                1px solid
+                #ff6b6b;
+
+            border-radius: 6px;
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            line-height: 1;
+
+            box-shadow:
+                0 4px 15px
+                rgba(229,57,53,.25);
+
+        }
+
+
+        /* =====================================================
            SZCZEGÓŁY DNIA
         ===================================================== */
 
@@ -335,7 +404,9 @@
 
             margin-bottom: 30px;
 
-            padding: 10px 16px;
+            padding:
+                10px
+                16px;
 
             color:
                 rgba(255,255,255,.55);
@@ -453,7 +524,9 @@
 
         .lesson {
 
-            padding: 25px 0;
+            padding:
+                25px
+                0;
 
             border-bottom:
                 1px solid
@@ -545,7 +618,9 @@
 
             gap: 8px;
 
-            padding: 9px 13px;
+            padding:
+                9px
+                13px;
 
             color: white;
 
@@ -795,7 +870,9 @@
 
             gap: 8px;
 
-            padding: 10px 14px;
+            padding:
+                10px
+                14px;
 
             color: white;
 
@@ -894,27 +971,49 @@
         }
 
 
-.image-close {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+        .image-close {
 
-    width: 45px;
-    height: 45px;
+            position: fixed !important;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+            top: 20px !important;
 
-    color: white;
-    background: rgba(255,255,255,.08);
-    border: 1px solid rgba(255,255,255,.15);
-    border-radius: 50%;
+            left: 50% !important;
 
-    font-size: 22px;
-    cursor: pointer;
-}
+            right: auto !important;
+
+            bottom: auto !important;
+
+            transform:
+                translateX(-50%) !important;
+
+            z-index: 10001 !important;
+
+            width: 45px;
+
+            height: 45px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: white;
+
+            background:
+                rgba(255,255,255,.08);
+
+            border:
+                1px solid
+                rgba(255,255,255,.15);
+
+            border-radius: 50%;
+
+            font-size: 22px;
+
+            cursor: pointer;
+
+        }
 
 
         /* =====================================================
@@ -923,7 +1022,9 @@
 
         .empty {
 
-            padding: 45px 20px;
+            padding:
+                45px
+                20px;
 
             text-align: center;
 
@@ -1065,11 +1166,29 @@
             }
 
 
+            .month-separator {
+
+                gap: 10px;
+
+                margin:
+                    18px
+                    0
+                    8px;
+
+                font-size: 10px;
+
+                letter-spacing: 1.6px;
+
+            }
+
+
             /* LEKCJE NA TELEFONIE */
 
             .lesson {
 
-                padding: 20px 0;
+                padding:
+                    20px
+                    0;
 
                 text-align: left;
 
@@ -1179,69 +1298,18 @@
 
             }
 
+
+            .month-separator {
+
+                gap: 8px;
+
+                font-size: 9px;
+
+                letter-spacing: 1.3px;
+
+            }
+
         }
-
-        .image-close {
-    position: fixed !important;
-    top: 20px !important;
-    left: 50% !important;
-    right: auto !important;
-    bottom: auto !important;
-    transform: translateX(-50%) !important;
-
-    z-index: 10001 !important;
-
-    width: 45px;
-    height: 45px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: white;
-    background: rgba(255,255,255,.08);
-    border: 1px solid rgba(255,255,255,.15);
-    border-radius: 50%;
-
-    font-size: 22px;
-    cursor: pointer;
-}
-
-        .day-new {
-
-    position: absolute;
-
-    top: 12px;
-
-    right: 14px;
-
-    padding:
-        5px
-        9px;
-
-    color: white;
-
-    background: #e53935;
-
-    border:
-        1px solid
-        #ff6b6b;
-
-    border-radius: 6px;
-
-    font-size: 9px;
-
-    font-weight: 800;
-
-    letter-spacing: 1px;
-
-    line-height: 1;
-
-    box-shadow:
-        0 4px 15px
-        rgba(229,57,53,.25);
-
-}
 
     </style>
 
@@ -1547,10 +1615,14 @@ async function loadLessons() {
             await response.json();
 
 
-allDays.sort(
-    (a, b) =>
-        b.date.localeCompare(a.date)
-);
+        /* =============================================
+           NAJNOWSZE DNI NA GÓRZE
+        ============================================= */
+
+        allDays.sort(
+            (a, b) =>
+                b.date.localeCompare(a.date)
+        );
 
 
         renderDays();
@@ -1579,84 +1651,28 @@ allDays.sort(
 
 }
 
-function getWeekRange(dateString) {
 
-    const date =
-        new Date(
-            `${dateString}T12:00:00`
-        );
+/* =====================================================
+   MIESIĄCE
+===================================================== */
 
+const MONTHS = [
 
-    const day =
-        date.getDay();
+    "",
+    "STYCZEŃ",
+    "LUTY",
+    "MARZEC",
+    "KWIECIEŃ",
+    "MAJ",
+    "CZERWIEC",
+    "LIPIEC",
+    "SIERPIEŃ",
+    "WRZESIEŃ",
+    "PAŹDZIERNIK",
+    "LISTOPAD",
+    "GRUDZIEŃ"
 
-
-    // Poniedziałek = 1
-    // Niedziela = 0
-
-    const monday =
-        new Date(date);
-
-
-    const mondayOffset =
-        day === 0
-            ? -6
-            : 1 - day;
-
-
-    monday.setDate(
-        date.getDate() + mondayOffset
-    );
-
-
-    const friday =
-        new Date(monday);
-
-
-    friday.setDate(
-        monday.getDate() + 4
-    );
-
-
-    return {
-        monday,
-        friday
-    };
-
-}
-
-function formatShortDate(date) {
-
-    const day =
-        date.getDate();
-
-
-    const month =
-        date.getMonth() + 1;
-
-
-    const months = [
-
-        "",
-        "stycznia",
-        "lutego",
-        "marca",
-        "kwietnia",
-        "maja",
-        "czerwca",
-        "lipca",
-        "sierpnia",
-        "września",
-        "października",
-        "listopada",
-        "grudnia"
-
-    ];
-
-
-    return `${day} ${months[month]}`;
-
-}
+];
 
 
 /* =====================================================
@@ -1690,114 +1706,209 @@ function renderDays() {
     }
 
 
+    /* =============================================
+       DZISIAJ
+    ============================================= */
+
+    const today =
+        new Date()
+            .toLocaleDateString(
+                "sv-SE",
+                {
+                    timeZone:
+                        "Europe/Warsaw"
+                }
+            );
+
+
+    let previousMonth = null;
+
+
+    /* =============================================
+       RENDER DNI
+    ============================================= */
+
     allDays.forEach(
         (day, index) => {
 
+            const [
+                year,
+                month
+            ] =
+                day.date.split("-");
+
+
+            const monthNumber =
+                Number(month);
+
+
+            /* =========================================
+               NOWY MIESIĄC
+            ========================================= */
+
+            if (
+                monthNumber !==
+                previousMonth
+            ) {
+
+                const separator =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                separator.className =
+                    "month-separator";
+
+
+                separator.textContent =
+                    MONTHS[monthNumber];
+
+
+                container.appendChild(
+                    separator
+                );
+
+
+                previousMonth =
+                    monthNumber;
+
+            }
+
+
+            /* =========================================
+               KARTA DNIA
+            ========================================= */
+
             const card =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
 
             card.className =
                 "day-card";
 
 
-            card.style.animationDelay =
-                `${index * .05}s`;
+            /* =========================================
+               DZISIAJ = NOWOŚĆ
+            ========================================= */
+
+            const isNew =
+                day.date === today;
+
+
+            /* =========================================
+               DANE DNIA
+            ========================================= */
+
+            const weekday =
+                getWeekdayName(
+                    day.date
+                );
 
 
             const lessonCount =
-                Array.isArray(day.lessons)
+                Array.isArray(
+                    day.lessons
+                )
                     ? day.lessons.length
                     : 0;
 
 
-            const weekday =
-                getWeekdayName(day.date);
+            /* =========================================
+               HTML KARTY
+            ========================================= */
+
+            card.innerHTML = `
+
+                ${
+                    isNew
+                        ? `
+                            <div class="day-new">
+
+                                NOWOŚĆ!
+
+                            </div>
+                        `
+                        : ""
+                }
 
 
-const today =
-    new Date()
-        .toLocaleDateString(
-            "sv-SE",
-            {
-                timeZone: "Europe/Warsaw"
-            }
-        );
+                <div class="day-left">
+
+                    <div class="day-icon">
+
+                        📚
+
+                    </div>
 
 
-const isNew =
-    day.date === today;
+                    <div class="day-info">
+
+                        <h2>
+
+                            ${escapeHtml(
+                                formatDate(
+                                    day.date
+                                )
+                            )}
+
+                        </h2>
 
 
-card.innerHTML = `
+                        <p>
 
-    ${
-        isNew
-            ? `
-                <div class="day-new">
+                            ${escapeHtml(
+                                weekday
+                            )}
 
-                    NOWOŚĆ!
+                            -
+
+                            ${lessonCount}
+
+                            ${lessonWord(
+                                lessonCount
+                            )}
+
+                        </p>
+
+                    </div>
 
                 </div>
-            `
-            : ""
-    }
 
 
-    <div class="day-left">
+                <div class="day-arrow">
 
-        <div class="day-icon">
+                    →
 
-            📚
+                </div>
 
-        </div>
-
-
-        <div class="day-info">
-
-            <h2>
-
-                ${escapeHtml(
-                    formatDate(day.date)
-                )}
-
-            </h2>
+            `;
 
 
-            <p>
+            /* =========================================
+               ANIMACJA
+            ========================================= */
 
-                ${escapeHtml(
-                    weekday
-                )}
-                -
-                ${lessonCount}
-                ${lessonWord(
-                    lessonCount
-                )}
-
-            </p>
-
-        </div>
-
-    </div>
+            card.style.animationDelay =
+                `${index * .05}s`;
 
 
-    <div class="day-arrow">
-
-        →
-
-    </div>
-
-`;
-
+            /* =========================================
+               KLIKNIĘCIE
+            ========================================= */
 
             card.addEventListener(
                 "click",
-                () => showDay(day)
+                () =>
+                    showDay(day)
             );
 
 
-            container.appendChild(card);
+            container.appendChild(
+                card
+            );
 
         }
     );
@@ -1830,12 +1941,19 @@ function showDay(day) {
     document
         .getElementById("detailWeekday")
         .textContent =
-            getWeekdayName(day.date);
+            getWeekdayName(
+                day.date
+            );
 
 
-    renderLessons(day.lessons);
+    renderLessons(
+        day.lessons
+    );
 
-    renderMaterials(day.files);
+
+    renderMaterials(
+        day.files
+    );
 
 
     window.scrollTo({
@@ -1857,12 +1975,15 @@ function showDays() {
 
     document
         .getElementById("dayDetails")
-        .classList.remove("active");
+        .classList.remove(
+            "active"
+        );
 
 
     document
         .getElementById("daysView")
-        .style.display = "block";
+        .style.display =
+            "block";
 
 
     window.scrollTo({
@@ -1883,7 +2004,9 @@ function showDays() {
 function renderLessons(lessons) {
 
     const container =
-        document.getElementById("lessonList");
+        document.getElementById(
+            "lessonList"
+        );
 
 
     container.innerHTML = "";
@@ -1914,7 +2037,9 @@ function renderLessons(lessons) {
         (lesson, index) => {
 
             const element =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
 
             element.className =
@@ -1948,10 +2073,10 @@ function renderLessons(lessons) {
                 </h3>
 
 
-<p>${escapeHtml(
-    lesson.content ||
-    "Brak informacji."
-)}</p>
+                <p>${escapeHtml(
+                    lesson.content ||
+                    "Brak informacji."
+                )}</p>
 
 
                 ${
@@ -2048,7 +2173,9 @@ function renderLessons(lessons) {
                             "Załącznik";
 
 
-                        if (isImage(url)) {
+                        if (
+                            isImage(url)
+                        ) {
 
                             photoCount++;
 
@@ -2183,7 +2310,7 @@ function renderLessons(lessons) {
                         ) {
 
                             button.textContent =
-                                `📎 Ukryj załączniki`;
+                                "📎 Ukryj załączniki";
 
                         } else {
 
@@ -2281,7 +2408,9 @@ function renderMaterials(files) {
                 "Materiał";
 
 
-            if (isImage(url)) {
+            if (
+                isImage(url)
+            ) {
 
                 photoCount++;
 
@@ -2541,7 +2670,9 @@ document.addEventListener(
 
 function lessonWord(count) {
 
-    if (count === 1) {
+    if (
+        count === 1
+    ) {
 
         return " lekcja";
 
@@ -2573,7 +2704,8 @@ function formatDate(date) {
         year,
         month,
         day
-    ] = date.split("-");
+    ] =
+        date.split("-");
 
 
     const months = [
@@ -2627,12 +2759,29 @@ function getWeekdayName(date) {
 
 function escapeHtml(text) {
 
-    return String(text ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+    return String(
+        text ?? ""
+    )
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
 
 }
 
