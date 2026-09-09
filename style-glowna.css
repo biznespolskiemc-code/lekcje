@@ -342,7 +342,7 @@ a {
 
     align-items: center;
 
-    gap: 50px;
+    gap: 34px;
 }
 
 .menu a {
@@ -352,6 +352,7 @@ a {
     color: #dddddd;
 
     font-size: 13px;
+    white-space: nowrap;
 
     font-weight: 600;
 
@@ -1284,8 +1285,8 @@ footer {
     }
 
     .menu a {
-
         font-size: 11px;
+        white-space: nowrap;
     }
 
     .hero {
