@@ -508,7 +508,7 @@ a {
     line-height: 1.05;
     font-weight: 800;
     letter-spacing: -3px;
-    max-width: none;
+    max-width: 700;
     white-space: nowrap;
 }
 .hero h1 span {
