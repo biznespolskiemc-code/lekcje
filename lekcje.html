@@ -156,6 +156,48 @@
 
         }
 
+        .week-separator {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin:
+        14px
+        0;
+
+    color:
+        rgba(255,255,255,.32);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
+
+}
+
+
+.week-separator::before,
+.week-separator::after {
+
+    content: "";
+
+    flex: 1;
+
+    height: 1px;
+
+    background:
+        rgba(255,255,255,.10);
+
+}
+
 
         .day-card:hover {
 
@@ -1534,6 +1576,85 @@ allDays.sort(
         `;
 
     }
+
+}
+
+function getWeekRange(dateString) {
+
+    const date =
+        new Date(
+            `${dateString}T12:00:00`
+        );
+
+
+    const day =
+        date.getDay();
+
+
+    // Poniedziałek = 1
+    // Niedziela = 0
+
+    const monday =
+        new Date(date);
+
+
+    const mondayOffset =
+        day === 0
+            ? -6
+            : 1 - day;
+
+
+    monday.setDate(
+        date.getDate() + mondayOffset
+    );
+
+
+    const friday =
+        new Date(monday);
+
+
+    friday.setDate(
+        monday.getDate() + 4
+    );
+
+
+    return {
+        monday,
+        friday
+    };
+
+}
+
+function formatShortDate(date) {
+
+    const day =
+        date.getDate();
+
+
+    const month =
+        date.getMonth() + 1;
+
+
+    const months = [
+
+        "",
+        "stycznia",
+        "lutego",
+        "marca",
+        "kwietnia",
+        "maja",
+        "czerwca",
+        "lipca",
+        "sierpnia",
+        "września",
+        "października",
+        "listopada",
+        "grudnia"
+
+    ];
+
+
+    return `${day} ${months[month]}`;
 
 }
 
