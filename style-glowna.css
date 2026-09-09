@@ -418,20 +418,16 @@ a {
 
 
 .hero-container {
-
     width: 90%;
-
     max-width: 1150px;
 
     margin: auto;
 
     display: grid;
 
-    grid-template-columns:
-        2fr
-        .75fr;
+    grid-template-columns: 1.6fr .4fr;
 
-    gap: 80px;
+    gap: 60px;
 
     align-items: center;
 }
