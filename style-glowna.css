@@ -425,7 +425,7 @@ a {
 
     display: grid;
 
-    grid-template-columns: 1.6fr .4fr;
+    grid-template-columns: 1fr .4fr;
 
     gap: 60px;
 
@@ -1209,7 +1209,7 @@ footer {
 
     .hero-container {
 
-        grid-template-columns: 0.5fr;
+        grid-template-columns: 2fr;
 
         gap: 45px;
 
