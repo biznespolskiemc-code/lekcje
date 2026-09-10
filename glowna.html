@@ -5,9 +5,12 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>LEKCJE | Strona glówna</title>
+    <title>LEKCJE | Strona główna</title>
 
     <meta
         name="description"
@@ -27,122 +30,281 @@
 
 </head>
 
+
 <body>
 
-<!-- =====================================================
-     TŁO
-===================================================== -->
 
-<div class="background">
+    <!-- =====================================================
+         TŁO
+    ====================================================== -->
 
-    <div class="background-glow glow-one"></div>
-    <div class="background-glow glow-two"></div>
+    <div class="background">
 
-    <div class="grid"></div>
+        <div class="background-glow glow-one"></div>
 
-</div>
+        <div class="background-glow glow-two"></div>
 
-
-<!-- =====================================================
-     NAWIGACJA
-===================================================== -->
-
-<nav class="navbar">
-
-    <div class="nav-container">
-
-        <a href="glowna.html" class="logo">
-            LEKCJE
-        </a>
-
-
-        <div class="menu">
-
-            <a
-                href="glowna.html"
-                class="active"
-            >
-                Strona główna
-            </a>
-
-            <a href="lekcje.html">
-                Lekcje
-            </a>
-
-        </div>
+        <div class="grid"></div>
 
     </div>
 
-</nav>
 
 
-<!-- =====================================================
-     SEGMENT 1 — STRONA GŁÓWNA
-===================================================== -->
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
 
-<main>
+    <nav class="navbar">
 
-    <section class="hero">
+        <div class="nav-container">
 
-    <div class="hero-container">
 
-        <div class="hero-content">
+            <!-- LOGO -->
 
-            <div class="hero-label">
-                <span></span>
+            <a
+                href="glowna.html"
+                class="logo"
+            >
                 LEKCJE
+            </a>
+
+
+
+            <!-- HAMBURGER -->
+
+            <div
+                class="hamburger"
+                id="hamburger"
+                aria-label="Menu"
+                aria-expanded="false"
+            >
+
+                <span></span>
+
+                <span></span>
+
+                <span></span>
+
             </div>
 
-            <h1>
-                Strona główna
-            </h1>
 
-            <p>
-                Ze względu na to, że dużo łatwiej jest mi tutaj
-                cokolwiek dodawać niż na messengerze, zrobiłem szybką
-                stronę.
-            </p>
 
-            <div class="hero-buttons">
+            <!-- MENU -->
+
+            <div
+                class="menu"
+                id="menu"
+            >
 
                 <a
-                    href="lekcje.html"
-                    class="primary-button"
+                    href="glowna.html"
+                    class="active"
                 >
-                    PRZEJDŹ DO LISTY LEKCJI
-                    <span>→</span>
+                    Strona główna
+                </a>
+
+                <a href="lekcje.html">
+                    Lekcje
                 </a>
 
             </div>
 
+
         </div>
 
-    </div>
-
-</section>
-
-</main>
+    </nav>
 
 
-<!-- =====================================================
-     FOOTER
-===================================================== -->
 
-<footer>
+    <!-- =====================================================
+         GŁÓWNA ZAWARTOŚĆ
+    ====================================================== -->
 
-    <div class="footer-container">
+    <main>
 
-        <strong>
-            LEKCJE
-        </strong>
 
-        <span>
-            © 2026 — Panel lekcji
-        </span>
+        <section class="hero">
 
-    </div>
 
-</footer>
+            <div class="hero-container">
+
+
+                <div class="hero-content">
+
+
+                    <!-- LABEL -->
+
+                    <div class="hero-label">
+
+                        <span></span>
+
+                        LEKCJE
+
+                    </div>
+
+
+
+                    <!-- TYTUŁ -->
+
+                    <h1>
+                        Strona główna
+                    </h1>
+
+
+
+                    <!-- OPIS -->
+
+                    <p>
+                        Ze względu na to, że dużo łatwiej jest mi tutaj
+                        cokolwiek dodawać niż na Messengerze, zrobiłem
+                        szybką stronę.
+                    </p>
+
+
+
+                    <!-- PRZYCISK -->
+
+                    <div class="hero-buttons">
+
+                        <a
+                            href="lekcje.html"
+                            class="primary-button"
+                        >
+
+                            <span class="button-text">
+                                PRZEJDŹ DO LISTY LEKCJI
+                            </span>
+
+                            <span class="button-arrow">
+                                →
+                            </span>
+
+                        </a>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        <div class="footer-container">
+
+            <strong>
+                LEKCJE
+            </strong>
+
+            <span>
+                © 2026 — Panel lekcji
+            </span>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         Jest tutaj, więc NIE potrzebujesz script.js
+    ====================================================== -->
+
+    <script>
+
+        const hamburger =
+            document.getElementById('hamburger');
+
+        const menu =
+            document.getElementById('menu');
+
+
+        /* =================================================
+           OTWIERANIE / ZAMYKANIE MENU
+        ================================================= */
+
+        hamburger.addEventListener('click', () => {
+
+            hamburger.classList.toggle('active');
+
+            menu.classList.toggle('active');
+
+
+            const menuIsOpen =
+                menu.classList.contains('active');
+
+
+            hamburger.setAttribute(
+                'aria-expanded',
+                menuIsOpen ? 'true' : 'false'
+            );
+
+        });
+
+
+
+        /* =================================================
+           ZAMYKANIE MENU PO KLIKNIĘCIU W LINK
+        ================================================= */
+
+        document
+            .querySelectorAll('.menu a')
+            .forEach(link => {
+
+                link.addEventListener('click', () => {
+
+                    hamburger.classList.remove('active');
+
+                    menu.classList.remove('active');
+
+                    hamburger.setAttribute(
+                        'aria-expanded',
+                        'false'
+                    );
+
+                });
+
+            });
+
+
+
+        /* =================================================
+           ZAMYKANIE MENU PO POWROCIE NA DESKTOP
+        ================================================= */
+
+        window.addEventListener('resize', () => {
+
+            if (window.innerWidth > 700) {
+
+                hamburger.classList.remove('active');
+
+                menu.classList.remove('active');
+
+                hamburger.setAttribute(
+                    'aria-expanded',
+                    'false'
+                );
+
+            }
+
+        });
+
+
+    </script>
 
 
 </body>
