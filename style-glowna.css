@@ -1099,16 +1099,22 @@ footer {
        LINKI
     ===================================================== */
 
-    .menu a {
-        position: relative;
+.menu a {
+    position: relative;
 
-        font-size: 21px;
-        font-weight: 700;
+    width: 100%;
+    padding: 16px 20px;
 
-        color: #8f8f8f;
+    text-align: center;
 
-        white-space: nowrap;
-    }
+    font-size: 21px;
+    font-weight: 700;
+
+    color: #8f8f8f;
+
+    text-decoration: none;
+    white-space: nowrap;
+}
 
 
     /* =====================================================
