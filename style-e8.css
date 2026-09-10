@@ -1,0 +1,1484 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+
+/* =====================================================
+   ZMIENNE
+===================================================== */
+
+:root {
+
+    --blue: #1775b9;
+    --blue-light: #18b0d6;
+    --blue-dark: #186e83;
+
+    --bg: #090909;
+    --card: #121212;
+
+    --white: #ffffff;
+    --text: #d6d6d6;
+    --muted: #858585;
+
+    --border: rgba(255, 255, 255, 0.08);
+
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    background: var(--bg);
+
+    color: var(--white);
+
+    font-family: 'Montserrat', sans-serif;
+
+    overflow-x: hidden;
+
+}
+
+
+/* =====================================================
+   TŁO
+===================================================== */
+
+.background {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -10;
+
+    overflow: hidden;
+
+    background: var(--bg);
+
+}
+
+
+/* =====================================================
+   SIATKA
+===================================================== */
+
+.grid {
+
+    position: absolute;
+
+    inset: 0;
+
+    opacity: 0.22;
+
+    background-image:
+
+        linear-gradient(
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 55px 55px;
+
+}
+
+
+/* =====================================================
+   NIEBIESKIE GLOW
+===================================================== */
+
+.background-glow {
+
+    position: absolute;
+
+    width: 600px;
+
+    height: 600px;
+
+    border-radius: 50%;
+
+    filter: blur(130px);
+
+    pointer-events: none;
+
+}
+
+
+.glow-one {
+
+    top: -300px;
+
+    left: -250px;
+
+    background: rgba(
+        23,
+        117,
+        185,
+        0.18
+    );
+
+}
+
+
+.glow-two {
+
+    right: -300px;
+
+    bottom: -300px;
+
+    background: rgba(
+        24,
+        176,
+        214,
+        0.12
+    );
+
+}
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.navbar {
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 76px;
+
+    z-index: 1000;
+
+    background: rgba(
+        9,
+        9,
+        9,
+        0.72
+    );
+
+    border-bottom: 1px solid var(--border);
+
+    backdrop-filter: blur(18px);
+
+    -webkit-backdrop-filter: blur(18px);
+
+}
+
+
+.nav-container {
+
+    position: relative;
+
+    width: 90%;
+
+    max-width: 1150px;
+
+    height: 100%;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo {
+
+    position: relative;
+
+    z-index: 1002;
+
+    color: var(--white);
+
+    text-decoration: none;
+
+    font-size: 21px;
+
+    font-weight: 800;
+
+    letter-spacing: -0.5px;
+
+    transition: color 0.25s ease;
+
+}
+
+
+.logo:hover {
+
+    color: var(--blue-light);
+
+}
+
+
+/* =====================================================
+   MENU DESKTOP
+===================================================== */
+
+.menu {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 34px;
+
+}
+
+
+.menu a {
+
+    position: relative;
+
+    color: #8f8f8f;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    transition:
+        color 0.25s ease;
+
+}
+
+
+.menu a:hover {
+
+    color: #ffffff;
+
+}
+
+
+/* =====================================================
+   AKTYWNA PODSTRONA
+===================================================== */
+
+.menu a.active {
+
+    color: var(--blue-light);
+
+}
+
+
+/* =====================================================
+   PODKREŚLENIE
+===================================================== */
+
+.menu a::after {
+
+    content: '';
+
+    position: absolute;
+
+    left: 50%;
+
+    bottom: -9px;
+
+    width: 0;
+
+    height: 2px;
+
+    border-radius: 10px;
+
+    background:
+        var(--blue-light);
+
+    transform:
+        translateX(-50%);
+
+    transition:
+        width 0.25s ease;
+
+    box-shadow:
+        0 0 10px
+        rgba(
+            24,
+            176,
+            214,
+            0.45
+        );
+
+}
+
+
+.menu a:hover::after,
+.menu a.active::after {
+
+    width: 100%;
+
+}
+
+
+/* =====================================================
+   HAMBURGER
+===================================================== */
+
+.hamburger {
+
+    display: none;
+
+    position: relative;
+
+    z-index: 1002;
+
+    width: 42px;
+
+    height: 42px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    transition:
+        background 0.25s ease;
+
+}
+
+
+.hamburger:hover {
+
+    background: rgba(
+        255,
+        255,
+        255,
+        0.05
+    );
+
+}
+
+
+.hamburger span {
+
+    display: block;
+
+    width: 23px;
+
+    height: 2px;
+
+    border-radius: 10px;
+
+    background: var(--white);
+
+    transition:
+        transform 0.3s ease,
+        opacity 0.2s ease;
+
+}
+
+
+/* =====================================================
+   HAMBURGER → X
+===================================================== */
+
+.hamburger.active span:nth-child(1) {
+
+    transform:
+        translateY(8px)
+        rotate(45deg);
+
+}
+
+
+.hamburger.active span:nth-child(2) {
+
+    opacity: 0;
+
+}
+
+
+.hamburger.active span:nth-child(3) {
+
+    transform:
+        translateY(-8px)
+        rotate(-45deg);
+
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+
+    position: relative;
+
+    z-index: 1;
+
+    min-height: 100vh;
+
+    padding-top: 76px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+/* =====================================================
+   HERO CONTAINER
+===================================================== */
+
+.hero-container {
+
+    width: 90%;
+
+    max-width: 900px;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+}
+
+
+/* =====================================================
+   HERO CONTENT
+===================================================== */
+
+.hero-content {
+
+    width: 100%;
+
+    max-width: 780px;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    animation:
+        heroAppear 0.8s
+        cubic-bezier(
+            .25,
+            1,
+            .5,
+            1
+        );
+
+}
+
+
+/* =====================================================
+   HERO ANIMACJA
+===================================================== */
+
+@keyframes heroAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(25px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =====================================================
+   LABEL
+===================================================== */
+
+.hero-label {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    margin-bottom: 24px;
+
+    color: var(--blue-light);
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+}
+
+
+.hero-label span {
+
+    width: 7px;
+
+    height: 7px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: var(--blue-light);
+
+    box-shadow:
+        0 0 12px
+        rgba(
+            24,
+            176,
+            214,
+            0.8
+        );
+
+}
+
+
+/* =====================================================
+   H1
+===================================================== */
+
+.hero h1 {
+
+    width: 100%;
+
+    margin: 0;
+
+    color: var(--white);
+
+    font-size: clamp(
+        42px,
+        6vw,
+        72px
+    );
+
+    line-height: 1.05;
+
+    font-weight: 800;
+
+    letter-spacing: -3px;
+
+    text-align: center;
+
+}
+
+
+/* =====================================================
+   OPIS
+===================================================== */
+
+.hero-content > p {
+
+    width: 100%;
+
+    max-width: 650px;
+
+    margin: 27px auto 0;
+
+    color: var(--muted);
+
+    font-size: 16px;
+
+    line-height: 1.8;
+
+    font-weight: 400;
+
+    text-align: center;
+
+}
+
+
+/* =====================================================
+   PRZYCISK — KONTENER
+===================================================== */
+
+.hero-buttons {
+
+    width: 100%;
+
+    margin-top: 34px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+/* DRUGI PRZYCISK BARDZIEJ ODDALONY */
+
+.hero-buttons + .hero-buttons {
+
+    margin-top: 22px;
+
+}
+
+
+/* =====================================================
+   GŁÓWNY PRZYCISK
+===================================================== */
+
+.primary-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 14px;
+
+    min-height: 52px;
+
+    padding: 0 25px;
+
+    border: 1px solid rgba(
+        24,
+        176,
+        214,
+        0.45
+    );
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(
+                23,
+                117,
+                185,
+                0.95
+            ),
+            rgba(
+                24,
+                176,
+                214,
+                0.85
+            )
+        );
+
+    color: var(--white);
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.5px;
+
+    box-shadow:
+        0 10px 30px
+        rgba(
+            23,
+            117,
+            185,
+            0.16
+        );
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        filter 0.25s ease;
+
+}
+
+/* =====================================================
+   KOLORY PRZYCISKÓW
+===================================================== */
+
+
+/* LISTA LEKCJI */
+
+.lessons-button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #1775b9,
+            #18b0d6
+        );
+
+    border-color:
+        rgba(
+            24,
+            176,
+            214,
+            0.45
+        );
+
+    box-shadow:
+        0 10px 30px
+        rgba(
+            23,
+            117,
+            185,
+            0.16
+        );
+
+}
+
+
+/* EGZAMIN ÓSMOKLASISTY */
+
+.exam-button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #6d28d9,
+            #9333ea
+        );
+
+    border-color:
+        rgba(
+            147,
+            51,
+            234,
+            0.5
+        );
+
+    box-shadow:
+        0 10px 30px
+        rgba(
+            109,
+            40,
+            217,
+            0.18
+        );
+
+}
+
+
+/* HOVER — LISTA LEKCJI */
+
+.lessons-button:hover {
+
+    box-shadow:
+        0 15px 35px
+        rgba(
+            23,
+            117,
+            185,
+            0.30
+        );
+
+}
+
+
+/* HOVER — EGZAMIN */
+
+.exam-button:hover {
+
+    box-shadow:
+        0 15px 35px
+        rgba(
+            109,
+            40,
+            217,
+            0.32
+        );
+
+}
+
+
+.button-text {
+
+    white-space: nowrap;
+
+}
+
+
+.button-arrow {
+
+    font-size: 20px;
+
+    line-height: 1;
+
+    transition:
+        transform 0.25s ease;
+
+}
+
+
+.primary-button:hover {
+
+    transform:
+        translateY(-3px);
+
+    filter:
+        brightness(1.08);
+
+    box-shadow:
+        0 15px 35px
+        rgba(
+            23,
+            117,
+            185,
+            0.28
+        );
+
+}
+
+
+.primary-button:hover
+.button-arrow {
+
+    transform:
+        translateX(4px);
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+
+    position: relative;
+
+    z-index: 2;
+
+    border-top:
+        1px solid var(--border);
+
+    background:
+        rgba(
+            9,
+            9,
+            9,
+            0.65
+        );
+
+}
+
+
+.footer-container {
+
+    width: 90%;
+
+    max-width: 1150px;
+
+    min-height: 80px;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+}
+
+
+.footer-container strong {
+
+    color: var(--white);
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+}
+
+
+.footer-container span {
+
+    color: #666;
+
+    font-size: 12px;
+
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 850px) {
+
+    .hero-container {
+
+        width: 88%;
+
+    }
+
+
+    .hero-content {
+
+        max-width: 700px;
+
+    }
+
+
+    .hero h1 {
+
+        font-size: clamp(
+            40px,
+            8vw,
+            62px
+        );
+
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .navbar {
+        height: 70px;
+    }
+
+    .nav-container {
+        width: 90%;
+        max-width: 1150px;
+        height: 100%;
+        margin: 0 auto;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+
+    /* =====================================================
+       HAMBURGER
+    ===================================================== */
+
+    .hamburger {
+        display: flex;
+        position: relative;
+        z-index: 1002;
+
+        width: 42px;
+        height: 42px;
+
+        border-radius: 10px;
+
+        cursor: pointer;
+
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        gap: 6px;
+    }
+
+
+    /* =====================================================
+       MENU MOBILNE
+    ===================================================== */
+
+    .menu {
+        position: fixed !important;
+
+        top: 70px !important;
+        left: 0 !important;
+        right: auto !important;
+
+        width: 100% !important;
+        height: calc(100vh - 70px) !important;
+
+        margin: 0 !important;
+        padding: 45px 25px !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+
+        align-items: center !important;
+        justify-content: flex-start !important;
+
+        gap: 32px !important;
+
+        background: rgba(9, 9, 9, 0.97);
+
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+
+        border-top: 1px solid var(--border);
+
+        /* ZAMKNIĘTE */
+        transform: translateX(100%) !important;
+
+        /* ANIMACJA */
+        transition: transform 0.35s cubic-bezier(.25, 1, .5, 1) !important;
+
+        overflow-y: auto;
+
+        z-index: 1001;
+    }
+
+
+    /* =====================================================
+       MENU OTWARTE
+    ===================================================== */
+
+    .menu.active {
+        transform: translateX(0) !important;
+    }
+
+
+    /* =====================================================
+       LINKI
+    ===================================================== */
+
+    .menu a {
+        position: relative;
+
+        font-size: 21px;
+        font-weight: 700;
+
+        color: #8f8f8f;
+
+        white-space: nowrap;
+    }
+
+
+    /* =====================================================
+       AKTYWNA STRONA
+    ===================================================== */
+
+    .menu a.active {
+        color: var(--blue-light);
+    }
+
+
+    /* =====================================================
+       PODKREŚLENIE
+    ===================================================== */
+
+    .menu a.active::after {
+        content: '';
+
+        position: absolute;
+
+        left: 50%;
+        bottom: -9px;
+
+        width: 100%;
+        height: 2px;
+
+        border-radius: 10px;
+
+        background: var(--blue-light);
+
+        transform: translateX(-50%);
+
+        box-shadow:
+            0 0 10px rgba(24, 176, 214, 0.45);
+    }
+
+}
+}
+
+
+    /* =================================================
+       HAMBURGER
+    ================================================= */
+
+    .hamburger {
+
+        display: flex;
+
+    }
+
+
+    /* =================================================
+       MENU MOBILNE
+    ================================================= */
+
+    .menu {
+
+        position: fixed;
+
+        top: 70px;
+
+        right: -100%;
+
+        left: auto;
+
+        width: 100%;
+
+        height: calc(
+            100vh - 70px
+        );
+
+        margin: 0;
+
+        padding: 45px 25px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: flex-start;
+
+        gap: 32px;
+
+        background:
+            rgba(
+                9,
+                9,
+                9,
+                0.97
+            );
+
+        backdrop-filter:
+            blur(18px);
+
+        -webkit-backdrop-filter:
+            blur(18px);
+
+        border-top:
+            1px solid var(--border);
+
+        transform: none;
+
+        transition:
+            right 0.35s
+            cubic-bezier(
+                .25,
+                1,
+                .5,
+                1
+            );
+
+        overflow-y: auto;
+
+    }
+
+
+/* =================================================
+   AKTYWNA PODSTRONA NA TELEFONIE
+===================================================== */
+
+.menu a.active {
+
+    color: var(--blue-light);
+
+}
+
+
+.menu a.active::after {
+
+    display: block;
+
+    content: '';
+
+    position: absolute;
+
+    left: 50%;
+
+    bottom: -9px;
+
+    width: 100%;
+
+    height: 2px;
+
+    border-radius: 10px;
+
+    background:
+        var(--blue-light);
+
+    transform:
+        translateX(-50%);
+
+    box-shadow:
+        0 0 10px
+        rgba(
+            24,
+            176,
+            214,
+            0.45
+        );
+
+}
+
+
+    .menu a {
+
+        font-size: 21px;
+
+        font-weight: 700;
+
+    }
+
+
+    /* =================================================
+       HERO
+    ================================================= */
+
+    .hero {
+
+        min-height:
+            calc(
+                100vh - 70px
+            );
+
+        padding-top: 70px;
+
+        padding-bottom: 70px;
+
+    }
+
+
+    .hero-container {
+
+        width: 88%;
+
+        max-width: 600px;
+
+    }
+
+
+    .hero-content {
+
+        max-width: 100%;
+
+    }
+
+
+    .hero-label {
+
+        margin-bottom: 20px;
+
+        font-size: 11px;
+
+        letter-spacing: 1.7px;
+
+    }
+
+
+    .hero h1 {
+
+        font-size: clamp(
+            38px,
+            10vw,
+            52px
+        );
+
+        letter-spacing: -2px;
+
+        line-height: 1.08;
+
+    }
+
+
+    .hero-content > p {
+
+        max-width: 520px;
+
+        margin-top: 23px;
+
+        font-size: 14px;
+
+        line-height: 1.75;
+
+    }
+
+
+    .hero-buttons {
+
+        margin-top: 29px;
+
+    }
+
+
+    .primary-button {
+
+        min-height: 50px;
+
+        padding: 0 20px;
+
+        font-size: 10px;
+
+    }
+
+
+    /* =================================================
+       FOOTER
+    ================================================= */
+
+    .footer-container {
+
+        min-height: 75px;
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        gap: 7px;
+
+        text-align: center;
+
+    }
+
+}
+
+
+/* =====================================================
+   MAŁE TELEFONY
+===================================================== */
+
+@media (max-width: 420px) {
+
+
+    .logo {
+
+        font-size: 19px;
+
+    }
+
+
+    .hero-container {
+
+        width: 90%;
+
+    }
+
+
+    .hero h1 {
+
+        font-size: 38px;
+
+    }
+
+
+    .hero-content > p {
+
+        font-size: 13px;
+
+        line-height: 1.7;
+
+    }
+
+
+    .primary-button {
+
+        width: 100%;
+
+        max-width: 310px;
+
+        padding: 0 15px;
+
+    }
+
+
+    .button-text {
+
+        font-size: 10px;
+
+    }
+
+}
+
+
+/* =====================================================
+   REDUKCJA ANIMACJI
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+
+        scroll-behavior: auto;
+
+    }
+
+
+    .hero-content {
+
+        animation: none;
+
+    }
+
+
+    .primary-button,
+    .primary-button .button-arrow,
+    .menu,
+    .hamburger span {
+
+        transition: none;
+
+    }
+
+}
