@@ -255,22 +255,11 @@ body {
 
 .menu {
 
-    position: absolute;
-
-    top: 50%;
-
-    left: 50%;
-
-    transform: translate(
-        -50%,
-        -50%
-    );
-
     display: flex;
 
     align-items: center;
 
-    gap: 50px;
+    gap: 34px;
 
 }
 
@@ -289,26 +278,27 @@ body {
 
     white-space: nowrap;
 
-    transition: color 0.25s ease;
+    transition:
+        color 0.25s ease;
 
 }
 
 
 .menu a:hover {
 
-    color: var(--white);
+    color: #ffffff;
 
 }
 
 
 .menu a.active {
 
-    color: var(--white);
+    color: #ffffff;
 
 }
 
 
-/* KROPKA POD AKTYWNYM LINKIEM */
+/* NIEBIESKA KROPKA POD AKTYWNYM LINKIEM */
 
 .menu a.active::after {
 
@@ -326,13 +316,12 @@ body {
 
     border-radius: 50%;
 
-    background: var(--blue-light);
+    background: #18b0d6;
 
     transform: translateX(-50%);
 
     box-shadow:
-        0 0 10px
-        rgba(
+        0 0 10px rgba(
             24,
             176,
             214,
@@ -902,11 +891,23 @@ footer {
     }
 
 
-    .nav-container {
+.nav-container {
 
-        width: 90%;
+    width: 90%;
 
-    }
+    max-width: 1150px;
+
+    height: 100%;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+}
 
 
     /* =================================================
