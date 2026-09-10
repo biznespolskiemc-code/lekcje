@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>LEKCJE | E8</title>
+
+    <meta
+        name="description"
+        content="Lekcje"
+    >
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="Polak.png"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style-e8.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         TŁO
+    ====================================================== -->
+
+    <div class="background">
+
+        <div class="background-glow glow-one"></div>
+
+        <div class="background-glow glow-two"></div>
+
+        <div class="grid"></div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <nav class="navbar">
+
+        <div class="nav-container">
+
+
+            <!-- LOGO -->
+
+            <a
+                href="glowna.html"
+                class="logo"
+            >
+                LEKCJE
+            </a>
+
+
+
+            <!-- HAMBURGER -->
+
+            <div
+                class="hamburger"
+                id="hamburger"
+                aria-label="Menu"
+                aria-expanded="false"
+            >
+
+                <span></span>
+
+                <span></span>
+
+                <span></span>
+
+            </div>
+
+
+
+            <!-- MENU -->
+
+            <div
+                class="menu"
+                id="menu"
+            >
+
+                <a href="glowna.html">
+                    Strona główna
+                </a>
+
+                <a href="lekcje.html">
+                    Lekcje
+                </a>
+
+                <a
+                    href="e8.html"
+                    class="active"
+                >
+                    E8
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =====================================================
+         GŁÓWNA ZAWARTOŚĆ
+    ====================================================== -->
+
+    <main>
+
+
+        <section class="hero">
+
+
+            <div class="hero-container">
+
+
+                <div class="hero-content">
+
+
+                    <!-- LABEL -->
+
+                    <div class="hero-label">
+
+                        <span></span>
+
+                        LEKCJE
+
+                    </div>
+
+
+
+                    <!-- TYTUŁ -->
+
+                    <h1>
+                        Egzamin ósmoklasisty
+                    </h1>
+
+
+
+                    <!-- OPIS -->
+
+                    <p>
+                        Poniżej znajdują się linki do najważniejszych stron
+                        do nauki do E8. Wybierała p. Marlena Sikora
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        <div class="footer-container">
+
+            <strong>
+                LEKCJE
+            </strong>
+
+            <span>
+                © 2026 — Egzamin ósmoklasisty
+            </span>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         Jest tutaj, więc NIE potrzebujesz script.js
+    ====================================================== -->
+
+    <script>
+
+        const hamburger =
+            document.getElementById('hamburger');
+
+        const menu =
+            document.getElementById('menu');
+
+
+        /* =================================================
+           OTWIERANIE / ZAMYKANIE MENU
+        ================================================= */
+
+        hamburger.addEventListener('click', () => {
+
+            hamburger.classList.toggle('active');
+
+            menu.classList.toggle('active');
+
+
+            const menuIsOpen =
+                menu.classList.contains('active');
+
+
+            hamburger.setAttribute(
+                'aria-expanded',
+                menuIsOpen ? 'true' : 'false'
+            );
+
+        });
+
+
+
+        /* =================================================
+           ZAMYKANIE MENU PO KLIKNIĘCIU W LINK
+        ================================================= */
+
+        document
+            .querySelectorAll('.menu a')
+            .forEach(link => {
+
+                link.addEventListener('click', () => {
+
+                    hamburger.classList.remove('active');
+
+                    menu.classList.remove('active');
+
+                    hamburger.setAttribute(
+                        'aria-expanded',
+                        'false'
+                    );
+
+                });
+
+            });
+
+
+
+        /* =================================================
+           ZAMYKANIE MENU PO POWROCIE NA DESKTOP
+        ================================================= */
+
+        window.addEventListener('resize', () => {
+
+            if (window.innerWidth > 700) {
+
+                hamburger.classList.remove('active');
+
+                menu.classList.remove('active');
+
+                hamburger.setAttribute(
+                    'aria-expanded',
+                    'false'
+                );
+
+            }
+
+        });
+
+
+    </script>
+
+
+</body>
+
+</html>
