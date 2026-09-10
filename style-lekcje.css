@@ -274,22 +274,15 @@ a {
 }
 
 .menu a {
-
     position: relative;
 
-    color: #8f8f8f;
+    width: 100%;
+    max-width: none;
 
-    text-decoration: none;
+    text-align: center;
 
-    font-size: 14px;
-
-    font-weight: 600;
-
-    white-space: nowrap;
-
-    transition:
-        color .25s ease;
-
+    font-size: 21px;
+    font-weight: 700;
 }
 
 
