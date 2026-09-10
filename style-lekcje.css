@@ -245,7 +245,7 @@ a {
     width: 100%;
     max-width: 1000px;
     margin: 0 auto;
-    padding: 105px 20px 80px;
+    padding: 150px 20px 80px;
 }
 
 .lessons-header {
@@ -864,9 +864,9 @@ footer {
         height: 2px;
     }
 
-    .lessons-page {
-        padding: 95px 15px 60px;
-    }
+.lessons-page {
+    padding: 125px 15px 60px;
+}
 
     .lessons-header {
         margin-bottom: 35px;
