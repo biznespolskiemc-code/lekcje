@@ -656,6 +656,15 @@ body {
 }
 
 
+/* DRUGI PRZYCISK BARDZIEJ ODDALONY */
+
+.hero-buttons + .hero-buttons {
+
+    margin-top: 22px;
+
+}
+
+
 /* =====================================================
    GŁÓWNY PRZYCISK
 ===================================================== */
@@ -723,6 +732,104 @@ body {
         transform 0.25s ease,
         box-shadow 0.25s ease,
         filter 0.25s ease;
+
+}
+
+/* =====================================================
+   KOLORY PRZYCISKÓW
+===================================================== */
+
+
+/* LISTA LEKCJI */
+
+.lessons-button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #1775b9,
+            #18b0d6
+        );
+
+    border-color:
+        rgba(
+            24,
+            176,
+            214,
+            0.45
+        );
+
+    box-shadow:
+        0 10px 30px
+        rgba(
+            23,
+            117,
+            185,
+            0.16
+        );
+
+}
+
+
+/* EGZAMIN ÓSMOKLASISTY */
+
+.exam-button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #6d28d9,
+            #9333ea
+        );
+
+    border-color:
+        rgba(
+            147,
+            51,
+            234,
+            0.5
+        );
+
+    box-shadow:
+        0 10px 30px
+        rgba(
+            109,
+            40,
+            217,
+            0.18
+        );
+
+}
+
+
+/* HOVER — LISTA LEKCJI */
+
+.lessons-button:hover {
+
+    box-shadow:
+        0 15px 35px
+        rgba(
+            23,
+            117,
+            185,
+            0.30
+        );
+
+}
+
+
+/* HOVER — EGZAMIN */
+
+.exam-button:hover {
+
+    box-shadow:
+        0 15px 35px
+        rgba(
+            109,
+            40,
+            217,
+            0.32
+        );
 
 }
 
