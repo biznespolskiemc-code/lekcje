@@ -2808,6 +2808,112 @@ function escapeHtml(text) {
 
 }
 
+/* =====================================================
+   HAMBURGER MENU
+===================================================== */
+
+const hamburger =
+    document.getElementById("hamburger");
+
+const menu =
+    document.getElementById("menu");
+
+
+if (hamburger && menu) {
+
+    hamburger.addEventListener(
+        "click",
+        () => {
+
+            hamburger.classList.toggle(
+                "active"
+            );
+
+            menu.classList.toggle(
+                "active"
+            );
+
+
+            const menuIsOpen =
+                menu.classList.contains(
+                    "active"
+                );
+
+
+            hamburger.setAttribute(
+                "aria-expanded",
+                menuIsOpen
+                    ? "true"
+                    : "false"
+            );
+
+        }
+    );
+
+
+    /* ================================================
+       ZAMYKANIE PO KLIKNIĘCIU W LINK
+    ================================================ */
+
+    menu
+        .querySelectorAll("a")
+        .forEach(link => {
+
+            link.addEventListener(
+                "click",
+                () => {
+
+                    hamburger.classList.remove(
+                        "active"
+                    );
+
+                    menu.classList.remove(
+                        "active"
+                    );
+
+                    hamburger.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                }
+            );
+
+        });
+
+
+    /* ================================================
+       RESET PO PRZEJŚCIU NA DESKTOP
+    ================================================ */
+
+    window.addEventListener(
+        "resize",
+        () => {
+
+            if (
+                window.innerWidth > 700
+            ) {
+
+                hamburger.classList.remove(
+                    "active"
+                );
+
+                menu.classList.remove(
+                    "active"
+                );
+
+                hamburger.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+            }
+
+        }
+    );
+
+}
+
 </script>
 
 
