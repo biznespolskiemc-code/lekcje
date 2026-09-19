@@ -1,5 +1,5 @@
 /* =====================================================
-   PODSTRONA „INNE” — RAMKI
+   PODSTRONA „INNE” — KARTY
 ===================================================== */
 
 .other-card {
@@ -11,42 +11,110 @@
 
     padding: 28px;
 
-    background: rgba(255, 255, 255, 0.035);
+    position: relative;
 
-    border: 1px solid rgba(255, 255, 255, 0.09);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.045),
+            rgba(255, 255, 255, 0.018)
+        );
 
-    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.085);
+
+    border-radius: 18px;
 
     text-align: left;
 
     box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.18);
+        0 12px 35px rgba(0, 0, 0, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.025);
+
+    overflow: hidden;
 
     transition:
         transform 0.25s ease,
         border-color 0.25s ease,
-        background 0.25s ease;
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+/* =====================================================
+   DELIKATNY AKCENT W KARCIE
+===================================================== */
+
+.other-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(23, 117, 185, 0.75),
+            transparent
+        );
+
+    opacity: 0.7;
+
+    transition:
+        opacity 0.25s ease;
 }
 
 
 .other-card:hover {
 
-    transform: translateY(-3px);
+    transform: translateY(-4px);
 
-    background: rgba(255, 255, 255, 0.05);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.055),
+            rgba(255, 255, 255, 0.025)
+        );
 
-    border-color: rgba(23, 117, 185, 0.45);
+    border-color: rgba(23, 117, 185, 0.35);
 
+    box-shadow:
+        0 16px 40px rgba(0, 0, 0, 0.25),
+        0 0 25px rgba(23, 117, 185, 0.045);
+}
+
+
+.other-card:hover::before {
+
+    opacity: 1;
 }
 
 
 /* =====================================================
-   TYTUŁ RAMKI
+   ZAWARTOŚĆ
+===================================================== */
+
+.other-card-content {
+
+    position: relative;
+
+    z-index: 1;
+}
+
+
+/* =====================================================
+   TYTUŁ
 ===================================================== */
 
 .other-card h2 {
 
-    margin: 0 0 12px;
+    margin: 0 0 11px;
 
     color: #ffffff;
 
@@ -55,6 +123,8 @@
     font-weight: 700;
 
     line-height: 1.3;
+
+    letter-spacing: -0.2px;
 }
 
 
@@ -62,11 +132,11 @@
    OPIS
 ===================================================== */
 
-.other-card > p {
+.other-card p {
 
     margin: 0 0 20px;
 
-    color: rgba(255, 255, 255, 0.68);
+    color: rgba(255, 255, 255, 0.66);
 
     font-size: 14px;
 
@@ -84,45 +154,52 @@
 
     flex-direction: column;
 
-    gap: 7px;
+    gap: 6px;
 
     margin-bottom: 20px;
 
-    padding: 15px 17px;
+    padding: 14px 16px;
 
-    background: rgba(0, 0, 0, 0.18);
+    background: rgba(0, 0, 0, 0.20);
+
+    border: 1px solid rgba(255, 255, 255, 0.045);
 
     border-left: 3px solid #1775b9;
 
-    border-radius: 9px;
+    border-radius: 10px;
 }
 
 
 .login-info strong {
 
-    color: #ffffff;
+    color: rgba(255, 255, 255, 0.92);
 
-    font-size: 13px;
+    font-size: 12px;
 
     font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.4px;
 }
 
 
 .login-info span {
 
-    color: rgba(255, 255, 255, 0.62);
+    color: rgba(255, 255, 255, 0.58);
 
     font-size: 13px;
 
-    line-height: 1.6;
+    line-height: 1.55;
 }
 
 
 /* =====================================================
    PRZYCISK
+   HTML UŻYWA .primary-button
 ===================================================== */
 
-.other-button {
+.other-card .primary-button {
 
     display: inline-flex;
 
@@ -130,15 +207,15 @@
 
     justify-content: space-between;
 
-    gap: 25px;
+    gap: 28px;
 
-    min-width: 210px;
+    min-width: 215px;
 
-    padding: 12px 17px;
+    padding: 12px 16px;
 
     border: 1px solid rgba(255, 255, 255, 0.08);
 
-    border-radius: 9px;
+    border-radius: 10px;
 
     background: #1775b9;
 
@@ -150,14 +227,51 @@
 
     font-weight: 700;
 
+    box-shadow:
+        0 5px 16px rgba(23, 117, 185, 0.18);
+
     transition:
         background 0.2s ease,
         transform 0.2s ease,
-        border-color 0.2s ease;
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 
-.other-button span {
+.other-card .primary-button:hover {
+
+    background: #18b0d6;
+
+    border-color: rgba(255, 255, 255, 0.14);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 22px rgba(24, 176, 214, 0.20);
+}
+
+
+/* =====================================================
+   TEKST PRZYCISKU
+===================================================== */
+
+.other-card .button-text {
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   STRZAŁKA
+===================================================== */
+
+.other-card .button-arrow {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
 
     font-size: 18px;
 
@@ -168,29 +282,29 @@
 }
 
 
-.other-button:hover {
-
-    background: #18b0d6;
-
-    border-color: rgba(255, 255, 255, 0.15);
-
-    transform: translateY(-1px);
-}
-
-
-.other-button:hover span {
+.other-card .primary-button:hover .button-arrow {
 
     transform: translateX(4px);
 }
 
 
 /* =====================================================
-   ODSTĘP POMIĘDZY RAMKAMI
+   ODSTĘPY POMIĘDZY KARTAMI
 ===================================================== */
 
 .hero-content > .other-card + .other-card {
 
     margin-top: 18px;
+}
+
+
+/* =====================================================
+   PIERWSZA KARTA
+===================================================== */
+
+.hero-content > .other-card:first-of-type {
+
+    margin-top: 28px;
 }
 
 
@@ -202,21 +316,33 @@
 
     .other-card {
 
+        margin-top: 18px;
+
         padding: 21px;
 
-        border-radius: 14px;
+        border-radius: 15px;
+    }
 
-        margin-top: 18px;
+
+    .hero-content > .other-card:first-of-type {
+
+        margin-top: 22px;
     }
 
 
     .other-card h2 {
 
+        margin-bottom: 9px;
+
         font-size: 18px;
+
+        line-height: 1.35;
     }
 
 
-    .other-card > p {
+    .other-card p {
+
+        margin-bottom: 17px;
 
         font-size: 13px;
 
@@ -226,29 +352,65 @@
 
     .login-info {
 
+        gap: 5px;
+
+        margin-bottom: 17px;
+
         padding: 13px 14px;
+
+        border-radius: 9px;
     }
 
 
     .login-info strong {
 
-        font-size: 12px;
+        font-size: 11px;
     }
 
 
     .login-info span {
 
         font-size: 12px;
+
+        line-height: 1.55;
     }
 
 
-    .other-button {
+    .other-card .primary-button {
 
         width: 100%;
 
         min-width: 0;
 
         padding: 12px 15px;
+
+        border-radius: 9px;
+    }
+
+}
+
+
+/* =====================================================
+   BARDZO MAŁE EKRANY
+===================================================== */
+
+@media (max-width: 380px) {
+
+    .other-card {
+
+        padding: 18px;
+    }
+
+
+    .other-card h2 {
+
+        font-size: 17px;
+    }
+
+
+    .other-card .primary-button {
+
+        font-size: 12px;
     }
 
 }
