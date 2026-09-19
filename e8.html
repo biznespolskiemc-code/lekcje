@@ -10,11 +10,11 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>LEKCJE | Potrzebne linki</title>
+    <title>LEKCJE | Inne</title>
 
     <meta
         name="description"
-        content="Najważniejsze linki do nauki i przygotowania do egzaminu ósmoklasisty."
+        content="Dodatkowe materiały, strony i informacje przydatne w nauce."
     >
 
     <link
@@ -49,7 +49,6 @@
     </div>
 
 
-
     <!-- =====================================================
          NAVBAR
     ====================================================== -->
@@ -69,7 +68,6 @@
             </a>
 
 
-
             <!-- HAMBURGER -->
 
             <div
@@ -82,13 +80,10 @@
             >
 
                 <span></span>
-
                 <span></span>
-
                 <span></span>
 
             </div>
-
 
 
             <!-- MENU -->
@@ -111,7 +106,7 @@
                     class="active"
                     aria-current="page"
                 >
-                    Potrzebne linki
+                    Inne
                 </a>
 
             </div>
@@ -120,7 +115,6 @@
         </div>
 
     </nav>
-
 
 
     <!-- =====================================================
@@ -139,19 +133,17 @@
                     <!-- TYTUŁ -->
 
                     <h1>
-                        Potrzebne
+                        Inne
                     </h1>
-
 
 
                     <!-- OPIS -->
 
                     <p>
-                        Poniżej znajdują się linki do najważniejszych stron
-                        do nauki. Między innymi Matlandia oraz strony
-                        do nauki i przygotowania do egzaminów.
+                        Tutaj znajdziesz dodatkowe strony, materiały
+                        i informacje, które mogą przydać się podczas
+                        nauki oraz przygotowań do egzaminu ósmoklasisty.
                     </p>
-
 
 
                     <!-- =================================================
@@ -183,7 +175,6 @@
                     </div>
 
 
-
                     <!-- =================================================
                          OKE GDAŃSK
                     ================================================== -->
@@ -213,7 +204,6 @@
                     </div>
 
 
-
                     <!-- =================================================
                          INSTALING
                     ================================================== -->
@@ -241,7 +231,6 @@
                         </a>
 
                     </div>
-
 
 
                     <!-- =================================================
@@ -282,7 +271,6 @@
     </main>
 
 
-
     <!-- =====================================================
          FOOTER
     ====================================================== -->
@@ -304,10 +292,8 @@
     </footer>
 
 
-
     <!-- =====================================================
          JAVASCRIPT
-         Jest tutaj, więc NIE potrzebujesz script.js
     ====================================================== -->
 
     <script>
@@ -317,7 +303,6 @@
 
         const menu =
             document.getElementById('menu');
-
 
 
         /* =================================================
@@ -350,12 +335,10 @@
         }
 
 
-
         hamburger.addEventListener(
             'click',
             toggleMenu
         );
-
 
 
         /* =================================================
@@ -381,7 +364,6 @@
         );
 
 
-
         /* =================================================
            ZAMYKANIE MENU PO KLIKNIĘCIU W LINK
         ================================================= */
@@ -394,9 +376,13 @@
                     'click',
                     () => {
 
-                        hamburger.classList.remove('active');
+                        hamburger.classList.remove(
+                            'active'
+                        );
 
-                        menu.classList.remove('active');
+                        menu.classList.remove(
+                            'active'
+                        );
 
                         hamburger.setAttribute(
                             'aria-expanded',
@@ -414,7 +400,6 @@
             });
 
 
-
         /* =================================================
            ZAMYKANIE MENU PO POWROCIE NA DESKTOP
         ================================================= */
@@ -425,9 +410,13 @@
 
                 if (window.innerWidth > 700) {
 
-                    hamburger.classList.remove('active');
+                    hamburger.classList.remove(
+                        'active'
+                    );
 
-                    menu.classList.remove('active');
+                    menu.classList.remove(
+                        'active'
+                    );
 
                     hamburger.setAttribute(
                         'aria-expanded',
