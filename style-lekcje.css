@@ -1,8 +1,44 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
 
+
+/* =====================================================
+   ZMIENNE
+===================================================== */
+
+:root {
+
+    --blue: #1775b9;
+    --blue-light: #18b0d6;
+    --blue-dark: #186e83;
+
+    --black: #050505;
+    --bg: #090909;
+    --bg-2: #0d0d0d;
+
+    --card: #111111;
+    --card-2: #151515;
+
+    --white: #ffffff;
+    --text: #f5f5f5;
+    --text-muted: #8f8f8f;
+    --text-soft: #b8b8b8;
+
+    --border: rgba(255, 255, 255, 0.08);
+
+    --shadow:
+        0 20px 60px
+        rgba(0, 0, 0, 0.45);
+
+    --blue-glow:
+        0 0 35px
+        rgba(24, 176, 214, 0.18);
+}
+
+
 /* =====================================================
    RESET
 ===================================================== */
+
 * {
     margin: 0;
     padding: 0;
@@ -15,136 +51,159 @@ html {
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background: #090909;
-    color: #ffffff;
+    background: var(--bg);
+    color: var(--white);
     min-height: 100vh;
     overflow-x: hidden;
 }
 
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-button,
-a {
-    -webkit-tap-highlight-color: transparent;
-}
-
-:root {
-    --blue: #1775b9;
-    --blue-light: #18b0d6;
-    --blue-dark: #186e83;
-    --bg: #090909;
-    --card: #121212;
-    --white: #ffffff;
-    --text: #d6d6d6;
-    --muted: #858585;
-    --border: rgba(255,255,255,.08);
-}
 
 /* =====================================================
    TŁO
 ===================================================== */
+
 .background {
     position: fixed;
     inset: 0;
     z-index: 0;
-    overflow: hidden;
     pointer-events: none;
+    overflow: hidden;
+
     background:
         radial-gradient(
-            circle at 50% 45%,
-            rgba(23,117,185,.055),
-            transparent 42%
+            circle at 50% 20%,
+            rgba(23, 117, 185, 0.10),
+            transparent 45%
         ),
         #090909;
 }
 
-.grid {
+.background::before {
+    content: '';
     position: absolute;
     inset: 0;
-    opacity: .18;
+
     background-image:
-        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+        linear-gradient(
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        );
+
     background-size: 55px 55px;
-    mask-image: radial-gradient(circle at center, black 0%, transparent 75%);
-    -webkit-mask-image: radial-gradient(circle at center, black 0%, transparent 75%);
+
+    mask-image:
+        radial-gradient(
+            ellipse at center,
+            black 0%,
+            transparent 75%
+        );
+
+    -webkit-mask-image:
+        radial-gradient(
+            ellipse at center,
+            black 0%,
+            transparent 75%
+        );
 }
 
-.background-glow {
+.background::after {
+    content: '';
     position: absolute;
     width: 500px;
     height: 500px;
-    border-radius: 50%;
+
+    left: 50%;
+    top: 5%;
+
+    transform: translateX(-50%);
+
+    background:
+        rgba(24, 176, 214, 0.08);
+
     filter: blur(120px);
-    opacity: .7;
+    opacity: 0.7;
 }
 
-.glow-one {
-    left: -300px;
-    top: 10%;
-    background: rgba(23,117,185,.12);
-}
-
-.glow-two {
-    right: -300px;
-    bottom: 0;
-    background: rgba(24,176,214,.10);
-}
 
 /* =====================================================
    NAVBAR
 ===================================================== */
+
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 70px;
-    z-index: 999;
-    display: flex;
-    align-items: center;
-    background: rgba(5,5,5,.68);
-    backdrop-filter: blur(22px) saturate(180%);
-    -webkit-backdrop-filter: blur(22px) saturate(180%);
-    border-bottom: 1px solid rgba(255,255,255,.07);
-    box-shadow: 0 10px 35px rgba(0,0,0,.35);
+    height: 76px;
+    z-index: 1000;
+
+    background: rgba(
+        9,
+        9,
+        9,
+        0.72
+    );
+
+    border-bottom: 1px solid var(--border);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
 }
+
+
+/* =====================================================
+   NAV CONTAINER
+===================================================== */
 
 .nav-container {
     position: relative;
+
     width: 90%;
     max-width: 1150px;
     height: 100%;
+
     margin: 0 auto;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
+
+/* =====================================================
+   LOGO
+===================================================== */
+
 .logo {
     position: relative;
     z-index: 1002;
-    display: inline-flex;
-    align-items: center;
+
     color: var(--white);
+    text-decoration: none;
+
     font-size: 21px;
     font-weight: 800;
-    line-height: 1;
-    letter-spacing: -.5px;
-    white-space: nowrap;
-    transition: color .25s ease;
+
+    letter-spacing: -0.5px;
+
+    transition:
+        color 0.25s ease;
 }
 
 .logo:hover {
     color: var(--blue-light);
 }
 
+
 /* =====================================================
    MENU DESKTOP
 ===================================================== */
+
 .menu {
     display: flex;
     align-items: center;
@@ -153,19 +212,17 @@ a {
 
 .menu a {
     position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: auto;
-    max-width: max-content;
-    padding: 8px 0;
-    color: #ffffff;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 1;
+
+    color: #8f8f8f;
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 600;
+
     white-space: nowrap;
-    text-align: center;
-    transition: color .25s ease;
+
+    transition:
+        color 0.25s ease;
 }
 
 .menu a:hover {
@@ -176,56 +233,102 @@ a {
     color: var(--blue-light);
 }
 
-.menu a.active::after {
+
+/* =====================================================
+   PODKREŚLENIE MENU
+===================================================== */
+
+.menu a::after {
     content: '';
+
     position: absolute;
+
     left: 50%;
-    bottom: -4px;
-    width: 28px;
+    bottom: -9px;
+
+    width: 0;
     height: 2px;
+
     border-radius: 10px;
+
     background: var(--blue-light);
+
     transform: translateX(-50%);
-    box-shadow: 0 0 10px rgba(24,176,214,.45);
+
+    transition:
+        width 0.25s ease;
+
+    box-shadow:
+        0 0 10px
+        rgba(
+            24,
+            176,
+            214,
+            0.45
+        );
 }
+
+.menu a:hover::after,
+.menu a.active::after {
+    width: 100%;
+}
+
 
 /* =====================================================
    HAMBURGER
 ===================================================== */
+
 .hamburger {
     display: none;
+
     position: relative;
     z-index: 1002;
+
     width: 42px;
     height: 42px;
-    padding: 0;
-    border: 0;
+
     border-radius: 10px;
-    background: transparent;
+
     cursor: pointer;
+
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
     gap: 6px;
-    transition: background .25s ease;
+
+    transition:
+        background 0.25s ease;
 }
 
 .hamburger:hover {
-    background: rgba(255,255,255,.05);
+    background: rgba(
+        255,
+        255,
+        255,
+        0.05
+    );
 }
 
 .hamburger span {
     display: block;
+
     width: 23px;
     height: 2px;
-    flex-shrink: 0;
+
     border-radius: 10px;
+
     background: var(--white);
-    transition: transform .3s ease, opacity .2s ease;
+
+    transition:
+        transform 0.3s ease,
+        opacity 0.2s ease;
 }
 
 .hamburger.active span:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
+    transform:
+        translateY(8px)
+        rotate(45deg);
 }
 
 .hamburger.active span:nth-child(2) {
@@ -233,48 +336,59 @@ a {
 }
 
 .hamburger.active span:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
+    transform:
+        translateY(-8px)
+        rotate(-45deg);
 }
+
 
 /* =====================================================
    STRONA LEKCJI
 ===================================================== */
+
 .lessons-page {
     position: relative;
     z-index: 1;
+
     width: 100%;
     max-width: 1000px;
+
     margin: 0 auto;
-    padding: 150px 20px 80px;
+
+    padding:
+        150px
+        20px
+        80px;
 }
+
+
+/* =====================================================
+   NAGŁÓWEK
+===================================================== */
 
 .lessons-header {
     text-align: center;
-    margin-bottom: 45px;
-}
 
-.hero-label {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    padding: 9px 14px;
-    border: 1px solid rgba(23,117,185,.25);
-    border-radius: 30px;
-    background: rgba(23,117,185,.06);
-    color: #82c9ed;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    line-height: 1;
+    margin-bottom: 55px;
 }
 
 .lessons-header h1 {
-    margin: 0 0 18px;
-    font-size: clamp(42px, 7vw, 72px);
+    color: var(--white);
+
+    font-size:
+        clamp(
+            42px,
+            7vw,
+            72px
+        );
+
     font-weight: 800;
-    letter-spacing: -2.5px;
+
     line-height: 1.05;
+
+    letter-spacing: -2px;
+
+    margin-bottom: 18px;
 }
 
 .lessons-header h1 strong {
@@ -283,729 +397,1203 @@ a {
 
 .lessons-header p {
     max-width: 650px;
+
     margin: 0 auto;
-    color: rgba(255,255,255,.45);
-    line-height: 1.8;
+
+    color: var(--text-muted);
+
     font-size: 15px;
+    font-weight: 500;
+
+    line-height: 1.7;
 }
+
 
 /* =====================================================
    LISTA DNI
 ===================================================== */
-#daysList {
+
+.days-list {
     display: flex;
     flex-direction: column;
+
     gap: 12px;
 }
+
+
+/* =====================================================
+   SEPARATOR MIESIĄCA
+===================================================== */
 
 .month-separator {
     display: flex;
     align-items: center;
-    gap: 14px;
-    margin: 22px 0 10px;
-    color: rgba(255,255,255,.35);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    white-space: nowrap;
-}
+    gap: 15px;
 
-.month-separator:first-child {
-    margin-top: 0;
+    margin:
+        28px
+        0
+        8px;
 }
 
 .month-separator::before,
 .month-separator::after {
     content: '';
+
     flex: 1;
+
     height: 1px;
-    background: rgba(255,255,255,.10);
+
+    background:
+        var(--border);
 }
+
+.month-separator span {
+    color: var(--text-muted);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1.5px;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   KARTA DNIA
+===================================================== */
 
 .day-card {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    min-width: 0;
-    padding: 22px 25px;
-    background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 15px;
-    cursor: pointer;
-    opacity: 0;
-    animation: dayAppear .5s ease forwards;
-    transition: transform .3s ease, background .3s ease, border-color .3s ease;
+
+    background:
+        rgba(
+            17,
+            17,
+            17,
+            0.82
+        );
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 10px 35px
+        rgba(0, 0, 0, 0.18);
+
+    transition:
+        border-color 0.25s ease,
+        transform 0.25s ease,
+        background 0.25s ease;
 }
 
 .day-card:hover {
-    transform: translateX(5px);
-    background: rgba(24,176,214,.055);
-    border-color: rgba(24,176,214,.4);
+    border-color:
+        rgba(
+            24,
+            176,
+            214,
+            0.25
+        );
+
+    background:
+        rgba(
+            19,
+            19,
+            19,
+            0.9
+        );
 }
 
-.day-left {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    min-width: 0;
-}
 
-.day-icon {
-    width: 48px;
-    height: 48px;
+/* =====================================================
+   NAGŁÓWEK DNIA
+===================================================== */
+
+.day-header {
+    position: relative;
+
+    width: 100%;
+
+    padding:
+        20px
+        24px;
+
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    color: var(--blue-light);
-    background: rgba(24,176,214,.08);
-    border: 1px solid rgba(24,176,214,.15);
-    border-radius: 12px;
-    font-size: 20px;
+    justify-content: space-between;
+
+    cursor: pointer;
 }
 
 .day-info {
-    min-width: 0;
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
 }
 
-.day-info h2 {
-    margin: 0 0 5px;
-    font-size: 18px;
-    line-height: 1.25;
+.day-date {
+    color: var(--white);
+
+    font-size: 17px;
+    font-weight: 700;
 }
 
-.day-info p {
-    margin: 0;
-    color: rgba(255,255,255,.4);
-    font-size: 13px;
-    line-height: 1.4;
-    text-transform: lowercase;
+.day-weekday {
+    color: var(--text-muted);
+
+    font-size: 12px;
+    font-weight: 500;
 }
 
-.day-arrow {
-    flex-shrink: 0;
-    color: rgba(255,255,255,.3);
-    font-size: 22px;
-    transition: transform .3s ease, color .3s ease;
-}
 
-.day-card:hover .day-arrow {
-    color: var(--blue-light);
-    transform: translateX(5px);
-}
+/* =====================================================
+   NOWOŚĆ
+===================================================== */
 
 .day-new {
-    position: absolute;
-    top: 12px;
-    right: 14px;
-    z-index: 2;
-    padding: 5px 9px;
-    color: #ffffff;
-    background: #e53935;
-    border: 1px solid #ff6b6b;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: fit-content;
+
+    margin-top: 5px;
+    padding:
+        4px
+        9px;
+
+    border:
+        1px solid
+        #d61841;
+
     border-radius: 6px;
+
+    color: #ffffff;
+
     font-size: 9px;
     font-weight: 800;
-    letter-spacing: 1px;
-    line-height: 1;
-    box-shadow: 0 4px 15px rgba(229,57,53,.25);
+
+    letter-spacing: 0.7px;
+
+    text-transform: uppercase;
+
+    background:
+        rgba(
+            214,
+            24,
+            65,
+            0.08
+        );
 }
+
+
+/* =====================================================
+   STRZAŁKA
+===================================================== */
+
+.day-arrow {
+    width: 10px;
+    height: 10px;
+
+    border-right:
+        2px solid
+        var(--text-muted);
+
+    border-bottom:
+        2px solid
+        var(--text-muted);
+
+    transform:
+        rotate(45deg);
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.25s ease;
+}
+
+.day-card.active .day-arrow {
+    transform:
+        rotate(225deg);
+}
+
+.day-header:hover .day-arrow {
+    border-color:
+        var(--blue-light);
+}
+
 
 /* =====================================================
    SZCZEGÓŁY DNIA
 ===================================================== */
-#dayDetails {
+
+.day-details {
     display: none;
-    animation: detailsAppear .45s ease both;
+
+    padding:
+        0
+        24px
+        24px;
+
+    border-top:
+        1px solid
+        var(--border);
 }
 
-#dayDetails.active {
+.day-card.active .day-details {
     display: block;
 }
 
-.back-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    margin-bottom: 30px;
-    padding: 10px 16px;
-    color: rgba(255,255,255,.55);
-    background: rgba(255,255,255,.035);
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 9px;
-    cursor: pointer;
-    font-family: inherit;
-    transition: color .25s ease, transform .25s ease, border-color .25s ease;
-}
-
-.back-button:hover {
-    color: white;
-    transform: translateX(-4px);
-    border-color: rgba(24,176,214,.4);
-}
-
-.details-header {
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-.details-header .date-label {
-    margin-bottom: 7px;
-    color: var(--blue-light);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-}
-
-.details-header .weekday-label {
-    margin-bottom: 10px;
-    color: rgba(255,255,255,.4);
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.details-header h2 {
-    margin: 0;
-    font-size: clamp(34px, 5vw, 52px);
-    font-weight: 800;
-}
 
 /* =====================================================
    LEKCJE
 ===================================================== */
-.lessons-box {
-    padding: 30px;
-    background: linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.018));
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 18px;
+
+.lessons {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+    padding-top: 20px;
 }
 
 .lesson {
-    padding: 25px 0;
-    border-bottom: 1px solid rgba(255,255,255,.08);
-    text-align: left;
+    padding:
+        15px
+        17px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.06
+        );
+
+    border-radius: 11px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.025
+        );
+
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease;
 }
 
-.lesson:first-child {
-    padding-top: 0;
+.lesson:hover {
+    border-color:
+        rgba(
+            24,
+            176,
+            214,
+            0.18
+        );
+
+    background:
+        rgba(
+            24,
+            176,
+            214,
+            0.035
+        );
 }
 
-.lesson:last-child {
-    padding-bottom: 0;
-    border-bottom: none;
-}
+.lesson-name {
+    color: var(--white);
 
-.lesson-number {
-    margin-bottom: 7px;
-    color: var(--blue-light);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-align: left;
-}
-
-.lesson h3 {
-    margin: 0 0 7px;
-    font-size: 22px;
-    line-height: 1.3;
-    text-align: left;
-}
-
-.lesson p {
-    margin: 0;
-    color: rgba(255,255,255,.6);
     font-size: 14px;
-    line-height: 1.55;
-    white-space: pre-wrap;
-    text-align: left;
-}
-
-/* =====================================================
-   ZAŁĄCZNIKI
-===================================================== */
-.lesson-attachments {
-    margin-top: 16px;
-}
-
-.lesson-attachments-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 9px 13px;
-    color: white;
-    background: rgba(24,176,214,.06);
-    border: 1px solid rgba(24,176,214,.18);
-    border-radius: 9px;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 13px;
     font-weight: 700;
-    transition: background .25s ease, border-color .25s ease, transform .25s ease;
+
+    margin-bottom: 5px;
 }
 
-.lesson-attachments-button:hover {
-    background: rgba(24,176,214,.13);
-    border-color: rgba(24,176,214,.45);
-    transform: translateY(-2px);
+.lesson-description {
+    color: var(--text-muted);
+
+    font-size: 12px;
+    font-weight: 500;
+
+    line-height: 1.6;
 }
 
-.lesson-attachments-content {
-    display: none;
-    margin-top: 15px;
-}
-
-.lesson-attachments-content.active {
-    display: block;
-}
-
-.lesson-attachment-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 12px;
-}
 
 /* =====================================================
    MATERIAŁY
 ===================================================== */
+
 .materials {
-    margin-top: 30px;
-    padding-top: 25px;
-    border-top: 1px solid rgba(255,255,255,.08);
+    margin-top: 20px;
 }
 
 .materials-title {
-    margin-bottom: 18px;
-    font-size: 18px;
+    margin-bottom: 10px;
+
+    color: var(--text-soft);
+
+    font-size: 11px;
     font-weight: 700;
+
+    letter-spacing: 0.5px;
+
+    text-transform: uppercase;
 }
 
 .materials-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+
+    gap: 8px;
 }
 
 .material {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 14px;
-    color: white;
-    background: rgba(24,176,214,.06);
-    border: 1px solid rgba(24,176,214,.18);
-    border-radius: 9px;
-    font-size: 13px;
-    transition: background .25s ease, border-color .25s ease, transform .25s ease;
+    gap: 7px;
+
+    padding:
+        8px
+        11px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 8px;
+
+    color: var(--text-soft);
+
+    text-decoration: none;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.025
+        );
+
+    transition:
+        color 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease;
 }
 
 .material:hover {
-    background: rgba(24,176,214,.13);
-    border-color: rgba(24,176,214,.45);
-    transform: translateY(-2px);
+    color: var(--blue-light);
+
+    border-color:
+        rgba(
+            24,
+            176,
+            214,
+            0.3
+        );
+
+    background:
+        rgba(
+            24,
+            176,
+            214,
+            0.05
+        );
 }
+
+
+/* =====================================================
+   ZAŁĄCZNIKI
+===================================================== */
+
+.attachments {
+    margin-top: 20px;
+}
+
+.attachments-title {
+    margin-bottom: 10px;
+
+    color: var(--text-soft);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+
+    text-transform: uppercase;
+}
+
+.attachments-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.attachment {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    padding:
+        11px
+        13px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 9px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.025
+        );
+
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease;
+}
+
+.attachment:hover {
+    border-color:
+        rgba(
+            24,
+            176,
+            214,
+            0.25
+        );
+
+    background:
+        rgba(
+            24,
+            176,
+            214,
+            0.035
+        );
+}
+
+.attachment-name {
+    min-width: 0;
+
+    color: var(--text-soft);
+
+    font-size: 11px;
+    font-weight: 600;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.attachment-download {
+    flex-shrink: 0;
+
+    color: var(--blue-light);
+
+    text-decoration: none;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    transition:
+        color 0.2s ease;
+}
+
+.attachment-download:hover {
+    color: #ffffff;
+}
+
 
 /* =====================================================
    GALERIA
 ===================================================== */
-.photo-gallery {
+
+.gallery {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-bottom: 18px;
+
+    grid-template-columns:
+        repeat(
+            3,
+            1fr
+        );
+
+    gap: 8px;
+
+    margin-top: 20px;
 }
 
-.photo-card {
-    position: relative;
-    aspect-ratio: 16 / 11;
-    overflow: hidden;
-    background: rgba(255,255,255,.03);
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 12px;
-    cursor: pointer;
-    transition: transform .3s ease, border-color .3s ease;
-}
-
-.photo-card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(24,176,214,.45);
-}
-
-.photo-card img {
-    width: 100%;
-    height: 100%;
+.gallery img {
     display: block;
+
+    width: 100%;
+    height: 150px;
+
     object-fit: cover;
-    transition: transform .4s ease;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    border:
+        1px solid
+        var(--border);
+
+    transition:
+        transform 0.25s ease,
+        opacity 0.25s ease,
+        border-color 0.25s ease;
 }
 
-.photo-card:hover img {
-    transform: scale(1.04);
+.gallery img:hover {
+    transform: scale(1.015);
+
+    opacity: 0.9;
+
+    border-color:
+        rgba(
+            24,
+            176,
+            214,
+            0.3
+        );
 }
 
-.photo-card::after {
-    content: '↗';
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    background: rgba(0,0,0,.6);
-    border: 1px solid rgba(255,255,255,.15);
-    border-radius: 8px;
-    font-size: 15px;
-    opacity: 0;
-    transition: opacity .25s ease;
-}
-
-.photo-card:hover::after {
-    opacity: 1;
-}
 
 /* =====================================================
    PODGLĄD ZDJĘCIA
 ===================================================== */
-#imageViewer {
+
+.image-viewer {
     position: fixed;
+
     inset: 0;
-    z-index: 9999;
+
+    z-index: 2000;
+
     display: none;
     align-items: center;
     justify-content: center;
+
     padding: 30px;
-    background: rgba(0,0,0,.86);
-    backdrop-filter: blur(12px);
-    cursor: pointer;
+
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            0.88
+        );
+
+    backdrop-filter:
+        blur(12px);
+
+    -webkit-backdrop-filter:
+        blur(12px);
 }
 
-#imageViewer.active {
+.image-viewer.active {
     display: flex;
 }
 
-#imageViewer img {
-    max-width: 95vw;
-    max-height: 90vh;
+.image-viewer img {
+    display: block;
+
+    max-width: 90vw;
+    max-height: 88vh;
+
     object-fit: contain;
-    border-radius: 12px;
-    box-shadow: 0 20px 80px rgba(0,0,0,.6);
-    cursor: default;
-    animation: imageOpen .3s ease both;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 30px 80px
+        rgba(
+            0,
+            0,
+            0,
+            0.65
+        );
 }
 
-.image-close {
-    position: fixed !important;
-    top: 20px !important;
-    left: 50% !important;
-    right: auto !important;
-    bottom: auto !important;
-    transform: translateX(-50%) !important;
-    z-index: 10001 !important;
-    width: 45px;
-    height: 45px;
+.image-viewer-close {
+    position: absolute;
+
+    top: 25px;
+    right: 25px;
+
+    width: 42px;
+    height: 42px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0;
-    color: white;
-    background: rgba(255,255,255,.08);
-    border: 1px solid rgba(255,255,255,.15);
-    border-radius: 50%;
-    font-family: inherit;
-    font-size: 22px;
-    line-height: 1;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.1
+        );
+
+    border-radius: 10px;
+
+    color: #ffffff;
+
+    font-size: 24px;
+    font-weight: 400;
+
     cursor: pointer;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.05
+        );
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease;
 }
+
+.image-viewer-close:hover {
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.1
+        );
+
+    border-color:
+        rgba(
+            255,
+            255,
+            255,
+            0.2
+        );
+}
+
 
 /* =====================================================
-   INNE
+   BRAK DANYCH
 ===================================================== */
+
 .empty {
-    padding: 45px 20px;
+    padding:
+        50px
+        20px;
+
     text-align: center;
-    color: rgba(255,255,255,.35);
+
+    color: var(--text-muted);
+
+    font-size: 14px;
+    font-weight: 500;
 }
 
+
+/* =====================================================
+   ŁADOWANIE
+===================================================== */
+
 .loading {
-    padding: 40px;
+    padding:
+        50px
+        20px;
+
     text-align: center;
-    color: rgba(255,255,255,.4);
+
+    color: var(--text-muted);
+
+    font-size: 13px;
+    font-weight: 500;
 }
+
+.loading::after {
+    content: '...';
+
+    display: inline-block;
+
+    width: 20px;
+
+    animation:
+        loadingDots 1.2s
+        infinite;
+}
+
+@keyframes loadingDots {
+
+    0%,
+    20% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    80%,
+    100% {
+        opacity: 0;
+    }
+}
+
 
 /* =====================================================
    STOPKA
 ===================================================== */
-footer {
+
+.footer {
     position: relative;
     z-index: 1;
-    padding: 28px 0;
-    border-top: 1px solid rgba(255,255,255,.06);
-    background: #070707;
+
+    width: 100%;
+
+    padding:
+        30px
+        20px;
+
+    text-align: center;
+
+    border-top:
+        1px solid
+        var(--border);
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+    font-weight: 500;
 }
 
-.footer-container {
-    width: 90%;
-    max-width: 1150px;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: #555;
-    font-size: 10px;
+.footer a {
+    color: var(--text-muted);
+
+    text-decoration: none;
+
+    transition:
+        color 0.25s ease;
 }
 
-.footer-container strong {
-    color: #aaa;
-    font-size: 13px;
-    letter-spacing: 2px;
+.footer a:hover {
+    color: var(--blue-light);
 }
+
 
 /* =====================================================
    ANIMACJE
 ===================================================== */
-@keyframes dayAppear {
+
+.day-card {
+    animation:
+        cardAppear
+        0.45s
+        ease
+        both;
+}
+
+@keyframes cardAppear {
+
     from {
         opacity: 0;
-        transform: translateY(15px);
+        transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-@keyframes detailsAppear {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes imageOpen {
-    from {
-        opacity: 0;
-        transform: scale(.96);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
 
 /* =====================================================
-   TELEFON
+   NAVBAR — MOBILE
 ===================================================== */
+
 @media (max-width: 700px) {
+
     .navbar {
         height: 70px;
     }
 
     .nav-container {
         width: 90%;
+        max-width: 1150px;
+        height: 100%;
+
+        margin: 0 auto;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
     .logo {
         font-size: 21px;
     }
 
+
+    /* =================================================
+       HAMBURGER
+    ================================================= */
+
     .hamburger {
         display: flex;
+
+        position: relative;
+        z-index: 1002;
+
+        width: 42px;
+        height: 42px;
+
+        border-radius: 10px;
+
+        cursor: pointer;
+
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        gap: 6px;
     }
+
+
+    /* =================================================
+       MENU MOBILNE
+    ================================================= */
 
     .menu {
         position: fixed;
+
         top: 70px;
         right: -100%;
         left: auto;
+
         width: 100%;
-        height: calc(100vh - 70px);
+        height:
+            calc(
+                100vh - 70px
+            );
+
         margin: 0;
-        padding: 45px 25px;
+
+        padding:
+            45px 25px;
+
         display: flex;
         flex-direction: column;
+
         align-items: center;
         justify-content: flex-start;
+
         gap: 32px;
-        background: rgba(9,9,9,.97);
-        backdrop-filter: blur(18px);
-        -webkit-backdrop-filter: blur(18px);
-        border-top: 1px solid var(--border);
+
+        background:
+            rgba(
+                9,
+                9,
+                9,
+                0.97
+            );
+
+        backdrop-filter:
+            blur(18px);
+
+        -webkit-backdrop-filter:
+            blur(18px);
+
+        border-top:
+            1px solid
+            var(--border);
+
         transform: none;
-        transition: right .35s cubic-bezier(.25,1,.5,1);
+
+        transition:
+            right 0.35s
+            cubic-bezier(
+                .25,
+                1,
+                .5,
+                1
+            );
+
         overflow-y: auto;
+
+        z-index: 1001;
     }
 
     .menu.active {
         right: 0;
     }
 
+
+    /* =================================================
+       LINKI MOBILE
+    ================================================= */
+
     .menu a {
-        width: auto;
-        max-width: max-content;
-        padding: 8px 0;
+        position: relative;
+
+        color: #8f8f8f;
+
+        text-decoration: none;
+
         font-size: 21px;
         font-weight: 700;
+
+        white-space: nowrap;
+    }
+
+    .menu a.active {
+        color: var(--blue-light);
     }
 
     .menu a.active::after {
-        bottom: -5px;
-        width: 28px;
+        display: block;
+
+        content: '';
+
+        position: absolute;
+
+        left: 50%;
+        bottom: -9px;
+
+        width: 100%;
         height: 2px;
+
+        border-radius: 10px;
+
+        background:
+            var(--blue-light);
+
+        transform:
+            translateX(-50%);
+
+        box-shadow:
+            0 0 10px
+            rgba(
+                24,
+                176,
+                214,
+                0.45
+            );
     }
 
-.lessons-page {
-    padding: 125px 15px 60px;
-}
+
+    /* =================================================
+       STRONA LEKCJI
+    ================================================= */
+
+    .lessons-page {
+        padding:
+            125px
+            15px
+            60px;
+    }
 
     .lessons-header {
-        margin-bottom: 35px;
+        margin-bottom: 40px;
     }
 
     .lessons-header h1 {
         font-size: 42px;
-        letter-spacing: -2px;
+
+        letter-spacing: -1.5px;
     }
 
     .lessons-header p {
         font-size: 13px;
+
+        line-height: 1.65;
     }
 
-    .day-card {
-        padding: 18px;
+
+    /* =================================================
+       KARTY DNI
+    ================================================= */
+
+    .day-header {
+        padding:
+            18px
+            18px;
     }
 
-    .day-left {
-        gap: 14px;
+    .day-details {
+        padding:
+            0
+            18px
+            18px;
     }
 
-    .day-icon {
-        width: 42px;
-        height: 42px;
-        font-size: 18px;
+    .day-date {
+        font-size: 15px;
     }
 
-    .day-info h2 {
-        font-size: 16px;
-    }
 
-    .day-info p {
-        font-size: 12px;
-    }
-
-    .day-new {
-        top: 9px;
-        right: 10px;
-        padding: 4px 7px;
-        font-size: 8px;
-    }
-
-    .month-separator {
-        gap: 10px;
-        margin: 18px 0 8px;
-        font-size: 10px;
-        letter-spacing: 1.6px;
-    }
-
-    .lessons-box {
-        padding: 22px;
-    }
+    /* =================================================
+       LEKCJE
+    ================================================= */
 
     .lesson {
-        padding: 20px 0;
+        padding:
+            14px
+            15px;
     }
 
-    .lesson-number {
-        margin-bottom: 6px;
-        font-size: 9px;
-        letter-spacing: 1.5px;
+    .lesson-name {
+        font-size: 13px;
     }
 
-    .lesson h3 {
-        margin-bottom: 6px;
-        font-size: 19px;
-        line-height: 1.3;
+    .lesson-description {
+        font-size: 11px;
     }
 
-    .lesson p {
-        font-size: 14px;
-        line-height: 1.45;
+
+    /* =================================================
+       GALERIA
+    ================================================= */
+
+    .gallery {
+        grid-template-columns:
+            repeat(
+                2,
+                1fr
+            );
     }
 
-    .lesson-attachments {
-        margin-top: 13px;
+    .gallery img {
+        height: 130px;
     }
 
-    .lesson-attachments-button {
-        padding: 8px 11px;
-        font-size: 12px;
+
+    /* =================================================
+       PODGLĄD ZDJĘCIA
+    ================================================= */
+
+    .image-viewer {
+        padding: 15px;
     }
 
-    .photo-gallery {
-        grid-template-columns: repeat(2, 1fr);
+    .image-viewer img {
+        max-width: 94vw;
+        max-height: 82vh;
     }
 
-    .footer-container {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
+    .image-viewer-close {
+        top: 15px;
+        right: 15px;
     }
 }
 
+
 /* =====================================================
-   BARDZO MAŁE TELEFONY
+   BARDZO MAŁE EKRANY
 ===================================================== */
+
 @media (max-width: 450px) {
-    .photo-gallery {
-        grid-template-columns: 1fr;
+
+    .lessons-page {
+        padding:
+            120px
+            12px
+            50px;
+    }
+
+    .lessons-header h1 {
+        font-size: 38px;
+    }
+
+    .day-header {
+        padding:
+            17px
+            16px;
+    }
+
+    .day-details {
+        padding:
+            0
+            16px
+            16px;
     }
 
     .day-arrow {
         display: none;
     }
 
-    .lessons-box {
-        padding: 18px;
-    }
-
-    .lesson h3 {
-        font-size: 18px;
-    }
-
-    .lesson p {
-        font-size: 13px;
-    }
-
-    .month-separator {
+    .lessons {
         gap: 8px;
-        font-size: 9px;
-        letter-spacing: 1.3px;
+    }
+
+    .lesson {
+        padding:
+            13px
+            14px;
+    }
+
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery img {
+        height: 190px;
+    }
+
+    .materials-list {
+        flex-direction: column;
+    }
+
+    .material {
+        width: 100%;
+    }
+
+    .attachment {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    .attachment-download {
+        font-size: 10px;
     }
 }
+
 
 /* =====================================================
    REDUCED MOTION
 ===================================================== */
+
 @media (prefers-reduced-motion: reduce) {
-    html {
-        scroll-behavior: auto;
-    }
 
     *,
     *::before,
     *::after {
-        animation-duration: .01ms !important;
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
-        transition-duration: .01ms !important;
+        transition-duration: 0.01ms !important;
     }
 }
