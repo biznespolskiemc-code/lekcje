@@ -1,76 +1,60 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
 
+
 /* =====================================================
    RESET
 ===================================================== */
 
 * {
-
     margin: 0;
-
     padding: 0;
-
     box-sizing: border-box;
-
 }
 
 html {
-
     scroll-behavior: smooth;
-
 }
 
 body {
-
     font-family: 'Montserrat', sans-serif;
-
     background: #090909;
-
     color: #ffffff;
-
     min-height: 100vh;
-
     overflow-x: hidden;
-
 }
 
 a {
-
     color: inherit;
-
     text-decoration: none;
-
 }
 
 button,
-
 a {
-
     -webkit-tap-highlight-color: transparent;
-
 }
+
+
+/* =====================================================
+   ZMIENNE
+===================================================== */
 
 :root {
 
     --blue: #1775b9;
-
     --blue-light: #18b0d6;
-
     --blue-dark: #186e83;
 
     --bg: #090909;
-
     --card: #121212;
 
     --white: #ffffff;
-
     --text: #d6d6d6;
-
     --muted: #858585;
 
     --border: rgba(255,255,255,.08);
 
 }
+
 
 /* =====================================================
    TŁO
@@ -79,27 +63,19 @@ a {
 .background {
 
     position: fixed;
-
     inset: 0;
 
     z-index: 0;
 
     overflow: hidden;
-
     pointer-events: none;
 
     background:
-
         radial-gradient(
-
             circle at 50% 45%,
-
             rgba(23,117,185,.055),
-
             transparent 42%
-
         ),
-
         #090909;
 
 }
@@ -107,22 +83,36 @@ a {
 .grid {
 
     position: absolute;
-
     inset: 0;
 
     opacity: .18;
 
     background-image:
-
-        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-
-        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+        linear-gradient(
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        );
 
     background-size: 55px 55px;
 
-    mask-image: radial-gradient(circle at center, black 0%, transparent 75%);
+    mask-image:
+        radial-gradient(
+            circle at center,
+            black 0%,
+            transparent 75%
+        );
 
-    -webkit-mask-image: radial-gradient(circle at center, black 0%, transparent 75%);
+    -webkit-mask-image:
+        radial-gradient(
+            circle at center,
+            black 0%,
+            transparent 75%
+        );
 
 }
 
@@ -131,7 +121,6 @@ a {
     position: absolute;
 
     width: 500px;
-
     height: 500px;
 
     border-radius: 50%;
@@ -145,22 +134,23 @@ a {
 .glow-one {
 
     left: -300px;
-
     top: 10%;
 
-    background: rgba(23,117,185,.12);
+    background:
+        rgba(23,117,185,.12);
 
 }
 
 .glow-two {
 
     right: -300px;
-
     bottom: 0;
 
-    background: rgba(24,176,214,.10);
+    background:
+        rgba(24,176,214,.10);
 
 }
+
 
 /* =====================================================
    NAVBAR
@@ -171,27 +161,24 @@ a {
     position: fixed;
 
     top: 0;
-
     left: 0;
 
     width: 100%;
-
     height: 76px;
 
     z-index: 1000;
 
-    background: rgba(
-        9,
-        9,
-        9,
-        0.72
-    );
+    background:
+        rgba(9,9,9,.72);
 
-    border-bottom: 1px solid var(--border);
+    border-bottom:
+        1px solid var(--border);
 
-    backdrop-filter: blur(18px);
+    backdrop-filter:
+        blur(18px);
 
-    -webkit-backdrop-filter: blur(18px);
+    -webkit-backdrop-filter:
+        blur(18px);
 
 }
 
@@ -200,7 +187,6 @@ a {
     position: relative;
 
     width: 90%;
-
     max-width: 1150px;
 
     height: 100%;
@@ -214,6 +200,7 @@ a {
     justify-content: space-between;
 
 }
+
 
 /* =====================================================
    LOGO
@@ -232,24 +219,23 @@ a {
     color: var(--white);
 
     font-size: 21px;
-
     font-weight: 800;
 
     line-height: 1;
 
-    letter-spacing: -0.5px;
+    letter-spacing: -.5px;
 
     white-space: nowrap;
 
-    transition: color 0.25s ease;
+    transition:
+        color .25s ease;
 
 }
 
 .logo:hover {
-
     color: var(--blue-light);
-
 }
+
 
 /* =====================================================
    MENU DESKTOP
@@ -271,33 +257,29 @@ a {
 
     color: #8f8f8f;
 
-    text-decoration: none;
-
     font-size: 14px;
-
     font-weight: 600;
 
     white-space: nowrap;
 
-    transition: color 0.25s ease;
+    transition:
+        color .25s ease;
 
 }
 
 .menu a:hover {
-
     color: #ffffff;
-
 }
+
 
 /* =====================================================
    AKTYWNA PODSTRONA
 ===================================================== */
 
 .menu a.active {
-
     color: var(--blue-light);
-
 }
+
 
 /* =====================================================
    PODKREŚLENIE
@@ -310,46 +292,33 @@ a {
     position: absolute;
 
     left: 50%;
-
     bottom: -9px;
 
     width: 0;
-
     height: 2px;
 
     border-radius: 10px;
 
-    background: var(--blue-light);
+    background:
+        var(--blue-light);
 
-    transform: translateX(-50%);
+    transform:
+        translateX(-50%);
 
-    transition: width 0.25s ease;
+    transition:
+        width .25s ease;
 
     box-shadow:
-
         0 0 10px
-
-        rgba(
-
-            24,
-
-            176,
-
-            214,
-
-            0.45
-
-        );
+        rgba(24,176,214,.45);
 
 }
 
 .menu a:hover::after,
-
 .menu a.active::after {
-
     width: 100%;
-
 }
+
 
 /* =====================================================
    HAMBURGER
@@ -364,13 +333,11 @@ a {
     z-index: 1002;
 
     width: 42px;
-
     height: 42px;
 
     padding: 0;
 
     border: 0;
-
     border-radius: 10px;
 
     background: transparent;
@@ -380,29 +347,18 @@ a {
     flex-direction: column;
 
     align-items: center;
-
     justify-content: center;
 
     gap: 6px;
 
-    transition: background 0.25s ease;
+    transition:
+        background .25s ease;
 
 }
 
 .hamburger:hover {
-
-    background: rgba(
-
-        255,
-
-        255,
-
-        255,
-
-        0.05
-
-    );
-
+    background:
+        rgba(255,255,255,.05);
 }
 
 .hamburger span {
@@ -410,22 +366,21 @@ a {
     display: block;
 
     width: 23px;
-
     height: 2px;
 
     flex-shrink: 0;
 
     border-radius: 10px;
 
-    background: var(--white);
+    background:
+        var(--white);
 
     transition:
-
-        transform 0.3s ease,
-
-        opacity 0.2s ease;
+        transform .3s ease,
+        opacity .2s ease;
 
 }
+
 
 /* =====================================================
    HAMBURGER → X
@@ -434,28 +389,23 @@ a {
 .hamburger.active span:nth-child(1) {
 
     transform:
-
         translateY(8px)
-
         rotate(45deg);
 
 }
 
 .hamburger.active span:nth-child(2) {
-
     opacity: 0;
-
 }
 
 .hamburger.active span:nth-child(3) {
 
     transform:
-
         translateY(-8px)
-
         rotate(-45deg);
 
 }
+
 
 /* =====================================================
    STRONA LEKCJI
@@ -468,12 +418,14 @@ a {
     z-index: 1;
 
     width: 100%;
-
     max-width: 1000px;
 
     margin: 0 auto;
 
-    padding: 150px 20px 80px;
+    padding:
+        150px
+        20px
+        80px;
 
 }
 
@@ -485,41 +437,12 @@ a {
 
 }
 
-.hero-label {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    margin-bottom: 20px;
-
-    padding: 9px 14px;
-
-    border: 1px solid rgba(23,117,185,.25);
-
-    border-radius: 30px;
-
-    background: rgba(23,117,185,.06);
-
-    color: #82c9ed;
-
-    font-size: 10px;
-
-    font-weight: 800;
-
-    letter-spacing: 2px;
-
-    line-height: 1;
-
-}
-
 .lessons-header h1 {
 
     margin: 0 0 18px;
 
-    font-size: clamp(42px, 7vw, 72px);
+    font-size:
+        clamp(42px, 7vw, 72px);
 
     font-weight: 800;
 
@@ -530,9 +453,7 @@ a {
 }
 
 .lessons-header h1 strong {
-
     color: var(--blue-light);
-
 }
 
 .lessons-header p {
@@ -541,13 +462,15 @@ a {
 
     margin: 0 auto;
 
-    color: rgba(255,255,255,.45);
+    color:
+        rgba(255,255,255,.45);
 
     line-height: 1.8;
 
     font-size: 15px;
 
 }
+
 
 /* =====================================================
    LISTA DNI
@@ -571,9 +494,13 @@ a {
 
     gap: 14px;
 
-    margin: 22px 0 10px;
+    margin:
+        22px
+        0
+        10px;
 
-    color: rgba(255,255,255,.35);
+    color:
+        rgba(255,255,255,.35);
 
     font-size: 11px;
 
@@ -588,13 +515,10 @@ a {
 }
 
 .month-separator:first-child {
-
     margin-top: 0;
-
 }
 
 .month-separator::before,
-
 .month-separator::after {
 
     content: '';
@@ -603,9 +527,15 @@ a {
 
     height: 1px;
 
-    background: rgba(255,255,255,.10);
+    background:
+        rgba(255,255,255,.10);
 
 }
+
+
+/* =====================================================
+   KARTA DNIA
+===================================================== */
 
 .day-card {
 
@@ -621,11 +551,20 @@ a {
 
     min-width: 0;
 
-    padding: 22px 25px;
+    padding:
+        22px
+        25px;
 
-    background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.018)
+        );
 
-    border: 1px solid rgba(255,255,255,.08);
+    border:
+        1px solid
+        rgba(255,255,255,.08);
 
     border-radius: 15px;
 
@@ -633,19 +572,26 @@ a {
 
     opacity: 0;
 
-    animation: dayAppear .5s ease forwards;
+    animation:
+        dayAppear .5s ease forwards;
 
-    transition: transform .3s ease, background .3s ease, border-color .3s ease;
+    transition:
+        transform .3s ease,
+        background .3s ease,
+        border-color .3s ease;
 
 }
 
 .day-card:hover {
 
-    transform: translateX(5px);
+    transform:
+        translateX(5px);
 
-    background: rgba(24,176,214,.055);
+    background:
+        rgba(24,176,214,.055);
 
-    border-color: rgba(24,176,214,.4);
+    border-color:
+        rgba(24,176,214,.4);
 
 }
 
@@ -664,22 +610,24 @@ a {
 .day-icon {
 
     width: 48px;
-
     height: 48px;
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     flex-shrink: 0;
 
-    color: var(--blue-light);
+    color:
+        var(--blue-light);
 
-    background: rgba(24,176,214,.08);
+    background:
+        rgba(24,176,214,.08);
 
-    border: 1px solid rgba(24,176,214,.15);
+    border:
+        1px solid
+        rgba(24,176,214,.15);
 
     border-radius: 12px;
 
@@ -688,14 +636,15 @@ a {
 }
 
 .day-info {
-
     min-width: 0;
-
 }
 
 .day-info h2 {
 
-    margin: 0 0 5px;
+    margin:
+        0
+        0
+        5px;
 
     font-size: 18px;
 
@@ -707,7 +656,8 @@ a {
 
     margin: 0;
 
-    color: rgba(255,255,255,.4);
+    color:
+        rgba(255,255,255,.4);
 
     font-size: 13px;
 
@@ -721,19 +671,24 @@ a {
 
     flex-shrink: 0;
 
-    color: rgba(255,255,255,.3);
+    color:
+        rgba(255,255,255,.3);
 
     font-size: 22px;
 
-    transition: transform .3s ease, color .3s ease;
+    transition:
+        transform .3s ease,
+        color .3s ease;
 
 }
 
 .day-card:hover .day-arrow {
 
-    color: var(--blue-light);
+    color:
+        var(--blue-light);
 
-    transform: translateX(5px);
+    transform:
+        translateX(5px);
 
 }
 
@@ -742,18 +697,22 @@ a {
     position: absolute;
 
     top: 12px;
-
     right: 14px;
 
     z-index: 2;
 
-    padding: 5px 9px;
+    padding:
+        5px
+        9px;
 
     color: #ffffff;
 
-    background: #e53935;
+    background:
+        #e53935;
 
-    border: 1px solid #ff6b6b;
+    border:
+        1px solid
+        #ff6b6b;
 
     border-radius: 6px;
 
@@ -765,9 +724,12 @@ a {
 
     line-height: 1;
 
-    box-shadow: 0 4px 15px rgba(229,57,53,.25);
+    box-shadow:
+        0 4px 15px
+        rgba(229,57,53,.25);
 
 }
+
 
 /* =====================================================
    SZCZEGÓŁY DNIA
@@ -777,14 +739,13 @@ a {
 
     display: none;
 
-    animation: detailsAppear .45s ease both;
+    animation:
+        detailsAppear .45s ease both;
 
 }
 
 #dayDetails.active {
-
     display: block;
-
 }
 
 .back-button {
@@ -797,13 +758,19 @@ a {
 
     margin-bottom: 30px;
 
-    padding: 10px 16px;
+    padding:
+        10px
+        16px;
 
-    color: rgba(255,255,255,.55);
+    color:
+        rgba(255,255,255,.55);
 
-    background: rgba(255,255,255,.035);
+    background:
+        rgba(255,255,255,.035);
 
-    border: 1px solid rgba(255,255,255,.08);
+    border:
+        1px solid
+        rgba(255,255,255,.08);
 
     border-radius: 9px;
 
@@ -811,7 +778,10 @@ a {
 
     font-family: inherit;
 
-    transition: color .25s ease, transform .25s ease, border-color .25s ease;
+    transition:
+        color .25s ease,
+        transform .25s ease,
+        border-color .25s ease;
 
 }
 
@@ -819,9 +789,11 @@ a {
 
     color: white;
 
-    transform: translateX(-4px);
+    transform:
+        translateX(-4px);
 
-    border-color: rgba(24,176,214,.4);
+    border-color:
+        rgba(24,176,214,.4);
 
 }
 
@@ -837,7 +809,8 @@ a {
 
     margin-bottom: 7px;
 
-    color: var(--blue-light);
+    color:
+        var(--blue-light);
 
     font-size: 11px;
 
@@ -853,7 +826,8 @@ a {
 
     margin-bottom: 10px;
 
-    color: rgba(255,255,255,.4);
+    color:
+        rgba(255,255,255,.4);
 
     font-size: 14px;
 
@@ -865,11 +839,13 @@ a {
 
     margin: 0;
 
-    font-size: clamp(34px, 5vw, 52px);
+    font-size:
+        clamp(34px, 5vw, 52px);
 
     font-weight: 800;
 
 }
+
 
 /* =====================================================
    LEKCJE
@@ -879,9 +855,16 @@ a {
 
     padding: 30px;
 
-    background: linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.018));
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.045),
+            rgba(255,255,255,.018)
+        );
 
-    border: 1px solid rgba(255,255,255,.08);
+    border:
+        1px solid
+        rgba(255,255,255,.08);
 
     border-radius: 18px;
 
@@ -889,18 +872,20 @@ a {
 
 .lesson {
 
-    padding: 25px 0;
+    padding:
+        25px
+        0;
 
-    border-bottom: 1px solid rgba(255,255,255,.08);
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.08);
 
     text-align: left;
 
 }
 
 .lesson:first-child {
-
     padding-top: 0;
-
 }
 
 .lesson:last-child {
@@ -915,7 +900,8 @@ a {
 
     margin-bottom: 7px;
 
-    color: var(--blue-light);
+    color:
+        var(--blue-light);
 
     font-size: 10px;
 
@@ -929,7 +915,10 @@ a {
 
 .lesson h3 {
 
-    margin: 0 0 7px;
+    margin:
+        0
+        0
+        7px;
 
     font-size: 22px;
 
@@ -943,7 +932,8 @@ a {
 
     margin: 0;
 
-    color: rgba(255,255,255,.6);
+    color:
+        rgba(255,255,255,.6);
 
     font-size: 14px;
 
@@ -955,14 +945,13 @@ a {
 
 }
 
+
 /* =====================================================
    ZAŁĄCZNIKI
 ===================================================== */
 
 .lesson-attachments {
-
     margin-top: 16px;
-
 }
 
 .lesson-attachments-button {
@@ -973,13 +962,18 @@ a {
 
     gap: 8px;
 
-    padding: 9px 13px;
+    padding:
+        9px
+        13px;
 
     color: white;
 
-    background: rgba(24,176,214,.06);
+    background:
+        rgba(24,176,214,.06);
 
-    border: 1px solid rgba(24,176,214,.18);
+    border:
+        1px solid
+        rgba(24,176,214,.18);
 
     border-radius: 9px;
 
@@ -991,17 +985,23 @@ a {
 
     font-weight: 700;
 
-    transition: background .25s ease, border-color .25s ease, transform .25s ease;
+    transition:
+        background .25s ease,
+        border-color .25s ease,
+        transform .25s ease;
 
 }
 
 .lesson-attachments-button:hover {
 
-    background: rgba(24,176,214,.13);
+    background:
+        rgba(24,176,214,.13);
 
-    border-color: rgba(24,176,214,.45);
+    border-color:
+        rgba(24,176,214,.45);
 
-    transform: translateY(-2px);
+    transform:
+        translateY(-2px);
 
 }
 
@@ -1014,9 +1014,7 @@ a {
 }
 
 .lesson-attachments-content.active {
-
     display: block;
-
 }
 
 .lesson-attachment-links {
@@ -1031,6 +1029,7 @@ a {
 
 }
 
+
 /* =====================================================
    MATERIAŁY
 ===================================================== */
@@ -1041,7 +1040,9 @@ a {
 
     padding-top: 25px;
 
-    border-top: 1px solid rgba(255,255,255,.08);
+    border-top:
+        1px solid
+        rgba(255,255,255,.08);
 
 }
 
@@ -1073,31 +1074,43 @@ a {
 
     gap: 8px;
 
-    padding: 10px 14px;
+    padding:
+        10px
+        14px;
 
     color: white;
 
-    background: rgba(24,176,214,.06);
+    background:
+        rgba(24,176,214,.06);
 
-    border: 1px solid rgba(24,176,214,.18);
+    border:
+        1px solid
+        rgba(24,176,214,.18);
 
     border-radius: 9px;
 
     font-size: 13px;
 
-    transition: background .25s ease, border-color .25s ease, transform .25s ease;
+    transition:
+        background .25s ease,
+        border-color .25s ease,
+        transform .25s ease;
 
 }
 
 .material:hover {
 
-    background: rgba(24,176,214,.13);
+    background:
+        rgba(24,176,214,.13);
 
-    border-color: rgba(24,176,214,.45);
+    border-color:
+        rgba(24,176,214,.45);
 
-    transform: translateY(-2px);
+    transform:
+        translateY(-2px);
 
 }
+
 
 /* =====================================================
    GALERIA
@@ -1107,7 +1120,8 @@ a {
 
     display: grid;
 
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns:
+        repeat(3, 1fr);
 
     gap: 12px;
 
@@ -1119,47 +1133,56 @@ a {
 
     position: relative;
 
-    aspect-ratio: 16 / 11;
+    aspect-ratio:
+        16 / 11;
 
     overflow: hidden;
 
-    background: rgba(255,255,255,.03);
+    background:
+        rgba(255,255,255,.03);
 
-    border: 1px solid rgba(255,255,255,.08);
+    border:
+        1px solid
+        rgba(255,255,255,.08);
 
     border-radius: 12px;
 
     cursor: pointer;
 
-    transition: transform .3s ease, border-color .3s ease;
+    transition:
+        transform .3s ease,
+        border-color .3s ease;
 
 }
 
 .photo-card:hover {
 
-    transform: translateY(-3px);
+    transform:
+        translateY(-3px);
 
-    border-color: rgba(24,176,214,.45);
+    border-color:
+        rgba(24,176,214,.45);
 
 }
 
 .photo-card img {
 
     width: 100%;
-
     height: 100%;
 
     display: block;
 
     object-fit: cover;
 
-    transition: transform .4s ease;
+    transition:
+        transform .4s ease;
 
 }
 
 .photo-card:hover img {
 
-    transform: scale(1.04);
+    transform:
+        scale(1.04);
 
 }
 
@@ -1170,24 +1193,24 @@ a {
     position: absolute;
 
     right: 10px;
-
     bottom: 10px;
 
     width: 30px;
-
     height: 30px;
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     color: white;
 
-    background: rgba(0,0,0,.6);
+    background:
+        rgba(0,0,0,.6);
 
-    border: 1px solid rgba(255,255,255,.15);
+    border:
+        1px solid
+        rgba(255,255,255,.15);
 
     border-radius: 8px;
 
@@ -1195,15 +1218,15 @@ a {
 
     opacity: 0;
 
-    transition: opacity .25s ease;
+    transition:
+        opacity .25s ease;
 
 }
 
 .photo-card:hover::after {
-
     opacity: 1;
-
 }
+
 
 /* =====================================================
    PODGLĄD ZDJĘCIA
@@ -1223,73 +1246,107 @@ a {
 
     justify-content: center;
 
-    padding: 30px;
+    padding: 80px 90px;
 
-    background: rgba(0,0,0,.86);
+    background:
+        rgba(0,0,0,.88);
 
-    backdrop-filter: blur(12px);
+    backdrop-filter:
+        blur(12px);
 
-    cursor: pointer;
+    -webkit-backdrop-filter:
+        blur(12px);
 
 }
 
 #imageViewer.active {
-
     display: flex;
+}
+
+
+/* =====================================================
+   LICZNIK — GÓRA ŚRODEK
+===================================================== */
+
+.image-counter {
+
+    position: fixed;
+
+    top: 24px;
+    left: 50%;
+
+    z-index: 10002;
+
+    transform:
+        translateX(-50%);
+
+    min-width: 60px;
+
+    padding:
+        9px
+        14px;
+
+    color: white;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    border-radius: 10px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: .5px;
+
+    line-height: 1;
+
+    text-align: center;
+
+    backdrop-filter:
+        blur(12px);
+
+    -webkit-backdrop-filter:
+        blur(12px);
 
 }
 
-#imageViewer img {
 
-    max-width: 95vw;
-
-    max-height: 90vh;
-
-    object-fit: contain;
-
-    border-radius: 12px;
-
-    box-shadow: 0 20px 80px rgba(0,0,0,.6);
-
-    cursor: default;
-
-    animation: imageOpen .3s ease both;
-
-}
+/* =====================================================
+   ZAMKNIJ — PRAWY GÓRNY RÓG
+===================================================== */
 
 .image-close {
 
-    position: fixed !important;
+    position: fixed;
 
-    top: 20px !important;
+    top: 20px;
+    right: 22px;
 
-    left: 50% !important;
-
-    right: auto !important;
-
-    bottom: auto !important;
-
-    transform: translateX(-50%) !important;
-
-    z-index: 10001 !important;
+    z-index: 10003;
 
     width: 45px;
-
     height: 45px;
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     padding: 0;
 
     color: white;
 
-    background: rgba(255,255,255,.08);
+    background:
+        rgba(255,255,255,.08);
 
-    border: 1px solid rgba(255,255,255,.15);
+    border:
+        1px solid
+        rgba(255,255,255,.15);
 
     border-radius: 50%;
 
@@ -1301,7 +1358,126 @@ a {
 
     cursor: pointer;
 
+    transition:
+        background .25s ease,
+        transform .25s ease,
+        border-color .25s ease;
+
 }
+
+.image-close:hover {
+
+    background:
+        rgba(255,255,255,.15);
+
+    border-color:
+        rgba(255,255,255,.3);
+
+    transform:
+        scale(1.05);
+
+}
+
+
+/* =====================================================
+   STRZAŁKI
+===================================================== */
+
+.image-nav {
+
+    position: fixed;
+
+    top: 50%;
+
+    z-index: 10002;
+
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    color: white;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    border-radius: 50%;
+
+    font-family: inherit;
+
+    font-size: 25px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transform:
+        translateY(-50%);
+
+    transition:
+        background .25s ease,
+        transform .25s ease,
+        border-color .25s ease;
+
+}
+
+.image-nav:hover {
+
+    background:
+        rgba(24,176,214,.20);
+
+    border-color:
+        rgba(24,176,214,.55);
+
+}
+
+.image-prev {
+
+    left: 25px;
+
+}
+
+.image-next {
+
+    right: 25px;
+
+}
+
+
+/* =====================================================
+   ZDJĘCIE
+===================================================== */
+
+#imageViewer img {
+
+    max-width: 90vw;
+
+    max-height: 88vh;
+
+    object-fit: contain;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 20px 80px
+        rgba(0,0,0,.6);
+
+    cursor: default;
+
+    animation:
+        imageOpen .3s ease both;
+
+}
+
 
 /* =====================================================
    INNE
@@ -1309,11 +1485,14 @@ a {
 
 .empty {
 
-    padding: 45px 20px;
+    padding:
+        45px
+        20px;
 
     text-align: center;
 
-    color: rgba(255,255,255,.35);
+    color:
+        rgba(255,255,255,.35);
 
 }
 
@@ -1323,9 +1502,11 @@ a {
 
     text-align: center;
 
-    color: rgba(255,255,255,.4);
+    color:
+        rgba(255,255,255,.4);
 
 }
+
 
 /* =====================================================
    STOPKA
@@ -1339,16 +1520,18 @@ footer {
 
     padding: 28px 0;
 
-    border-top: 1px solid rgba(255,255,255,.06);
+    border-top:
+        1px solid
+        rgba(255,255,255,.06);
 
-    background: #070707;
+    background:
+        #070707;
 
 }
 
 .footer-container {
 
     width: 90%;
-
     max-width: 1150px;
 
     margin: auto;
@@ -1375,6 +1558,7 @@ footer {
 
 }
 
+
 /* =====================================================
    ANIMACJE
 ===================================================== */
@@ -1385,7 +1569,8 @@ footer {
 
         opacity: 0;
 
-        transform: translateY(15px);
+        transform:
+            translateY(15px);
 
     }
 
@@ -1393,7 +1578,8 @@ footer {
 
         opacity: 1;
 
-        transform: translateY(0);
+        transform:
+            translateY(0);
 
     }
 
@@ -1405,7 +1591,8 @@ footer {
 
         opacity: 0;
 
-        transform: translateY(15px);
+        transform:
+            translateY(15px);
 
     }
 
@@ -1413,7 +1600,8 @@ footer {
 
         opacity: 1;
 
-        transform: translateY(0);
+        transform:
+            translateY(0);
 
     }
 
@@ -1425,7 +1613,8 @@ footer {
 
         opacity: 0;
 
-        transform: scale(.96);
+        transform:
+            scale(.96);
 
     }
 
@@ -1433,11 +1622,13 @@ footer {
 
         opacity: 1;
 
-        transform: scale(1);
+        transform:
+            scale(1);
 
     }
 
 }
+
 
 /* =====================================================
    TELEFON
@@ -1445,20 +1636,18 @@ footer {
 
 @media (max-width: 700px) {
 
+
     /* =================================================
-       NAVBAR — IDENTYCZNY JAK NA STRONIE GŁÓWNEJ
+       NAVBAR
     ================================================= */
 
     .navbar {
-
         height: 70px;
-
     }
 
     .nav-container {
 
         width: 90%;
-
         max-width: 1150px;
 
         height: 100%;
@@ -1474,9 +1663,7 @@ footer {
     }
 
     .logo {
-
         font-size: 21px;
-
     }
 
     .hamburger {
@@ -1488,13 +1675,11 @@ footer {
         z-index: 1002;
 
         width: 42px;
-
         height: 42px;
 
         padding: 0;
 
         border: 0;
-
         border-radius: 10px;
 
         background: transparent;
@@ -1504,7 +1689,6 @@ footer {
         flex-direction: column;
 
         align-items: center;
-
         justify-content: center;
 
         gap: 6px;
@@ -1518,73 +1702,50 @@ footer {
         top: 70px;
 
         right: -100%;
-
         left: auto;
 
         width: 100%;
 
-        height: calc(
-
-            100vh - 70px
-
-        );
+        height:
+            calc(100vh - 70px);
 
         margin: 0;
 
-        padding: 45px 25px;
+        padding:
+            45px
+            25px;
 
         display: flex;
 
         flex-direction: column;
 
         align-items: center;
-
         justify-content: flex-start;
 
         gap: 32px;
 
         background:
-
-            rgba(
-
-                9,
-
-                9,
-
-                9,
-
-                0.97
-
-            );
+            rgba(9,9,9,.97);
 
         backdrop-filter:
-
             blur(18px);
 
         -webkit-backdrop-filter:
-
             blur(18px);
 
         border-top:
-
-            1px solid var(--border);
+            1px solid
+            var(--border);
 
         transform: none;
 
         transition:
-
-            right 0.35s
-
+            right .35s
             cubic-bezier(
-
                 .25,
-
                 1,
-
                 .5,
-
                 1
-
             );
 
         overflow-y: auto;
@@ -1594,9 +1755,7 @@ footer {
     }
 
     .menu.active {
-
         right: 0;
-
     }
 
     .menu a {
@@ -1604,8 +1763,6 @@ footer {
         position: relative;
 
         color: #8f8f8f;
-
-        text-decoration: none;
 
         font-size: 21px;
 
@@ -1616,9 +1773,7 @@ footer {
     }
 
     .menu a.active {
-
         color: var(--blue-light);
-
     }
 
     .menu a.active::after {
@@ -1630,55 +1785,41 @@ footer {
         position: absolute;
 
         left: 50%;
-
         bottom: -9px;
 
         width: 100%;
-
         height: 2px;
 
         border-radius: 10px;
 
         background:
-
             var(--blue-light);
 
         transform:
-
             translateX(-50%);
 
         box-shadow:
-
             0 0 10px
-
-            rgba(
-
-                24,
-
-                176,
-
-                214,
-
-                0.45
-
-            );
+            rgba(24,176,214,.45);
 
     }
 
+
     /* =================================================
-       RESZTA STRONY — BEZ ZMIAN
+       RESZTA
     ================================================= */
 
     .lessons-page {
 
-        padding: 125px 15px 60px;
+        padding:
+            125px
+            15px
+            60px;
 
     }
 
     .lessons-header {
-
         margin-bottom: 35px;
-
     }
 
     .lessons-header h1 {
@@ -1690,27 +1831,20 @@ footer {
     }
 
     .lessons-header p {
-
         font-size: 13px;
-
     }
 
     .day-card {
-
         padding: 18px;
-
     }
 
     .day-left {
-
         gap: 14px;
-
     }
 
     .day-icon {
 
         width: 42px;
-
         height: 42px;
 
         font-size: 18px;
@@ -1718,24 +1852,21 @@ footer {
     }
 
     .day-info h2 {
-
         font-size: 16px;
-
     }
 
     .day-info p {
-
         font-size: 12px;
-
     }
 
     .day-new {
 
         top: 9px;
-
         right: 10px;
 
-        padding: 4px 7px;
+        padding:
+            4px
+            7px;
 
         font-size: 8px;
 
@@ -1745,7 +1876,10 @@ footer {
 
         gap: 10px;
 
-        margin: 18px 0 8px;
+        margin:
+            18px
+            0
+            8px;
 
         font-size: 10px;
 
@@ -1754,15 +1888,11 @@ footer {
     }
 
     .lessons-box {
-
         padding: 22px;
-
     }
 
     .lesson {
-
         padding: 20px 0;
-
     }
 
     .lesson-number {
@@ -1794,14 +1924,14 @@ footer {
     }
 
     .lesson-attachments {
-
         margin-top: 13px;
-
     }
 
     .lesson-attachments-button {
 
-        padding: 8px 11px;
+        padding:
+            8px
+            11px;
 
         font-size: 12px;
 
@@ -1809,9 +1939,73 @@ footer {
 
     .photo-gallery {
 
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns:
+            repeat(2, 1fr);
 
     }
+
+
+    /* =================================================
+       PODGLĄD ZDJĘCIA — TELEFON
+    ================================================= */
+
+    #imageViewer {
+
+        padding:
+            75px
+            65px;
+
+    }
+
+    .image-counter {
+
+        top: 18px;
+
+        padding:
+            8px
+            12px;
+
+        font-size: 12px;
+
+    }
+
+    .image-close {
+
+        top: 15px;
+        right: 15px;
+
+        width: 42px;
+        height: 42px;
+
+        font-size: 21px;
+
+    }
+
+    .image-nav {
+
+        width: 44px;
+        height: 44px;
+
+        font-size: 21px;
+
+    }
+
+    .image-prev {
+        left: 12px;
+    }
+
+    .image-next {
+        right: 12px;
+    }
+
+    #imageViewer img {
+
+        max-width: 88vw;
+
+        max-height: 82vh;
+
+    }
+
 
     .footer-container {
 
@@ -1825,6 +2019,7 @@ footer {
 
 }
 
+
 /* =====================================================
    BARDZO MAŁE TELEFONY
 ===================================================== */
@@ -1832,33 +2027,23 @@ footer {
 @media (max-width: 450px) {
 
     .photo-gallery {
-
         grid-template-columns: 1fr;
-
     }
 
     .day-arrow {
-
         display: none;
-
     }
 
     .lessons-box {
-
         padding: 18px;
-
     }
 
     .lesson h3 {
-
         font-size: 18px;
-
     }
 
     .lesson p {
-
         font-size: 13px;
-
     }
 
     .month-separator {
@@ -1871,7 +2056,27 @@ footer {
 
     }
 
+
+    /* PODGLĄD */
+
+    #imageViewer {
+
+        padding:
+            70px
+            55px;
+
+    }
+
+    .image-prev {
+        left: 8px;
+    }
+
+    .image-next {
+        right: 8px;
+    }
+
 }
+
 
 /* =====================================================
    REDUCED MOTION
@@ -1880,22 +2085,21 @@ footer {
 @media (prefers-reduced-motion: reduce) {
 
     html {
-
         scroll-behavior: auto;
-
     }
 
     *,
-
     *::before,
-
     *::after {
 
-        animation-duration: .01ms !important;
+        animation-duration:
+            .01ms !important;
 
-        animation-iteration-count: 1 !important;
+        animation-iteration-count:
+            1 !important;
 
-        transition-duration: .01ms !important;
+        transition-duration:
+            .01ms !important;
 
     }
 
