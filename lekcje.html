@@ -133,58 +133,71 @@
 
     </div>
 
-    <!-- SORTOWANIE -->
 
-<div class="sort-container">
-<button
-    type="button"
-    class="sort-button"
-    id="sortButton"
->
-    <span>
-        Sortuj wg. <strong id="sortCurrent">Najnowsze</strong>
-    </span>
+    <!-- =================================================
+         SORTOWANIE
+    ================================================= -->
 
-    <span class="sort-arrow">
-        ▼
-    </span>
-</button>
+    <div class="sort-container">
 
+        <button
+            type="button"
+            class="sort-button"
+            id="sortButton"
+            aria-expanded="false"
+        >
 
-<div
-    class="sort-menu"
-    id="sortMenu"
->
+            <span>
+                Sortuj wg.
+                <strong id="sortCurrent">
+                    Najnowsze
+                </strong>
+            </span>
 
-    <button
-        type="button"
-        data-sort="newest"
-    >
-        Najnowsze
-    </button>
+            <span class="sort-arrow">
+                ▼
+            </span>
 
-    <button
-        type="button"
-        data-sort="oldest"
-    >
-        Najstarsze
-    </button>
-
-    <div
-        class="sort-divider"
-    ></div>
-
-    <div
-        class="sort-months"
-        id="sortMonths"
-    ></div>
-
-</div>
-
-</div>
+        </button>
 
 
-    <!-- LISTA DNI -->
+        <div
+            class="sort-menu"
+            id="sortMenu"
+        >
+
+            <button
+                type="button"
+                data-sort="newest"
+            >
+                Najnowsze
+            </button>
+
+
+            <button
+                type="button"
+                data-sort="oldest"
+            >
+                Najstarsze
+            </button>
+
+
+            <div class="sort-divider"></div>
+
+
+            <div
+                class="sort-months"
+                id="sortMonths"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         LISTA DNI
+    ================================================= -->
 
     <div id="daysView">
 
@@ -199,7 +212,9 @@
     </div>
 
 
-    <!-- SZCZEGÓŁY DNIA -->
+    <!-- =================================================
+         SZCZEGÓŁY DNIA
+    ================================================= -->
 
     <div id="dayDetails">
 
@@ -361,9 +376,12 @@
 
 <script>
 
-const API = "https://old-term-d35c.oliwierbielicki.workers.dev";
+const API =
+    "https://old-term-d35c.oliwierbielicki.workers.dev";
 
 let allDays = [];
+
+let currentSort = "newest";
 
 
 /* =====================================================
@@ -371,6 +389,7 @@ let allDays = [];
 ===================================================== */
 
 let viewerImages = [];
+
 let currentImageIndex = 0;
 
 
@@ -414,6 +433,27 @@ const MONTHS = [
 ];
 
 
+/* =====================================================
+   ELEMENTY SORTOWANIA
+===================================================== */
+
+const sortButton =
+    document.getElementById("sortButton");
+
+const sortMenu =
+    document.getElementById("sortMenu");
+
+const sortCurrent =
+    document.getElementById("sortCurrent");
+
+const sortMonths =
+    document.getElementById("sortMonths");
+
+
+/* =====================================================
+   START
+===================================================== */
+
 loadLessons();
 
 
@@ -423,32 +463,54 @@ loadLessons();
 
 async function loadLessons() {
 
-    const container = document.getElementById("daysList");
+    const container =
+        document.getElementById("daysList");
+
 
     try {
 
-        const response = await fetch(`${API}/lessons`);
+        const response =
+            await fetch(`${API}/lessons`);
+
 
         if (!response.ok) {
-            throw new Error("Nie udało się pobrać lekcji.");
+
+            throw new Error(
+                "Nie udało się pobrać lekcji."
+            );
+
         }
 
-        allDays = await response.json();
 
-        allDays.sort(
-            (a, b) => b.date.localeCompare(a.date)
-        );
+        const data =
+            await response.json();
 
-        renderDays();
+
+        allDays =
+            Array.isArray(data)
+                ? data
+                : [];
+
+
+        generateMonthOptions();
+
+        applySort();
+
 
     } catch (error) {
 
         container.innerHTML = `
+
             <div class="empty">
+
                 Nie udało się pobrać listy lekcji.
+
                 <br><br>
+
                 ${escapeHtml(error.message)}
+
             </div>
+
         `;
 
     }
@@ -457,136 +519,631 @@ async function loadLessons() {
 
 
 /* =====================================================
-   RENDER LISTY DNI
+   SORTOWANIE — OTWIERANIE MENU
 ===================================================== */
 
-function renderDays() {
+sortButton.addEventListener(
+    "click",
+    event => {
 
-    const container = document.getElementById("daysList");
-
-    container.innerHTML = "";
-
-    if (!allDays.length) {
-
-        container.innerHTML = `
-            <div class="empty">
-                Nie ma jeszcze zapisanych lekcji.
-            </div>
-        `;
-
-        return;
-    }
+        event.stopPropagation();
 
 
-    const today = new Date().toLocaleDateString(
-        "sv-SE",
-        {
-            timeZone: "Europe/Warsaw"
-        }
-    );
+        const isOpen =
+            sortMenu.classList.toggle("active");
 
 
-    let previousMonth = null;
-
-
-    allDays.forEach((day, index) => {
-
-        const [, month] = day.date.split("-");
-        const monthNumber = Number(month);
-
-
-        if (monthNumber !== previousMonth) {
-
-            const separator =
-                document.createElement("div");
-
-            separator.className =
-                "month-separator";
-
-            separator.textContent =
-                MONTHS[monthNumber] || "";
-
-            container.appendChild(separator);
-
-            previousMonth = monthNumber;
-
-        }
-
-
-        const card =
-            document.createElement("div");
-
-        card.className =
-            "day-card";
-
-
-        const isNew =
-            day.date === today;
-
-
-        const weekday =
-            getWeekdayName(day.date);
-
-
-        const lessonCount =
-            Array.isArray(day.lessons)
-                ? day.lessons.length
-                : 0;
-
-
-        card.innerHTML = `
-
-            ${
-                isNew
-                    ? `<div class="day-new">NOWOŚĆ!</div>`
-                    : ""
-            }
-
-            <div class="day-left">
-
-                <div class="day-icon">
-                    📚
-                </div>
-
-                <div class="day-info">
-
-                    <h2>
-                        ${escapeHtml(
-                            formatDate(day.date)
-                        )}
-                    </h2>
-
-                    <p>
-                        ${escapeHtml(weekday)}
-                        -
-                        ${lessonCount}
-                        ${lessonWord(lessonCount)}
-                    </p>
-
-                </div>
-
-            </div>
-
-            <div class="day-arrow">
-                →
-            </div>
-
-        `;
-
-
-        card.style.animationDelay =
-            `${index * 0.05}s`;
-
-
-        card.addEventListener(
-            "click",
-            () => showDay(day)
+        sortButton.classList.toggle(
+            "active",
+            isOpen
         );
 
 
-        container.appendChild(card);
+        sortButton.setAttribute(
+            "aria-expanded",
+            isOpen
+                ? "true"
+                : "false"
+        );
+
+    }
+);
+
+
+/* =====================================================
+   KLIKNIĘCIE POZA MENU
+===================================================== */
+
+document.addEventListener(
+    "click",
+    event => {
+
+        if (
+            !sortMenu.contains(event.target) &&
+            !sortButton.contains(event.target)
+        ) {
+
+            closeSortMenu();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   OPCJE:
+   NAJNOWSZE / NAJSTARSZE
+===================================================== */
+
+sortMenu
+    .querySelectorAll(
+        "button[data-sort]"
+    )
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                currentSort =
+                    button.dataset.sort;
+
+
+                if (
+                    currentSort === "newest"
+                ) {
+
+                    sortCurrent.textContent =
+                        "Najnowsze";
+
+                } else {
+
+                    sortCurrent.textContent =
+                        "Najstarsze";
+
+                }
+
+
+                updateSelectedSort(button);
+
+                applySort();
+
+                closeSortMenu();
+
+            }
+        );
 
     });
+
+
+/* =====================================================
+   GENEROWANIE MIESIĘCY
+===================================================== */
+
+function generateMonthOptions() {
+
+    sortMonths.innerHTML = "";
+
+
+    const months =
+        new Map();
+
+
+    allDays.forEach(day => {
+
+        if (
+            !day ||
+            !day.date
+        ) {
+            return;
+        }
+
+
+        const [
+            year,
+            month
+        ] = day.date.split("-");
+
+
+        if (
+            !year ||
+            !month
+        ) {
+            return;
+        }
+
+
+        const key =
+            `${year}-${month}`;
+
+
+        if (
+            !months.has(key)
+        ) {
+
+            months.set(
+                key,
+                {
+                    year: Number(year),
+                    month: Number(month)
+                }
+            );
+
+        }
+
+    });
+
+
+    const sortedMonths =
+        [...months.values()]
+            .sort(
+                (a, b) => {
+
+                    if (
+                        a.year !== b.year
+                    ) {
+
+                        return (
+                            b.year -
+                            a.year
+                        );
+
+                    }
+
+
+                    return (
+                        b.month -
+                        a.month
+                    );
+
+                }
+            );
+
+
+    sortedMonths.forEach(
+        item => {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.type =
+                "button";
+
+
+            button.dataset.sort =
+                `${item.year}-${String(
+                    item.month
+                ).padStart(2, "0")}`;
+
+
+            button.textContent =
+                `${MONTHS[item.month]} ${item.year}`;
+
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    currentSort =
+                        button.dataset.sort;
+
+
+                    sortCurrent.textContent =
+                        button.textContent;
+
+
+                    updateSelectedSort(
+                        button
+                    );
+
+
+                    applySort();
+
+                    closeSortMenu();
+
+                }
+            );
+
+
+            sortMonths.appendChild(
+                button
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   ZAZNACZENIE AKTYWNEJ OPCJI
+===================================================== */
+
+function updateSelectedSort(selectedButton) {
+
+    sortMenu
+        .querySelectorAll("button")
+        .forEach(button => {
+
+            button.classList.remove(
+                "selected"
+            );
+
+        });
+
+
+    if (selectedButton) {
+
+        selectedButton.classList.add(
+            "selected"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   ZASTOSOWANIE SORTOWANIA
+===================================================== */
+
+function applySort() {
+
+    /*
+     * Tworzymy kopię.
+     * Oryginalne allDays pozostaje
+     * niezmienione, dzięki czemu filtrowanie
+     * miesiąca nie usuwa danych.
+     */
+
+    let days =
+        [...allDays];
+
+
+    /* NAJNOWSZE */
+
+    if (
+        currentSort === "newest"
+    ) {
+
+        days.sort(
+            (a, b) =>
+                b.date.localeCompare(
+                    a.date
+                )
+        );
+
+    }
+
+
+    /* NAJSTARSZE */
+
+    else if (
+        currentSort === "oldest"
+    ) {
+
+        days.sort(
+            (a, b) =>
+                a.date.localeCompare(
+                    b.date
+                )
+        );
+
+    }
+
+
+    /* KONKRETNY MIESIĄC */
+
+    else {
+
+        const [
+            selectedYear,
+            selectedMonth
+        ] =
+            currentSort.split("-");
+
+
+        days =
+            days.filter(
+                day => {
+
+                    if (
+                        !day ||
+                        !day.date
+                    ) {
+                        return false;
+                    }
+
+
+                    const [
+                        year,
+                        month
+                    ] =
+                        day.date.split("-");
+
+
+                    return (
+
+                        year ===
+                            selectedYear &&
+
+                        month ===
+                            selectedMonth
+
+                    );
+
+                }
+            );
+
+
+        /*
+         * W obrębie miesiąca
+         * najnowsze dni są pierwsze.
+         */
+
+        days.sort(
+            (a, b) =>
+                b.date.localeCompare(
+                    a.date
+                )
+        );
+
+    }
+
+
+    renderDays(days);
+
+}
+
+
+/* =====================================================
+   ZAMKNIĘCIE MENU SORTOWANIA
+===================================================== */
+
+function closeSortMenu() {
+
+    sortButton.classList.remove(
+        "active"
+    );
+
+
+    sortMenu.classList.remove(
+        "active"
+    );
+
+
+    sortButton.setAttribute(
+        "aria-expanded",
+        "false"
+    );
+
+}
+
+
+/* =====================================================
+   RENDER LISTY DNI
+===================================================== */
+
+function renderDays(
+    days = allDays
+) {
+
+    const container =
+        document.getElementById(
+            "daysList"
+        );
+
+
+    container.innerHTML = "";
+
+
+    if (
+        !days.length
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                Nie ma jeszcze zapisanych
+                lekcji.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const today =
+        new Date().toLocaleDateString(
+            "sv-SE",
+            {
+                timeZone:
+                    "Europe/Warsaw"
+            }
+        );
+
+
+    let previousMonth =
+        null;
+
+
+    let previousYear =
+        null;
+
+
+    days.forEach(
+        (day, index) => {
+
+            const [
+                year,
+                month
+            ] =
+                day.date.split("-");
+
+
+            const monthNumber =
+                Number(month);
+
+
+            const yearNumber =
+                Number(year);
+
+
+            /*
+             * Separator miesiąca.
+             * Uwzględniamy również rok,
+             * żeby np. WRZESIEŃ 2025
+             * i WRZESIEŃ 2026 były osobno.
+             */
+
+            if (
+                monthNumber !==
+                    previousMonth ||
+                yearNumber !==
+                    previousYear
+            ) {
+
+                const separator =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                separator.className =
+                    "month-separator";
+
+
+                separator.textContent =
+                    `${MONTHS[monthNumber] || ""} ${yearNumber}`;
+
+
+                container.appendChild(
+                    separator
+                );
+
+
+                previousMonth =
+                    monthNumber;
+
+
+                previousYear =
+                    yearNumber;
+
+            }
+
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "day-card";
+
+
+            const isNew =
+                day.date === today;
+
+
+            const weekday =
+                getWeekdayName(
+                    day.date
+                );
+
+
+            const lessonCount =
+                Array.isArray(
+                    day.lessons
+                )
+                    ? day.lessons.length
+                    : 0;
+
+
+            card.innerHTML = `
+
+                ${
+                    isNew
+                        ? `
+                            <div class="day-new">
+                                NOWOŚĆ!
+                            </div>
+                        `
+                        : ""
+                }
+
+
+                <div class="day-left">
+
+                    <div class="day-icon">
+                        📚
+                    </div>
+
+
+                    <div class="day-info">
+
+                        <h2>
+                            ${escapeHtml(
+                                formatDate(
+                                    day.date
+                                )
+                            )}
+                        </h2>
+
+
+                        <p>
+
+                            ${escapeHtml(
+                                weekday
+                            )}
+
+                            -
+
+                            ${lessonCount}
+
+                            ${lessonWord(
+                                lessonCount
+                            )}
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="day-arrow">
+                    →
+                </div>
+
+            `;
+
+
+            card.style.animationDelay =
+                `${index * 0.05}s`;
+
+
+            card.addEventListener(
+                "click",
+                () =>
+                    showDay(day)
+            );
+
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
 
 }
 
@@ -599,34 +1156,47 @@ function showDay(day) {
 
     document.getElementById(
         "daysView"
-    ).style.display = "none";
+    ).style.display =
+        "none";
 
 
     document.getElementById(
         "dayDetails"
-    ).classList.add("active");
+    ).classList.add(
+        "active"
+    );
 
 
     document.getElementById(
         "detailDate"
     ).textContent =
-        formatDate(day.date);
+        formatDate(
+            day.date
+        );
 
 
     document.getElementById(
         "detailWeekday"
     ).textContent =
-        getWeekdayName(day.date);
+        getWeekdayName(
+            day.date
+        );
 
 
-    renderLessons(day.lessons);
+    renderLessons(
+        day.lessons
+    );
 
-    renderMaterials(day.files);
+
+    renderMaterials(
+        day.files
+    );
 
 
     window.scrollTo({
 
         top: 0,
+
         behavior: "smooth"
 
     });
@@ -642,17 +1212,21 @@ function showDays() {
 
     document.getElementById(
         "dayDetails"
-    ).classList.remove("active");
+    ).classList.remove(
+        "active"
+    );
 
 
     document.getElementById(
         "daysView"
-    ).style.display = "block";
+    ).style.display =
+        "block";
 
 
     window.scrollTo({
 
         top: 0,
+
         behavior: "smooth"
 
     });
@@ -664,284 +1238,362 @@ function showDays() {
    RENDER LEKCJI
 ===================================================== */
 
-function renderLessons(lessons) {
+function renderLessons(
+    lessons
+) {
 
     const container =
-        document.getElementById("lessonList");
+        document.getElementById(
+            "lessonList"
+        );
 
 
     container.innerHTML = "";
 
 
     if (
-        !Array.isArray(lessons) ||
+        !Array.isArray(
+            lessons
+        ) ||
         !lessons.length
     ) {
 
         container.innerHTML = `
+
             <div class="empty">
-                Brak informacji o lekcjach.
+
+                Brak informacji
+                o lekcjach.
+
             </div>
+
         `;
 
         return;
+
     }
 
 
-    lessons.forEach((lesson, index) => {
+    lessons.forEach(
+        (lesson, index) => {
 
-        const element =
-            document.createElement("div");
-
-        element.className =
-            "lesson";
-
-
-        const attachments =
-            Array.isArray(lesson.attachments)
-                ? lesson.attachments
-                : [];
+            const element =
+                document.createElement(
+                    "div"
+                );
 
 
-        element.innerHTML = `
+            element.className =
+                "lesson";
 
-            <div class="lesson-number">
-                LEKCJA ${index + 1}
-            </div>
 
-            <h3>
-                ${escapeHtml(
-                    lesson.subject || "Bez nazwy"
-                )}
-            </h3>
+            const attachments =
+                Array.isArray(
+                    lesson.attachments
+                )
+                    ? lesson.attachments
+                    : [];
 
-            <p>
-                ${escapeHtml(
-                    lesson.content ||
-                    "Brak informacji."
-                )}
-            </p>
 
-            ${
-                attachments.length
-                    ? `
+            element.innerHTML = `
 
-                    <div class="lesson-attachments">
+                <div class="lesson-number">
+                    LEKCJA ${index + 1}
+                </div>
 
-                        <button
-                            type="button"
-                            class="lesson-attachments-button"
-                        >
-                            📎 Załączniki
-                            (${attachments.length})
-                        </button>
 
+                <h3>
+
+                    ${escapeHtml(
+                        lesson.subject ||
+                        "Bez nazwy"
+                    )}
+
+                </h3>
+
+
+                <p>
+
+                    ${escapeHtml(
+                        lesson.content ||
+                        "Brak informacji."
+                    )}
+
+                </p>
+
+
+                ${
+                    attachments.length
+                        ? `
 
                         <div
-                            class="lesson-attachments-content"
+                            class="lesson-attachments"
                         >
 
-                            <div
-                                class="photo-gallery"
-                            ></div>
+                            <button
+                                type="button"
+                                class="lesson-attachments-button"
+                            >
+
+                                📎 Załączniki
+                                (${attachments.length})
+
+                            </button>
+
 
                             <div
-                                class="lesson-attachment-links"
-                            ></div>
+                                class="lesson-attachments-content"
+                            >
+
+                                <div
+                                    class="photo-gallery"
+                                ></div>
+
+
+                                <div
+                                    class="lesson-attachment-links"
+                                ></div>
+
+                            </div>
 
                         </div>
 
-                    </div>
-
-                    `
-                    : ""
-            }
-
-        `;
-
-
-        if (attachments.length) {
-
-            const button =
-                element.querySelector(
-                    ".lesson-attachments-button"
-                );
-
-
-            const content =
-                element.querySelector(
-                    ".lesson-attachments-content"
-                );
-
-
-            const gallery =
-                element.querySelector(
-                    ".photo-gallery"
-                );
-
-
-            const links =
-                element.querySelector(
-                    ".lesson-attachment-links"
-                );
-
-
-            /*
-             * Zdjęcia tylko z tej konkretnej lekcji.
-             */
-
-            const lessonImages = [];
-
-
-            attachments.forEach(file => {
-
-                if (!file || !file.url) {
-                    return;
+                        `
+                        : ""
                 }
 
-
-                const url =
-                    String(file.url).trim();
+            `;
 
 
-                const name =
-                    file.name || "Załącznik";
+            if (
+                attachments.length
+            ) {
+
+                const button =
+                    element.querySelector(
+                        ".lesson-attachments-button"
+                    );
 
 
-                if (isImage(url)) {
-
-                    lessonImages.push({
-
-                        url: url,
-                        name: name
-
-                    });
+                const content =
+                    element.querySelector(
+                        ".lesson-attachments-content"
+                    );
 
 
-                    const card =
-                        document.createElement("div");
+                const gallery =
+                    element.querySelector(
+                        ".photo-gallery"
+                    );
 
 
-                    card.className =
-                        "photo-card";
+                const links =
+                    element.querySelector(
+                        ".lesson-attachment-links"
+                    );
 
 
-                    const image =
-                        document.createElement("img");
+                const lessonImages =
+                    [];
 
 
-                    image.src = url;
+                attachments.forEach(
+                    file => {
 
-                    image.alt = name;
+                        if (
+                            !file ||
+                            !file.url
+                        ) {
 
-                    image.loading = "lazy";
+                            return;
 
-
-                    image.onerror = () => {
-
-                        card.remove();
-
-                    };
-
-
-                    card.appendChild(image);
+                        }
 
 
-                    card.addEventListener(
-                        "click",
-                        () => {
+                        const url =
+                            String(
+                                file.url
+                            ).trim();
 
-                            openImage(
-                                lessonImages,
-                                lessonImages.findIndex(
-                                    item =>
-                                        item.url === url
-                                )
+
+                        const name =
+                            file.name ||
+                            "Załącznik";
+
+
+                        if (
+                            isImage(url)
+                        ) {
+
+                            lessonImages.push({
+
+                                url: url,
+
+                                name: name
+
+                            });
+
+
+                            const card =
+                                document.createElement(
+                                    "div"
+                                );
+
+
+                            card.className =
+                                "photo-card";
+
+
+                            const image =
+                                document.createElement(
+                                    "img"
+                                );
+
+
+                            image.src =
+                                url;
+
+
+                            image.alt =
+                                name;
+
+
+                            image.loading =
+                                "lazy";
+
+
+                            image.onerror =
+                                () => {
+
+                                    card.remove();
+
+                                };
+
+
+                            card.appendChild(
+                                image
+                            );
+
+
+                            card.addEventListener(
+                                "click",
+                                () => {
+
+                                    openImage(
+
+                                        lessonImages,
+
+                                        lessonImages.findIndex(
+                                            item =>
+                                                item.url ===
+                                                url
+                                        )
+
+                                    );
+
+                                }
+                            );
+
+
+                            gallery.appendChild(
+                                card
+                            );
+
+                        } else {
+
+                            const link =
+                                document.createElement(
+                                    "a"
+                                );
+
+
+                            link.className =
+                                "material";
+
+
+                            link.href =
+                                url;
+
+
+                            link.target =
+                                "_blank";
+
+
+                            link.rel =
+                                "noopener noreferrer";
+
+
+                            link.textContent =
+                                `🔗 ${name}`;
+
+
+                            links.appendChild(
+                                link
                             );
 
                         }
-                    );
-
-
-                    gallery.appendChild(card);
-
-                } else {
-
-                    const link =
-                        document.createElement("a");
-
-
-                    link.className =
-                        "material";
-
-
-                    link.href = url;
-
-                    link.target = "_blank";
-
-                    link.rel =
-                        "noopener noreferrer";
-
-
-                    link.textContent =
-                        `🔗 ${name}`;
-
-
-                    links.appendChild(link);
-
-                }
-
-            });
-
-
-            if (!lessonImages.length) {
-
-                gallery.style.display = "none";
-
-            }
-
-
-            if (!links.children.length) {
-
-                links.style.display = "none";
-
-            }
-
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    content.classList.toggle(
-                        "active"
-                    );
-
-
-                    if (
-                        content.classList.contains(
-                            "active"
-                        )
-                    ) {
-
-                        button.textContent =
-                            "📎 Ukryj załączniki";
-
-                    } else {
-
-                        button.textContent =
-                            `📎 Załączniki (${attachments.length})`;
 
                     }
+                );
+
+
+                if (
+                    !lessonImages.length
+                ) {
+
+                    gallery.style.display =
+                        "none";
 
                 }
+
+
+                if (
+                    !links.children.length
+                ) {
+
+                    links.style.display =
+                        "none";
+
+                }
+
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        content.classList.toggle(
+                            "active"
+                        );
+
+
+                        if (
+                            content.classList.contains(
+                                "active"
+                            )
+                        ) {
+
+                            button.textContent =
+                                "📎 Ukryj załączniki";
+
+                        } else {
+
+                            button.textContent =
+                                `📎 Załączniki (${attachments.length})`;
+
+                        }
+
+                    }
+                );
+
+            }
+
+
+            container.appendChild(
+                element
             );
 
         }
-
-
-        container.appendChild(element);
-
-    });
+    );
 
 }
 
@@ -950,141 +1602,197 @@ function renderLessons(lessons) {
    MATERIAŁY DNIA
 ===================================================== */
 
-function renderMaterials(files) {
+function renderMaterials(
+    files
+) {
 
     const section =
-        document.getElementById("materials");
+        document.getElementById(
+            "materials"
+        );
 
 
     const gallery =
-        document.getElementById("photoGallery");
+        document.getElementById(
+            "photoGallery"
+        );
 
 
     const links =
-        document.getElementById("materialsList");
+        document.getElementById(
+            "materialsList"
+        );
 
 
-    gallery.innerHTML = "";
+    gallery.innerHTML =
+        "";
 
-    links.innerHTML = "";
+
+    links.innerHTML =
+        "";
 
 
     if (
-        !Array.isArray(files) ||
+        !Array.isArray(
+            files
+        ) ||
         !files.length
     ) {
 
-        section.style.display = "none";
+        section.style.display =
+            "none";
 
         return;
+
     }
 
 
-    section.style.display = "block";
+    section.style.display =
+        "block";
 
 
-    const dayImages = [];
+    const dayImages =
+        [];
 
 
-    files.forEach(file => {
+    files.forEach(
+        file => {
 
-        if (!file || !file.url) {
-            return;
-        }
+            if (
+                !file ||
+                !file.url
+            ) {
 
+                return;
 
-        const url =
-            String(file.url).trim();
-
-
-        const name =
-            file.name || "Materiał";
+            }
 
 
-        if (isImage(url)) {
-
-            dayImages.push({
-
-                url: url,
-                name: name
-
-            });
+            const url =
+                String(
+                    file.url
+                ).trim();
 
 
-            const card =
-                document.createElement("div");
+            const name =
+                file.name ||
+                "Materiał";
 
 
-            card.className =
-                "photo-card";
+            if (
+                isImage(url)
+            ) {
+
+                dayImages.push({
+
+                    url: url,
+
+                    name: name
+
+                });
 
 
-            const image =
-                document.createElement("img");
-
-
-            image.src = url;
-
-            image.alt = name;
-
-            image.loading = "lazy";
-
-
-            image.onerror = () => {
-
-                card.remove();
-
-            };
-
-
-            card.appendChild(image);
-
-
-            card.addEventListener(
-                "click",
-                () => {
-
-                    openImage(
-                        dayImages,
-                        dayImages.findIndex(
-                            item =>
-                                item.url === url
-                        )
+                const card =
+                    document.createElement(
+                        "div"
                     );
 
-                }
-            );
+
+                card.className =
+                    "photo-card";
 
 
-            gallery.appendChild(card);
-
-        } else {
-
-            const link =
-                document.createElement("a");
+                const image =
+                    document.createElement(
+                        "img"
+                    );
 
 
-            link.className =
-                "material";
+                image.src =
+                    url;
 
 
-            link.href = url;
-
-            link.target = "_blank";
-
-            link.rel =
-                "noopener noreferrer";
+                image.alt =
+                    name;
 
 
-            link.textContent =
-                `🔗 ${name}`;
+                image.loading =
+                    "lazy";
 
 
-            links.appendChild(link);
+                image.onerror =
+                    () => {
+
+                        card.remove();
+
+                    };
+
+
+                card.appendChild(
+                    image
+                );
+
+
+                card.addEventListener(
+                    "click",
+                    () => {
+
+                        openImage(
+
+                            dayImages,
+
+                            dayImages.findIndex(
+                                item =>
+                                    item.url ===
+                                    url
+                            )
+
+                        );
+
+                    }
+                );
+
+
+                gallery.appendChild(
+                    card
+                );
+
+            } else {
+
+                const link =
+                    document.createElement(
+                        "a"
+                    );
+
+
+                link.className =
+                    "material";
+
+
+                link.href =
+                    url;
+
+
+                link.target =
+                    "_blank";
+
+
+                link.rel =
+                    "noopener noreferrer";
+
+
+                link.textContent =
+                    `🔗 ${name}`;
+
+
+                links.appendChild(
+                    link
+                );
+
+            }
 
         }
-
-    });
+    );
 
 
     gallery.style.display =
@@ -1104,7 +1812,8 @@ function renderMaterials(files) {
         !links.children.length
     ) {
 
-        section.style.display = "none";
+        section.style.display =
+            "none";
 
     }
 
@@ -1115,7 +1824,9 @@ function renderMaterials(files) {
    CZY LINK JEST ZDJĘCIEM
 ===================================================== */
 
-function isImage(url) {
+function isImage(
+    url
+) {
 
     const clean =
         url
@@ -1142,25 +1853,35 @@ function isImage(url) {
    OTWÓRZ ZDJĘCIE
 ===================================================== */
 
-function openImage(images, index = 0) {
+function openImage(
+    images,
+    index = 0
+) {
 
     if (
         !Array.isArray(images) ||
         !images.length
     ) {
+
         return;
+
     }
 
 
-    viewerImages = images;
+    viewerImages =
+        images;
+
 
     currentImageIndex =
         Math.max(
+
             0,
+
             Math.min(
                 index,
                 viewerImages.length - 1
             )
+
         );
 
 
@@ -1170,7 +1891,10 @@ function openImage(images, index = 0) {
         );
 
 
-    viewer.classList.add("active");
+    viewer.classList.add(
+        "active"
+    );
+
 
     viewer.setAttribute(
         "aria-hidden",
@@ -1193,8 +1917,12 @@ function openImage(images, index = 0) {
 
 function updateViewer() {
 
-    if (!viewerImages.length) {
+    if (
+        !viewerImages.length
+    ) {
+
         return;
+
     }
 
 
@@ -1228,20 +1956,18 @@ function updateViewer() {
         );
 
 
-    image.src = current.url;
+    image.src =
+        current.url;
+
 
     image.alt =
-        current.name || "Zdjęcie";
+        current.name ||
+        "Zdjęcie";
 
 
     counter.textContent =
         `${currentImageIndex + 1}/${viewerImages.length}`;
 
-
-    /*
-     * Strzałki pokazujemy tylko wtedy,
-     * gdy jest więcej niż jedno zdjęcie.
-     */
 
     const hasMultiple =
         viewerImages.length > 1;
@@ -1265,21 +1991,32 @@ function updateViewer() {
    POPRZEDNIE ZDJĘCIE
 ===================================================== */
 
-function previousImage(event) {
+function previousImage(
+    event
+) {
 
     if (event) {
+
         event.stopPropagation();
+
     }
 
 
-    if (viewerImages.length <= 1) {
+    if (
+        viewerImages.length <= 1
+    ) {
+
         return;
+
     }
 
 
     currentImageIndex--;
 
-    if (currentImageIndex < 0) {
+
+    if (
+        currentImageIndex < 0
+    ) {
 
         currentImageIndex =
             viewerImages.length - 1;
@@ -1296,15 +2033,23 @@ function previousImage(event) {
    NASTĘPNE ZDJĘCIE
 ===================================================== */
 
-function nextImage(event) {
+function nextImage(
+    event
+) {
 
     if (event) {
+
         event.stopPropagation();
+
     }
 
 
-    if (viewerImages.length <= 1) {
+    if (
+        viewerImages.length <= 1
+    ) {
+
         return;
+
     }
 
 
@@ -1330,14 +2075,19 @@ function nextImage(event) {
    ZAMKNIJ PODGLĄD
 ===================================================== */
 
-function closeImage(event) {
+function closeImage(
+    event
+) {
 
     if (
         event &&
         event.target &&
-        event.target.id === "viewerImage"
+        event.target.id ===
+            "viewerImage"
     ) {
+
         return;
+
     }
 
 
@@ -1347,7 +2097,9 @@ function closeImage(event) {
         );
 
 
-    viewer.classList.remove("active");
+    viewer.classList.remove(
+        "active"
+    );
 
 
     viewer.setAttribute(
@@ -1360,9 +2112,12 @@ function closeImage(event) {
         "";
 
 
-    viewerImages = [];
+    viewerImages =
+        [];
 
-    currentImageIndex = 0;
+
+    currentImageIndex =
+        0;
 
 }
 
@@ -1372,7 +2127,9 @@ function closeImage(event) {
 ===================================================== */
 
 document
-    .getElementById("imageViewer")
+    .getElementById(
+        "imageViewer"
+    )
     .addEventListener(
         "click",
         event => {
@@ -1409,11 +2166,16 @@ document.addEventListener(
                 "active"
             )
         ) {
+
             return;
+
         }
 
 
-        if (event.key === "Escape") {
+        if (
+            event.key ===
+            "Escape"
+        ) {
 
             closeImage();
 
@@ -1422,7 +2184,10 @@ document.addEventListener(
         }
 
 
-        if (event.key === "ArrowLeft") {
+        if (
+            event.key ===
+            "ArrowLeft"
+        ) {
 
             previousImage();
 
@@ -1431,7 +2196,10 @@ document.addEventListener(
         }
 
 
-        if (event.key === "ArrowRight") {
+        if (
+            event.key ===
+            "ArrowRight"
+        ) {
 
             nextImage();
 
@@ -1447,10 +2215,16 @@ document.addEventListener(
    SŁOWO "LEKCJA"
 ===================================================== */
 
-function lessonWord(count) {
+function lessonWord(
+    count
+) {
 
-    if (count === 1) {
+    if (
+        count === 1
+    ) {
+
         return "lekcja";
+
     }
 
 
@@ -1458,7 +2232,9 @@ function lessonWord(count) {
         count >= 2 &&
         count <= 4
     ) {
+
         return "lekcje";
+
     }
 
 
@@ -1471,13 +2247,16 @@ function lessonWord(count) {
    DATA
 ===================================================== */
 
-function formatDate(date) {
+function formatDate(
+    date
+) {
 
     const [
         year,
         month,
         day
-    ] = date.split("-");
+    ] =
+        date.split("-");
 
 
     const months = [
@@ -1508,10 +2287,14 @@ function formatDate(date) {
    DZIEŃ TYGODNIA
 ===================================================== */
 
-function getWeekdayName(date) {
+function getWeekdayName(
+    date
+) {
 
     const dateObject =
-        new Date(`${date}T12:00:00`);
+        new Date(
+            `${date}T12:00:00`
+        );
 
 
     return WEEK_DAYS[
@@ -1525,15 +2308,38 @@ function getWeekdayName(date) {
    ESCAPE HTML
 ===================================================== */
 
-function escapeHtml(text) {
+function escapeHtml(
+    text
+) {
 
-    return String(text ?? "")
+    return String(
+        text ?? ""
+    )
 
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
 
 }
 
@@ -1554,7 +2360,10 @@ const menu =
     );
 
 
-if (hamburger && menu) {
+if (
+    hamburger &&
+    menu
+) {
 
 
     hamburger.addEventListener(
@@ -1593,8 +2402,10 @@ if (hamburger && menu) {
         event => {
 
             if (
-                event.key === "Enter" ||
-                event.key === " "
+                event.key ===
+                    "Enter" ||
+                event.key ===
+                    " "
             ) {
 
                 event.preventDefault();
@@ -1609,38 +2420,43 @@ if (hamburger && menu) {
 
     menu
         .querySelectorAll("a")
-        .forEach(link => {
+        .forEach(
+            link => {
 
-            link.addEventListener(
-                "click",
-                () => {
+                link.addEventListener(
+                    "click",
+                    () => {
 
-                    hamburger.classList.remove(
-                        "active"
-                    );
-
-
-                    menu.classList.remove(
-                        "active"
-                    );
+                        hamburger.classList.remove(
+                            "active"
+                        );
 
 
-                    hamburger.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
+                        menu.classList.remove(
+                            "active"
+                        );
 
-                }
-            );
 
-        });
+                        hamburger.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
+
+                    }
+                );
+
+            }
+        );
 
 
     window.addEventListener(
         "resize",
         () => {
 
-            if (window.innerWidth > 700) {
+            if (
+                window.innerWidth >
+                700
+            ) {
 
                 hamburger.classList.remove(
                     "active"
