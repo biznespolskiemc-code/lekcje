@@ -151,6 +151,278 @@ a {
 
 }
 
+/* =====================================================
+SORTOWANIE
+===================================================== */
+
+.sort-container {
+
+position: relative;
+
+display: flex;
+
+justify-content: flex-end;
+
+margin-bottom: 18px;
+
+z-index: 20;
+
+}
+
+.sort-button {
+display: inline-flex;
+
+align-items: center;
+
+justify-content: space-between;
+
+gap: 18px;
+
+min-width: 205px;
+
+padding:
+    11px
+    15px;
+
+color: #ffffff;
+
+background:
+    rgba(255,255,255,.045);
+
+border:
+    1px solid
+    rgba(255,255,255,.09);
+
+border-radius: 10px;
+
+font-family: inherit;
+
+font-size: 12px;
+
+font-weight: 600;
+
+cursor: pointer;
+
+transition:
+    background .25s ease,
+    border-color .25s ease,
+    transform .25s ease;
+
+}
+
+.sort-button:hover {
+background:
+    rgba(24,176,214,.07);
+
+border-color:
+    rgba(24,176,214,.35);
+
+}
+
+.sort-button strong {
+
+color:
+    var(--blue-light);
+
+font-weight: 700;
+
+}
+
+.sort-arrow {
+
+color:
+    rgba(255,255,255,.4);
+
+font-size: 9px;
+
+transition:
+    transform .25s ease;
+
+}
+
+.sort-button.active .sort-arrow {
+transform:
+    rotate(180deg);
+
+}
+
+/* MENU */
+
+.sort-menu {
+position: absolute;
+
+top: calc(100% + 8px);
+
+right: 0;
+
+width: 205px;
+
+padding: 6px;
+
+display: none;
+
+background:
+    rgba(16,16,16,.96);
+
+border:
+    1px solid
+    rgba(255,255,255,.10);
+
+border-radius: 12px;
+
+box-shadow:
+    0 15px 45px
+    rgba(0,0,0,.45);
+
+backdrop-filter:
+    blur(18px);
+
+-webkit-backdrop-filter:
+    blur(18px);
+
+}
+
+.sort-menu.active {
+display: block;
+
+animation:
+    sortMenuAppear .2s ease both;
+
+}
+
+.sort-menu button {
+
+width: 100%;
+
+padding:
+    10px
+    11px;
+
+color:
+    rgba(255,255,255,.65);
+
+background: transparent;
+
+border: none;
+
+border-radius: 8px;
+
+font-family: inherit;
+
+font-size: 12px;
+
+font-weight: 600;
+
+text-align: left;
+
+cursor: pointer;
+
+transition:
+    background .2s ease,
+    color .2s ease;
+
+}
+
+.sort-menu button:hover {
+
+color: #ffffff;
+
+background:
+    rgba(24,176,214,.09);
+
+}
+
+.sort-menu button.selected {
+color:
+    var(--blue-light);
+
+background:
+    rgba(24,176,214,.07);
+
+}
+
+.sort-divider {
+
+height: 1px;
+
+margin:
+    6px 4px;
+
+background:
+    rgba(255,255,255,.08);
+
+}
+
+/* MIESIĄCE */
+
+.sort-months {
+
+max-height: 240px;
+
+overflow-y: auto;
+
+}
+
+.sort-months button {
+color:
+    rgba(255,255,255,.55);
+
+}
+
+/* ANIMACJA */
+
+@keyframes sortMenuAppear {
+from {
+
+    opacity: 0;
+
+    transform:
+        translateY(-5px);
+
+}
+
+to {
+
+    opacity: 1;
+
+    transform:
+        translateY(0);
+
+}
+
+}
+
+/* TELEFON */
+
+@media (max-width: 700px) {
+
+.sort-container {
+
+    justify-content: stretch;
+
+    margin-bottom: 15px;
+
+}
+
+.sort-button {
+
+    width: 100%;
+
+    min-width: 0;
+
+}
+
+.sort-menu {
+
+    left: 0;
+    right: 0;
+
+    width: 100%;
+
+}
+
+}
+
 
 /* =====================================================
    NAVBAR
