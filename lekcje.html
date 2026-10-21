@@ -362,3 +362,895 @@
                 });
 
                 sortMonths.appendChild(button);
+            });
+        }
+
+        function generateSubjectOptions() {
+            sortSubjects.innerHTML = "";
+
+            const subjects = new Map();
+
+            allDays.forEach(day => {
+                if (!day || !Array.isArray(day.lessons)) {
+                    return;
+                }
+
+                day.lessons.forEach(lesson => {
+                    if (
+                        !lesson ||
+                        typeof lesson.subject !== "string"
+                    ) {
+                        return;
+                    }
+
+                    const subject = lesson.subject.trim();
+
+                    if (!subject) {
+                        return;
+                    }
+
+                    const normalizedSubject =
+                        subject.toLocaleLowerCase("pl-PL");
+
+                    if (!subjects.has(normalizedSubject)) {
+                        subjects.set(normalizedSubject, subject);
+                    }
+                });
+            });
+
+            const sortedSubjects =
+                [...subjects.values()].sort((a, b) =>
+                    a.localeCompare(
+                        b,
+                        "pl",
+                        { sensitivity: "base" }
+                    )
+                );
+
+            if (!sortedSubjects.length) {
+                const empty =
+                    document.createElement("div");
+
+                empty.className = "sort-group-empty";
+                empty.textContent = "Brak przedmiotów";
+
+                sortSubjects.appendChild(empty);
+                return;
+            }
+
+            sortedSubjects.forEach(subject => {
+                const button =
+                    document.createElement("button");
+
+                button.type = "button";
+                button.dataset.sort = `subject:${subject}`;
+                button.textContent = subject;
+
+                button.addEventListener("click", () => {
+                    currentSort = button.dataset.sort;
+                    sortCurrent.textContent = subject;
+
+                    updateSelectedSort(button);
+                    applySort();
+                    closeSortMenu();
+                });
+
+                sortSubjects.appendChild(button);
+            });
+        }
+
+        function updateSelectedSort(selectedButton) {
+            sortMenu
+                .querySelectorAll("button[data-sort]")
+                .forEach(button => {
+                    button.classList.remove("selected");
+                });
+
+            if (selectedButton) {
+                selectedButton.classList.add("selected");
+            }
+        }
+
+        function syncSelectedSort() {
+            const selectedButton =
+                [...sortMenu.querySelectorAll("button[data-sort]")]
+                    .find(button =>
+                        button.dataset.sort === currentSort
+                    );
+
+            updateSelectedSort(selectedButton);
+        }
+
+        function applySort() {
+            let days = [...allDays];
+
+            if (currentSort.startsWith("subject:")) {
+                const selectedSubject =
+                    currentSort.slice("subject:".length);
+
+                renderSubjectResults(selectedSubject);
+                return;
+            }
+
+            if (currentSort === "newest") {
+                days.sort((a, b) =>
+                    String(b.date || "").localeCompare(
+                        String(a.date || "")
+                    )
+                );
+
+            } else if (currentSort === "oldest") {
+                days.sort((a, b) =>
+                    String(a.date || "").localeCompare(
+                        String(b.date || "")
+                    )
+                );
+
+            } else {
+                const [selectedYear, selectedMonth] =
+                    currentSort.split("-");
+
+                days = days.filter(day => {
+                    if (!day || !day.date) {
+                        return false;
+                    }
+
+                    const [year, month] =
+                        String(day.date).split("-");
+
+                    return (
+                        year === selectedYear &&
+                        month === selectedMonth
+                    );
+                });
+
+                days.sort((a, b) =>
+                    String(b.date || "").localeCompare(
+                        String(a.date || "")
+                    )
+                );
+            }
+
+            renderDays(days);
+        }
+
+        function renderSubjectResults(subject) {
+            const entries = [];
+
+            const normalizedSelectedSubject =
+                String(subject)
+                    .trim()
+                    .toLocaleLowerCase("pl-PL");
+
+            allDays.forEach(day => {
+                if (
+                    !day ||
+                    !day.date ||
+                    !Array.isArray(day.lessons)
+                ) {
+                    return;
+                }
+
+                day.lessons.forEach(lesson => {
+                    if (
+                        !lesson ||
+                        typeof lesson.subject !== "string"
+                    ) {
+                        return;
+                    }
+
+                    if (
+                        lesson.subject
+                            .trim()
+                            .toLocaleLowerCase("pl-PL") ===
+                        normalizedSelectedSubject
+                    ) {
+                        entries.push({
+                            date: day.date,
+                            lesson: lesson
+                        });
+                    }
+                });
+            });
+
+            entries.sort((a, b) =>
+                String(b.date).localeCompare(String(a.date))
+            );
+
+            renderLessons(entries, true);
+        }
+
+        function closeSortMenu() {
+            sortButton.classList.remove("active");
+            sortMenu.classList.remove("active");
+
+            sortButton.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+        }
+
+        function renderDays(days = allDays) {
+            const container =
+                document.getElementById("daysList");
+
+            container.innerHTML = "";
+
+            if (!days.length) {
+                container.innerHTML = `
+                    <div class="empty">
+                        Nie ma jeszcze zapisanych lekcji.
+                    </div>
+                `;
+                return;
+            }
+
+            const today =
+                new Date().toLocaleDateString(
+                    "sv-SE",
+                    { timeZone: "Europe/Warsaw" }
+                );
+
+            let previousMonth = null;
+            let previousYear = null;
+
+            days.forEach((day, index) => {
+                if (!day || !day.date) {
+                    return;
+                }
+
+                const [year, month] =
+                    String(day.date).split("-");
+
+                const monthNumber = Number(month);
+                const yearNumber = Number(year);
+
+                if (
+                    monthNumber !== previousMonth ||
+                    yearNumber !== previousYear
+                ) {
+                    const separator =
+                        document.createElement("div");
+
+                    separator.className = "month-separator";
+
+                    separator.textContent =
+                        `${MONTHS[monthNumber] || ""} ${yearNumber}`;
+
+                    container.appendChild(separator);
+
+                    previousMonth = monthNumber;
+                    previousYear = yearNumber;
+                }
+
+                const card =
+                    document.createElement("div");
+
+                card.className = "day-card";
+
+                const isNew = day.date === today;
+                const weekday = getWeekdayName(day.date);
+
+                const lessonCount =
+                    Array.isArray(day.lessons)
+                        ? day.lessons.length
+                        : 0;
+
+                card.innerHTML = `
+                    ${isNew ? `
+                        <div class="day-new">NOWOŚĆ!</div>
+                    ` : ""}
+
+                    <div class="day-left">
+                        <div class="day-icon">📚</div>
+
+                        <div class="day-info">
+                            <h2>${escapeHtml(formatDate(day.date))}</h2>
+                            <p>
+                                ${escapeHtml(weekday)} -
+                                ${lessonCount}
+                                ${lessonWord(lessonCount)}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="day-arrow">→</div>
+                `;
+
+                card.style.animationDelay =
+                    `${index * 0.05}s`;
+
+                card.addEventListener(
+                    "click",
+                    () => showDay(day)
+                );
+
+                container.appendChild(card);
+            });
+        }
+
+        function showDay(day) {
+            sortContainer.style.display = "none";
+            closeSortMenu();
+
+            document.getElementById("daysView").style.display =
+                "none";
+
+            document.getElementById("dayDetails")
+                .classList.add("active");
+
+            document.getElementById("detailDate")
+                .textContent = formatDate(day.date);
+
+            document.getElementById("detailWeekday")
+                .textContent = getWeekdayName(day.date);
+
+            renderLessons(day.lessons);
+            renderMaterials(day.files);
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+
+        function showDays() {
+            sortContainer.style.display = "";
+
+            document.getElementById("dayDetails")
+                .classList.remove("active");
+
+            document.getElementById("daysView").style.display =
+                "block";
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+
+        function renderLessons(lessons, showDates = false) {
+            const container =
+                document.getElementById("lessonList");
+
+            const targetContainer = showDates
+                ? document.getElementById("daysList")
+                : container;
+
+            targetContainer.innerHTML = "";
+
+            if (!Array.isArray(lessons) || !lessons.length) {
+                targetContainer.innerHTML = `
+                    <div class="empty">
+                        ${
+                            showDates
+                                ? "Brak lekcji z wybranego przedmiotu."
+                                : "Brak informacji o lekcjach."
+                        }
+                    </div>
+                `;
+                return;
+            }
+
+            lessons.forEach((entry, index) => {
+                const lesson =
+                    showDates ? entry.lesson : entry;
+
+                if (!lesson) {
+                    return;
+                }
+
+                const element =
+                    document.createElement("div");
+
+                element.className = "lesson";
+
+                const attachments =
+                    Array.isArray(lesson.attachments)
+                        ? lesson.attachments
+                        : [];
+
+                const topLabel = showDates
+                    ? formatDate(entry.date)
+                    : `LEKCJA ${index + 1}`;
+
+                element.innerHTML = `
+                    <div class="lesson-number">
+                        ${escapeHtml(topLabel)}
+                    </div>
+
+                    <h3>
+                        ${escapeHtml(lesson.subject || "Bez nazwy")}
+                    </h3>
+
+                    <p>
+                        ${escapeHtml(lesson.content || "Brak informacji.")}
+                    </p>
+
+                    ${
+                        attachments.length
+                            ? `
+                                <div class="lesson-attachments">
+                                    <button
+                                        type="button"
+                                        class="lesson-attachments-button"
+                                    >
+                                        📎 Załączniki (${attachments.length})
+                                    </button>
+
+                                    <div class="lesson-attachments-content">
+                                        <div class="photo-gallery"></div>
+                                        <div class="lesson-attachment-links"></div>
+                                    </div>
+                                </div>
+                            `
+                            : ""
+                    }
+                `;
+
+                if (attachments.length) {
+                    const button =
+                        element.querySelector(
+                            ".lesson-attachments-button"
+                        );
+
+                    const content =
+                        element.querySelector(
+                            ".lesson-attachments-content"
+                        );
+
+                    const gallery =
+                        element.querySelector(".photo-gallery");
+
+                    const links =
+                        element.querySelector(
+                            ".lesson-attachment-links"
+                        );
+
+                    const lessonImages = [];
+
+                    attachments.forEach(file => {
+                        if (!file || !file.url) {
+                            return;
+                        }
+
+                        const url = String(file.url).trim();
+                        const name = file.name || "Załącznik";
+
+                        if (isImage(url)) {
+                            lessonImages.push({
+                                url: url,
+                                name: name
+                            });
+
+                            const card =
+                                document.createElement("div");
+
+                            card.className = "photo-card";
+
+                            const image =
+                                document.createElement("img");
+
+                            image.src = url;
+                            image.alt = name;
+                            image.loading = "lazy";
+
+                            image.onerror = () => card.remove();
+
+                            card.appendChild(image);
+
+                            card.addEventListener("click", () => {
+                                openImage(
+                                    lessonImages,
+                                    lessonImages.findIndex(
+                                        item => item.url === url
+                                    )
+                                );
+                            });
+
+                            gallery.appendChild(card);
+
+                        } else {
+                            const link =
+                                document.createElement("a");
+
+                            link.className = "material";
+                            link.href = url;
+                            link.target = "_blank";
+                            link.rel = "noopener noreferrer";
+                            link.textContent = `🔗 ${name}`;
+
+                            links.appendChild(link);
+                        }
+                    });
+
+                    if (!lessonImages.length) {
+                        gallery.style.display = "none";
+                    }
+
+                    if (!links.children.length) {
+                        links.style.display = "none";
+                    }
+
+                    button.addEventListener("click", () => {
+                        content.classList.toggle("active");
+
+                        if (content.classList.contains("active")) {
+                            button.textContent =
+                                "📎 Ukryj załączniki";
+                        } else {
+                            button.textContent =
+                                `📎 Załączniki (${attachments.length})`;
+                        }
+                    });
+                }
+
+                targetContainer.appendChild(element);
+            });
+        }
+
+        function renderMaterials(files) {
+            const section =
+                document.getElementById("materials");
+
+            const gallery =
+                document.getElementById("photoGallery");
+
+            const links =
+                document.getElementById("materialsList");
+
+            gallery.innerHTML = "";
+            links.innerHTML = "";
+
+            if (!Array.isArray(files) || !files.length) {
+                section.style.display = "none";
+                return;
+            }
+
+            section.style.display = "block";
+
+            const dayImages = [];
+
+            files.forEach(file => {
+                if (!file || !file.url) {
+                    return;
+                }
+
+                const url = String(file.url).trim();
+                const name = file.name || "Materiał";
+
+                if (isImage(url)) {
+                    dayImages.push({
+                        url: url,
+                        name: name
+                    });
+
+                    const card =
+                        document.createElement("div");
+
+                    card.className = "photo-card";
+
+                    const image =
+                        document.createElement("img");
+
+                    image.src = url;
+                    image.alt = name;
+                    image.loading = "lazy";
+
+                    image.onerror = () => card.remove();
+
+                    card.appendChild(image);
+
+                    card.addEventListener("click", () => {
+                        openImage(
+                            dayImages,
+                            dayImages.findIndex(
+                                item => item.url === url
+                            )
+                        );
+                    });
+
+                    gallery.appendChild(card);
+
+                } else {
+                    const link =
+                        document.createElement("a");
+
+                    link.className = "material";
+                    link.href = url;
+                    link.target = "_blank";
+                    link.rel = "noopener noreferrer";
+                    link.textContent = `🔗 ${name}`;
+
+                    links.appendChild(link);
+                }
+            });
+
+            gallery.style.display =
+                dayImages.length ? "grid" : "none";
+
+            links.style.display =
+                links.children.length ? "flex" : "none";
+
+            if (
+                !gallery.children.length &&
+                !links.children.length
+            ) {
+                section.style.display = "none";
+            }
+        }
+
+        function isImage(url) {
+            const clean =
+                String(url)
+                    .split("?")[0]
+                    .split("#")[0]
+                    .toLowerCase();
+
+            return (
+                clean.endsWith(".jpg") ||
+                clean.endsWith(".jpeg") ||
+                clean.endsWith(".png") ||
+                clean.endsWith(".webp") ||
+                clean.endsWith(".gif") ||
+                clean.endsWith(".avif")
+            );
+        }
+
+        function openImage(images, index = 0) {
+            if (!Array.isArray(images) || !images.length) {
+                return;
+            }
+
+            viewerImages = images;
+
+            currentImageIndex = Math.max(
+                0,
+                Math.min(index, viewerImages.length - 1)
+            );
+
+            const viewer =
+                document.getElementById("imageViewer");
+
+            viewer.classList.add("active");
+
+            viewer.setAttribute("aria-hidden", "false");
+
+            document.body.style.overflow = "hidden";
+
+            updateViewer();
+        }
+
+        function updateViewer() {
+            if (!viewerImages.length) {
+                return;
+            }
+
+            const current =
+                viewerImages[currentImageIndex];
+
+            const image =
+                document.getElementById("viewerImage");
+
+            const counter =
+                document.getElementById("imageCounter");
+
+            const previous =
+                document.getElementById("imagePrev");
+
+            const next =
+                document.getElementById("imageNext");
+
+            image.src = current.url;
+            image.alt = current.name || "Zdjęcie";
+
+            counter.textContent =
+                `${currentImageIndex + 1}/${viewerImages.length}`;
+
+            const hasMultiple = viewerImages.length > 1;
+
+            previous.style.display =
+                hasMultiple ? "flex" : "none";
+
+            next.style.display =
+                hasMultiple ? "flex" : "none";
+        }
+
+        function previousImage(event) {
+            if (event) {
+                event.stopPropagation();
+            }
+
+            if (viewerImages.length <= 1) {
+                return;
+            }
+
+            currentImageIndex--;
+
+            if (currentImageIndex < 0) {
+                currentImageIndex =
+                    viewerImages.length - 1;
+            }
+
+            updateViewer();
+        }
+
+        function nextImage(event) {
+            if (event) {
+                event.stopPropagation();
+            }
+
+            if (viewerImages.length <= 1) {
+                return;
+            }
+
+            currentImageIndex++;
+
+            if (currentImageIndex >= viewerImages.length) {
+                currentImageIndex = 0;
+            }
+
+            updateViewer();
+        }
+
+        function closeImage(event) {
+            if (
+                event &&
+                event.target &&
+                event.target.id === "viewerImage"
+            ) {
+                return;
+            }
+
+            const viewer =
+                document.getElementById("imageViewer");
+
+            viewer.classList.remove("active");
+            viewer.setAttribute("aria-hidden", "true");
+
+            document.body.style.overflow = "";
+
+            viewerImages = [];
+            currentImageIndex = 0;
+        }
+
+        document
+            .getElementById("imageViewer")
+            .addEventListener("click", event => {
+                if (event.target.id === "imageViewer") {
+                    closeImage();
+                }
+            });
+
+        document.addEventListener("keydown", event => {
+            const viewer =
+                document.getElementById("imageViewer");
+
+            if (!viewer.classList.contains("active")) {
+                return;
+            }
+
+            if (event.key === "Escape") {
+                closeImage();
+                return;
+            }
+
+            if (event.key === "ArrowLeft") {
+                previousImage();
+                return;
+            }
+
+            if (event.key === "ArrowRight") {
+                nextImage();
+                return;
+            }
+        });
+
+        function lessonWord(count) {
+            if (count === 1) {
+                return "lekcja";
+            }
+
+            if (count >= 2 && count <= 4) {
+                return "lekcje";
+            }
+
+            return "lekcji";
+        }
+
+        function formatDate(date) {
+            const [year, month, day] =
+                String(date).split("-");
+
+            const months = [
+                "",
+                "stycznia",
+                "lutego",
+                "marca",
+                "kwietnia",
+                "maja",
+                "czerwca",
+                "lipca",
+                "sierpnia",
+                "września",
+                "października",
+                "listopada",
+                "grudnia"
+            ];
+
+            return `${Number(day)} ${months[Number(month)] || ""} ${year}`;
+        }
+
+        function getWeekdayName(date) {
+            const dateObject =
+                new Date(`${date}T12:00:00`);
+
+            return WEEK_DAYS[dateObject.getDay()] || "";
+        }
+
+        function escapeHtml(text) {
+            return String(text ?? "")
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+
+        const hamburger =
+            document.getElementById("hamburger");
+
+        const menu =
+            document.getElementById("menu");
+
+        if (hamburger && menu) {
+            hamburger.addEventListener("click", () => {
+                hamburger.classList.toggle("active");
+                menu.classList.toggle("active");
+
+                const menuIsOpen =
+                    menu.classList.contains("active");
+
+                hamburger.setAttribute(
+                    "aria-expanded",
+                    menuIsOpen ? "true" : "false"
+                );
+            });
+
+            hamburger.addEventListener("keydown", event => {
+                if (
+                    event.key === "Enter" ||
+                    event.key === " "
+                ) {
+                    event.preventDefault();
+                    hamburger.click();
+                }
+            });
+
+            menu.querySelectorAll("a").forEach(link => {
+                link.addEventListener("click", () => {
+                    hamburger.classList.remove("active");
+                    menu.classList.remove("active");
+
+                    hamburger.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+                });
+            });
+
+            window.addEventListener("resize", () => {
+                if (window.innerWidth > 700) {
+                    hamburger.classList.remove("active");
+                    menu.classList.remove("active");
+
+                    hamburger.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+                }
+            });
+        }
+    </script>
+</body>
+</html>
