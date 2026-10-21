@@ -13,7 +13,7 @@
         .sort-group-label {
             display: block;
             padding: 10px 14px 5px;
-            color: rgba(220, 225, 235, 0.55);
+            color: #ffffff;
             font-size: 11px;
             font-weight: 700;
             letter-spacing: 0.08em;
@@ -25,6 +25,11 @@
 
         .sort-group-label:first-child {
             padding-top: 5px;
+        }
+
+        /* Większy odstęp między etykietą „Miesiąc” a przyciskami miesięcy. */
+        .sort-month-label {
+            padding-bottom: 13px;
         }
 
         .sort-divider {
@@ -131,7 +136,7 @@
 
                     <div class="sort-divider"></div>
 
-                    <div class="sort-group-label">Miesiąc:</div>
+                    <div class="sort-group-label sort-month-label">Miesiąc:</div>
                     <div class="sort-months" id="sortMonths"></div>
 
                     <div class="sort-divider"></div>
