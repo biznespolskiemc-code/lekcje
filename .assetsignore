@@ -1,7 +1,9 @@
+.git/
+**/.git/**
+.github/
 src/
 wrangler.jsonc
 .assetsignore
 package.json
 package-lock.json
 node_modules/
-.github/
