@@ -137,107 +137,124 @@
 
 
 <script>
-    const passwordInput =
-        document.getElementById("password");
+    const passwordInput = document.getElementById("password");
+    const passwordToggle = document.getElementById("passwordToggle");
+    const loginForm = document.getElementById("loginForm");
+    const loginMessage = document.getElementById("loginMessage");
+    const submitButton = loginForm.querySelector(
+        'button[type="submit"]'
+    );
 
-    const passwordToggle =
-        document.getElementById("passwordToggle");
+    const allowedPages = new Set([
+        "/glowna.html",
+        "/lekcje.html",
+        "/lekcje-manager.html",
+        "/e8.html"
+    ]);
 
-    const loginForm =
-        document.getElementById("loginForm");
+    function showMessage(message, type = "error") {
+        loginMessage.textContent = message;
+        loginMessage.className = `login-message ${type}`;
+    }
 
-    const loginMessage =
-        document.getElementById("loginMessage");
+    function getDestination() {
+        const params = new URLSearchParams(location.search);
+        const next = params.get("next");
 
+        if (!next) return "/glowna.html";
 
-    /* =========================
-       POKAŻ / UKRYJ HASŁO
-    ========================= */
+        try {
+            const destination = new URL(next, location.origin);
 
+            if (
+                destination.origin === location.origin &&
+                allowedPages.has(destination.pathname)
+            ) {
+                return destination.pathname + destination.search;
+            }
+        } catch {
+            // Nieprawidłowy adres.
+        }
+
+        return "/glowna.html";
+    }
+
+    if (
+        new URLSearchParams(location.search).get("reason") ===
+        "expired"
+    ) {
+        showMessage("Sesja wygasła. Zaloguj się ponownie.");
+    }
+
+    // Pokaż / ukryj hasło.
     passwordToggle.addEventListener("click", () => {
+        const show = passwordInput.type === "password";
 
-        const isPassword =
-            passwordInput.type === "password";
-
-        passwordInput.type =
-            isPassword ? "text" : "password";
-
-        passwordToggle.classList.toggle(
-            "visible",
-            isPassword
-        );
+        passwordInput.type = show ? "text" : "password";
+        passwordToggle.classList.toggle("visible", show);
 
         passwordToggle.setAttribute(
             "aria-label",
-            isPassword
-                ? "Ukryj hasło"
-                : "Pokaż hasło"
+            show ? "Ukryj hasło" : "Pokaż hasło"
         );
-
     });
 
-
-    /* =========================
-       LOGOWANIE
-    ========================= */
-
-    loginForm.addEventListener("submit", (event) => {
-
+    // Logowanie po stronie serwera.
+    loginForm.addEventListener("submit", async event => {
         event.preventDefault();
 
-        const password =
-            passwordInput.value.trim();
-
-        // TWOJE HASŁO
-        const correctPassword = "Lekcje123";
-
+        const password = passwordInput.value;
 
         if (!password) {
-
-            loginMessage.textContent =
-                "Wpisz hasło.";
-
-            loginMessage.className =
-                "login-message error";
-
+            showMessage("Wpisz hasło.");
             return;
         }
 
+        submitButton.disabled = true;
+        showMessage("Sprawdzanie hasła...");
 
-        if (password === correctPassword) {
+        try {
+            const response = await fetch("/api/login", {
+                method: "POST",
+                credentials: "same-origin",
+                cache: "no-store",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ password })
+            });
 
-            loginMessage.textContent =
-                "Logowanie pomyślne.";
+            if (response.status === 401) {
+                showMessage("Nieprawidłowe hasło.");
+                passwordInput.value = "";
+                passwordInput.focus();
+                return;
+            }
 
-            loginMessage.className =
-                "login-message success";
+            if (!response.ok) {
+                throw new Error("Błąd logowania");
+            }
 
-                    // Zapisz informację o zalogowaniu
-            sessionStorage.setItem("lekcje_logged_in", "true");
+            const result = await response.json();
 
-            setTimeout(() => {
-                window.location.href = "glowna.html";
-            }, 500);
+            if (result.ok !== true) {
+                throw new Error("Niepotwierdzone logowanie");
+            }
 
-        } else {
+            showMessage("Logowanie pomyślne.", "success");
 
-            loginMessage.textContent =
-                "Nieprawidłowe hasło.";
+            location.replace(getDestination());
 
-            loginMessage.className =
-                "login-message error";
-
-            passwordInput.value = "";
-            passwordInput.focus();
+        } catch {
+            showMessage(
+                "Nie można połączyć się z serwerem logowania."
+            );
+        } finally {
+            submitButton.disabled = false;
         }
-
     });
 
-
-    /* =========================
-       FOCUS
-    ========================= */
-
+    // Efekt zaznaczenia pola hasła.
     passwordInput.addEventListener("focus", () => {
         passwordInput.parentElement.classList.add("focused");
     });
