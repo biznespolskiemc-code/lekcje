@@ -7,71 +7,18 @@
     <meta name="description" content="Lista lekcji i materiały ze szkoły.">
     <link rel="icon" type="image/png" href="Polak.png">
     <link rel="stylesheet" href="style-lekcje.css">
-
-    <!-- Dodatkowe style dla nagłówków kategorii w menu sortowania. -->
-    <style>
-        .sort-group-label {
-            display: block;
-            padding: 10px 14px 5px;
-            color: #ffffff;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            line-height: 1.4;
-            text-transform: uppercase;
-            cursor: default;
-            user-select: none;
-        }
-
-        .sort-group-label:first-child {
-            padding-top: 5px;
-        }
-
-        /* Większy odstęp między etykietą „Miesiąc” a przyciskami miesięcy. */
-        .sort-month-label {
-            padding-bottom: 13px;
-        }
-
-        .sort-divider {
-            height: 1px;
-            margin: 8px 10px;
-            background: rgba(255, 255, 255, 0.10);
-        }
-
-        .sort-months,
-        .sort-subjects,
-        .sort-date-options {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-        }
-
-        .sort-date-options button,
-        .sort-months button,
-        .sort-subjects button {
-            width: 100%;
-            text-align: left;
-        }
-    </style>
 </head>
 <body>
-    <!-- =====================================================
-         TŁO
-    ====================================================== -->
     <div class="background">
         <div class="background-glow glow-one"></div>
         <div class="background-glow glow-two"></div>
         <div class="grid"></div>
     </div>
 
-    <!-- =====================================================
-         NAWIGACJA
-    ====================================================== -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="glowna.html" class="logo">LEKCJE</a>
 
-            <!-- HAMBURGER -->
             <div
                 class="hamburger"
                 id="hamburger"
@@ -85,7 +32,6 @@
                 <span></span>
             </div>
 
-            <!-- MENU -->
             <div class="menu" id="menu">
                 <a href="glowna.html">Strona główna</a>
                 <a href="lekcje.html" class="active">Lekcje</a>
@@ -94,12 +40,8 @@
         </div>
     </nav>
 
-    <!-- =====================================================
-         TREŚĆ
-    ====================================================== -->
     <main>
         <section class="lessons-page">
-            <!-- NAGŁÓWEK -->
             <div class="lessons-header">
                 <h1>Lista <strong>lekcji.</strong></h1>
                 <p>
@@ -109,9 +51,6 @@
                 </p>
             </div>
 
-            <!-- =================================================
-                 SORTOWANIE
-            ================================================== -->
             <div class="sort-container" id="sortContainer">
                 <button
                     type="button"
@@ -128,38 +67,49 @@
                 </button>
 
                 <div class="sort-menu" id="sortMenu">
-                    <div class="sort-group-label">Data utworzenia:</div>
+                    <div class="sort-group-label">
+                        Data utworzenia:
+                    </div>
+
                     <div class="sort-date-options">
-                        <button type="button" data-sort="newest">Najnowsze</button>
-                        <button type="button" data-sort="oldest">Najstarsze</button>
+                        <button type="button" data-sort="newest">
+                            Najnowsze
+                        </button>
+                        <button type="button" data-sort="oldest">
+                            Najstarsze
+                        </button>
                     </div>
 
                     <div class="sort-divider"></div>
 
-                    <div class="sort-group-label sort-month-label">Miesiąc:</div>
+                    <div class="sort-group-label sort-month-label">
+                        Miesiąc:
+                    </div>
+
                     <div class="sort-months" id="sortMonths"></div>
 
                     <div class="sort-divider"></div>
 
-                    <div class="sort-group-label">Przedmiot:</div>
+                    <div class="sort-group-label">
+                        Przedmiot:
+                    </div>
+
                     <div class="sort-subjects" id="sortSubjects"></div>
                 </div>
             </div>
 
-            <!-- =================================================
-                 LISTA DNI / WYNIKI FILTROWANIA PRZEDMIOTU
-            ================================================== -->
             <div id="daysView">
                 <div id="daysList">
                     <div class="loading">Ładowanie lekcji...</div>
                 </div>
             </div>
 
-            <!-- =================================================
-                 SZCZEGÓŁY DNIA
-            ================================================== -->
             <div id="dayDetails">
-                <button class="back-button" onclick="showDays()" type="button">
+                <button
+                    class="back-button"
+                    onclick="showDays()"
+                    type="button"
+                >
                     ← Powrót
                 </button>
 
@@ -172,7 +122,6 @@
                 <div class="lessons-box">
                     <div id="lessonList"></div>
 
-                    <!-- MATERIAŁY DNIA -->
                     <div class="materials" id="materials">
                         <div class="materials-title">Materiały</div>
                         <div id="photoGallery" class="photo-gallery"></div>
@@ -183,14 +132,9 @@
         </section>
     </main>
 
-    <!-- =====================================================
-         PODGLĄD ZDJĘCIA
-    ====================================================== -->
     <div id="imageViewer" aria-hidden="true">
-        <!-- LICZNIK -->
         <div class="image-counter" id="imageCounter">1/1</div>
 
-        <!-- ZAMKNIJ -->
         <button
             class="image-close"
             onclick="closeImage()"
@@ -200,7 +144,6 @@
             ×
         </button>
 
-        <!-- LEWA STRZAŁKA -->
         <button
             class="image-nav image-prev"
             id="imagePrev"
@@ -211,10 +154,8 @@
             &lt;
         </button>
 
-        <!-- ZDJĘCIE -->
         <img id="viewerImage" src="" alt="Podgląd zdjęcia">
 
-        <!-- PRAWA STRZAŁKA -->
         <button
             class="image-nav image-next"
             id="imageNext"
@@ -226,9 +167,6 @@
         </button>
     </div>
 
-    <!-- =====================================================
-         FOOTER
-    ====================================================== -->
     <footer>
         <div class="footer-container">
             <strong>LEKCJE</strong>
@@ -237,20 +175,15 @@
     </footer>
 
     <script>
-        const API = "https://old-term-d35c.oliwierbielicki.workers.dev";
+        const API =
+            "https://old-term-d35c.oliwierbielicki.workers.dev";
 
         let allDays = [];
         let currentSort = "newest";
 
-        /* =====================================================
-           PODGLĄD ZDJĘĆ
-        ====================================================== */
         let viewerImages = [];
         let currentImageIndex = 0;
 
-        /* =====================================================
-           DNI TYGODNIA
-        ====================================================== */
         const WEEK_DAYS = {
             0: "niedziela",
             1: "poniedziałek",
@@ -261,9 +194,6 @@
             6: "sobota"
         };
 
-        /* =====================================================
-           MIESIĄCE
-        ====================================================== */
         const MONTHS = [
             "",
             "STYCZEŃ",
@@ -280,41 +210,49 @@
             "GRUDZIEŃ"
         ];
 
-        /* =====================================================
-           ELEMENTY SORTOWANIA
-        ====================================================== */
-        const sortContainer = document.getElementById("sortContainer");
-        const sortButton = document.getElementById("sortButton");
-        const sortMenu = document.getElementById("sortMenu");
-        const sortCurrent = document.getElementById("sortCurrent");
-        const sortMonths = document.getElementById("sortMonths");
-        const sortSubjects = document.getElementById("sortSubjects");
+        const sortContainer =
+            document.getElementById("sortContainer");
 
-        /* =====================================================
-           START
-        ====================================================== */
+        const sortButton =
+            document.getElementById("sortButton");
+
+        const sortMenu =
+            document.getElementById("sortMenu");
+
+        const sortCurrent =
+            document.getElementById("sortCurrent");
+
+        const sortMonths =
+            document.getElementById("sortMonths");
+
+        const sortSubjects =
+            document.getElementById("sortSubjects");
+
         loadLessons();
 
-        /* =====================================================
-           POBIERANIE LEKCJI
-        ====================================================== */
         async function loadLessons() {
-            const container = document.getElementById("daysList");
+            const container =
+                document.getElementById("daysList");
 
             try {
-                const response = await fetch(`${API}/lessons`);
+                const response =
+                    await fetch(`${API}/lessons`);
 
                 if (!response.ok) {
-                    throw new Error("Nie udało się pobrać lekcji.");
+                    throw new Error(
+                        "Nie udało się pobrać lekcji."
+                    );
                 }
 
                 const data = await response.json();
+
                 allDays = Array.isArray(data) ? data : [];
 
                 generateMonthOptions();
                 generateSubjectOptions();
                 applySort();
                 syncSelectedSort();
+
             } catch (error) {
                 container.innerHTML = `
                     <div class="empty">
@@ -326,20 +264,20 @@
             }
         }
 
-        /* =====================================================
-           SORTOWANIE — OTWIERANIE MENU
-        ====================================================== */
         sortButton.addEventListener("click", event => {
             event.stopPropagation();
 
-            const isOpen = sortMenu.classList.toggle("active");
+            const isOpen =
+                sortMenu.classList.toggle("active");
+
             sortButton.classList.toggle("active", isOpen);
-            sortButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
+
+            sortButton.setAttribute(
+                "aria-expanded",
+                isOpen ? "true" : "false"
+            );
         });
 
-        /* =====================================================
-           KLIKNIĘCIE POZA MENU
-        ====================================================== */
         document.addEventListener("click", event => {
             if (
                 !sortMenu.contains(event.target) &&
@@ -349,25 +287,26 @@
             }
         });
 
-        /* =====================================================
-           OPCJE DATY UTWORZENIA: NAJNOWSZE / NAJSTARSZE
-        ====================================================== */
-        sortMenu.querySelectorAll('button[data-sort="newest"], button[data-sort="oldest"]')
+        sortMenu
+            .querySelectorAll(
+                'button[data-sort="newest"], button[data-sort="oldest"]'
+            )
             .forEach(button => {
                 button.addEventListener("click", () => {
                     currentSort = button.dataset.sort;
-                    sortCurrent.textContent = button.textContent.trim();
+
+                    sortCurrent.textContent =
+                        button.textContent.trim();
+
                     updateSelectedSort(button);
                     applySort();
                     closeSortMenu();
                 });
             });
 
-        /* =====================================================
-           GENEROWANIE OPCJI MIESIĘCY
-        ====================================================== */
         function generateMonthOptions() {
             sortMonths.innerHTML = "";
+
             const months = new Map();
 
             allDays.forEach(day => {
@@ -375,7 +314,8 @@
                     return;
                 }
 
-                const [year, month] = String(day.date).split("-");
+                const [year, month] =
+                    String(day.date).split("-");
 
                 if (!year || !month) {
                     return;
@@ -391,762 +331,34 @@
                 }
             });
 
-            const sortedMonths = [...months.values()].sort((a, b) => {
-                if (a.year !== b.year) {
-                    return b.year - a.year;
-                }
-                return b.month - a.month;
-            });
+            const sortedMonths =
+                [...months.values()].sort((a, b) => {
+                    if (a.year !== b.year) {
+                        return b.year - a.year;
+                    }
+
+                    return b.month - a.month;
+                });
 
             sortedMonths.forEach(item => {
-                const button = document.createElement("button");
+                const button =
+                    document.createElement("button");
+
                 button.type = "button";
-                button.dataset.sort = `${item.year}-${String(item.month).padStart(2, "0")}`;
-                button.textContent = `${MONTHS[item.month] || ""} ${item.year}`;
+
+                button.dataset.sort =
+                    `${item.year}-${String(item.month).padStart(2, "0")}`;
+
+                button.textContent =
+                    `${MONTHS[item.month] || ""} ${item.year}`;
 
                 button.addEventListener("click", () => {
                     currentSort = button.dataset.sort;
                     sortCurrent.textContent = button.textContent;
+
                     updateSelectedSort(button);
                     applySort();
                     closeSortMenu();
                 });
 
                 sortMonths.appendChild(button);
-            });
-        }
-
-        /* =====================================================
-           GENEROWANIE OPCJI PRZEDMIOTÓW
-        ====================================================== */
-        function generateSubjectOptions() {
-            sortSubjects.innerHTML = "";
-            const subjects = new Map();
-
-            allDays.forEach(day => {
-                if (!day || !Array.isArray(day.lessons)) {
-                    return;
-                }
-
-                day.lessons.forEach(lesson => {
-                    if (!lesson || typeof lesson.subject !== "string") {
-                        return;
-                    }
-
-                    const subject = lesson.subject.trim();
-
-                    if (!subject) {
-                        return;
-                    }
-
-                    const normalizedSubject = subject.toLocaleLowerCase("pl-PL");
-
-                    if (!subjects.has(normalizedSubject)) {
-                        subjects.set(normalizedSubject, subject);
-                    }
-                });
-            });
-
-            const sortedSubjects = [...subjects.values()].sort((a, b) =>
-                a.localeCompare(b, "pl", { sensitivity: "base" })
-            );
-
-            if (!sortedSubjects.length) {
-                const empty = document.createElement("div");
-                empty.className = "sort-group-empty";
-                empty.textContent = "Brak przedmiotów";
-                empty.style.padding = "8px 14px";
-                empty.style.color = "rgba(220, 225, 235, 0.45)";
-                empty.style.fontSize = "12px";
-                sortSubjects.appendChild(empty);
-                return;
-            }
-
-            sortedSubjects.forEach(subject => {
-                const button = document.createElement("button");
-                button.type = "button";
-                button.dataset.sort = `subject:${subject}`;
-                button.textContent = subject;
-
-                button.addEventListener("click", () => {
-                    currentSort = button.dataset.sort;
-                    sortCurrent.textContent = subject;
-                    updateSelectedSort(button);
-                    applySort();
-                    closeSortMenu();
-                });
-
-                sortSubjects.appendChild(button);
-            });
-        }
-
-        /* =====================================================
-           ZAZNACZENIE AKTYWNEJ OPCJI
-        ====================================================== */
-        function updateSelectedSort(selectedButton) {
-            sortMenu.querySelectorAll("button[data-sort]").forEach(button => {
-                button.classList.remove("selected");
-            });
-
-            if (selectedButton) {
-                selectedButton.classList.add("selected");
-            }
-        }
-
-        function syncSelectedSort() {
-            const selectedButton = [...sortMenu.querySelectorAll("button[data-sort]")]
-                .find(button => button.dataset.sort === currentSort);
-
-            updateSelectedSort(selectedButton);
-        }
-
-        /* =====================================================
-           ZASTOSOWANIE SORTOWANIA / FILTROWANIA
-        ====================================================== */
-        function applySort() {
-            let days = [...allDays];
-
-            /* PRZEDMIOT — pokaż wszystkie lekcje z wybranego przedmiotu. */
-            if (currentSort.startsWith("subject:")) {
-                const selectedSubject = currentSort.slice("subject:".length);
-                renderSubjectResults(selectedSubject);
-                return;
-            }
-
-            /* NAJNOWSZE */
-            if (currentSort === "newest") {
-                days.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
-            }
-            /* NAJSTARSZE */
-            else if (currentSort === "oldest") {
-                days.sort((a, b) => String(a.date || "").localeCompare(String(b.date || "")));
-            }
-            /* KONKRETNY MIESIĄC */
-            else {
-                const [selectedYear, selectedMonth] = currentSort.split("-");
-
-                days = days.filter(day => {
-                    if (!day || !day.date) {
-                        return false;
-                    }
-
-                    const [year, month] = String(day.date).split("-");
-                    return year === selectedYear && month === selectedMonth;
-                });
-
-                /* W obrębie miesiąca najnowsze dni są pierwsze. */
-                days.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
-            }
-
-            renderDays(days);
-        }
-
-        /* =====================================================
-           WYNIKI DLA PRZEDMIOTU
-           Każda pasująca lekcja ma datę w miejscu „LEKCJA 1”.
-        ====================================================== */
-        function renderSubjectResults(subject) {
-            const entries = [];
-            const normalizedSelectedSubject = String(subject).trim().toLocaleLowerCase("pl-PL");
-
-            allDays.forEach(day => {
-                if (!day || !day.date || !Array.isArray(day.lessons)) {
-                    return;
-                }
-
-                day.lessons.forEach(lesson => {
-                    if (!lesson || typeof lesson.subject !== "string") {
-                        return;
-                    }
-
-                    if (lesson.subject.trim().toLocaleLowerCase("pl-PL") === normalizedSelectedSubject) {
-                        entries.push({
-                            date: day.date,
-                            lesson: lesson
-                        });
-                    }
-                });
-            });
-
-            /* Najnowsze wystąpienia przedmiotu są na górze. */
-            entries.sort((a, b) => String(b.date).localeCompare(String(a.date)));
-            renderLessons(entries, true);
-        }
-
-        /* =====================================================
-           ZAMKNIĘCIE MENU SORTOWANIA
-        ====================================================== */
-        function closeSortMenu() {
-            sortButton.classList.remove("active");
-            sortMenu.classList.remove("active");
-            sortButton.setAttribute("aria-expanded", "false");
-        }
-
-        /* =====================================================
-           RENDER LISTY DNI
-        ====================================================== */
-        function renderDays(days = allDays) {
-            const container = document.getElementById("daysList");
-            container.innerHTML = "";
-
-            if (!days.length) {
-                container.innerHTML = `
-                    <div class="empty">
-                        Nie ma jeszcze zapisanych lekcji.
-                    </div>
-                `;
-                return;
-            }
-
-            const today = new Date().toLocaleDateString("sv-SE", {
-                timeZone: "Europe/Warsaw"
-            });
-
-            let previousMonth = null;
-            let previousYear = null;
-
-            days.forEach((day, index) => {
-                if (!day || !day.date) {
-                    return;
-                }
-
-                const [year, month] = String(day.date).split("-");
-                const monthNumber = Number(month);
-                const yearNumber = Number(year);
-
-                /* Separator miesiąca, z uwzględnieniem roku. */
-                if (
-                    monthNumber !== previousMonth ||
-                    yearNumber !== previousYear
-                ) {
-                    const separator = document.createElement("div");
-                    separator.className = "month-separator";
-                    separator.textContent = `${MONTHS[monthNumber] || ""} ${yearNumber}`;
-                    container.appendChild(separator);
-                    previousMonth = monthNumber;
-                    previousYear = yearNumber;
-                }
-
-                const card = document.createElement("div");
-                card.className = "day-card";
-
-                const isNew = day.date === today;
-                const weekday = getWeekdayName(day.date);
-                const lessonCount = Array.isArray(day.lessons) ? day.lessons.length : 0;
-
-                card.innerHTML = `
-                    ${isNew ? `
-                        <div class="day-new">NOWOŚĆ!</div>
-                    ` : ""}
-                    <div class="day-left">
-                        <div class="day-icon">📚</div>
-                        <div class="day-info">
-                            <h2>${escapeHtml(formatDate(day.date))}</h2>
-                            <p>
-                                ${escapeHtml(weekday)} -
-                                ${lessonCount}
-                                ${lessonWord(lessonCount)}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="day-arrow">→</div>
-                `;
-
-                card.style.animationDelay = `${index * 0.05}s`;
-                card.addEventListener("click", () => showDay(day));
-                container.appendChild(card);
-            });
-        }
-
-        /* =====================================================
-           POKAŻ SZCZEGÓŁY DNIA
-        ====================================================== */
-        function showDay(day) {
-            /* Ukryj sortowanie po wejściu w konkretny dzień. */
-            sortContainer.style.display = "none";
-            closeSortMenu();
-
-            document.getElementById("daysView").style.display = "none";
-            document.getElementById("dayDetails").classList.add("active");
-
-            document.getElementById("detailDate").textContent = formatDate(day.date);
-            document.getElementById("detailWeekday").textContent = getWeekdayName(day.date);
-
-            renderLessons(day.lessons);
-            renderMaterials(day.files);
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        }
-
-        /* =====================================================
-           WRÓĆ DO LISTY
-        ====================================================== */
-        function showDays() {
-            /* Pokaż sortowanie ponownie po powrocie do listy. */
-            sortContainer.style.display = "";
-
-            document.getElementById("dayDetails").classList.remove("active");
-            document.getElementById("daysView").style.display = "block";
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        }
-
-        /* =====================================================
-           RENDER LEKCJI
-           showDates=true oznacza widok wszystkich lekcji danego
-           przedmiotu — wtedy nad każdą lekcją wyświetlana jest data.
-        ====================================================== */
-        function renderLessons(lessons, showDates = false) {
-            const container = document.getElementById("lessonList");
-            const targetContainer = showDates
-                ? document.getElementById("daysList")
-                : container;
-
-            targetContainer.innerHTML = "";
-
-            if (!Array.isArray(lessons) || !lessons.length) {
-                targetContainer.innerHTML = `
-                    <div class="empty">
-                        ${showDates
-                            ? "Brak lekcji z wybranego przedmiotu."
-                            : "Brak informacji o lekcjach."}
-                    </div>
-                `;
-                return;
-            }
-
-            lessons.forEach((entry, index) => {
-                const lesson = showDates ? entry.lesson : entry;
-                if (!lesson) {
-                    return;
-                }
-
-                const element = document.createElement("div");
-                element.className = "lesson";
-
-                const attachments = Array.isArray(lesson.attachments)
-                    ? lesson.attachments
-                    : [];
-
-                const topLabel = showDates
-                    ? formatDate(entry.date)
-                    : `LEKCJA ${index + 1}`;
-
-                element.innerHTML = `
-                    <div class="lesson-number">${escapeHtml(topLabel)}</div>
-                    <h3>${escapeHtml(lesson.subject || "Bez nazwy")}</h3>
-                    <p>${escapeHtml(lesson.content || "Brak informacji.")}</p>
-                    ${attachments.length ? `
-                        <div class="lesson-attachments">
-                            <button type="button" class="lesson-attachments-button">
-                                📎 Załączniki (${attachments.length})
-                            </button>
-                            <div class="lesson-attachments-content">
-                                <div class="photo-gallery"></div>
-                                <div class="lesson-attachment-links"></div>
-                            </div>
-                        </div>
-                    ` : ""}
-                `;
-
-                if (attachments.length) {
-                    const button = element.querySelector(".lesson-attachments-button");
-                    const content = element.querySelector(".lesson-attachments-content");
-                    const gallery = element.querySelector(".photo-gallery");
-                    const links = element.querySelector(".lesson-attachment-links");
-                    const lessonImages = [];
-
-                    attachments.forEach(file => {
-                        if (!file || !file.url) {
-                            return;
-                        }
-
-                        const url = String(file.url).trim();
-                        const name = file.name || "Załącznik";
-
-                        if (isImage(url)) {
-                            lessonImages.push({
-                                url: url,
-                                name: name
-                            });
-
-                            const card = document.createElement("div");
-                            card.className = "photo-card";
-
-                            const image = document.createElement("img");
-                            image.src = url;
-                            image.alt = name;
-                            image.loading = "lazy";
-                            image.onerror = () => card.remove();
-
-                            card.appendChild(image);
-                            card.addEventListener("click", () => {
-                                openImage(
-                                    lessonImages,
-                                    lessonImages.findIndex(item => item.url === url)
-                                );
-                            });
-                            gallery.appendChild(card);
-                        } else {
-                            const link = document.createElement("a");
-                            link.className = "material";
-                            link.href = url;
-                            link.target = "_blank";
-                            link.rel = "noopener noreferrer";
-                            link.textContent = `🔗 ${name}`;
-                            links.appendChild(link);
-                        }
-                    });
-
-                    if (!lessonImages.length) {
-                        gallery.style.display = "none";
-                    }
-
-                    if (!links.children.length) {
-                        links.style.display = "none";
-                    }
-
-                    button.addEventListener("click", () => {
-                        content.classList.toggle("active");
-
-                        if (content.classList.contains("active")) {
-                            button.textContent = "📎 Ukryj załączniki";
-                        } else {
-                            button.textContent = `📎 Załączniki (${attachments.length})`;
-                        }
-                    });
-                }
-
-                targetContainer.appendChild(element);
-            });
-        }
-
-        /* =====================================================
-           MATERIAŁY DNIA
-        ====================================================== */
-        function renderMaterials(files) {
-            const section = document.getElementById("materials");
-            const gallery = document.getElementById("photoGallery");
-            const links = document.getElementById("materialsList");
-
-            gallery.innerHTML = "";
-            links.innerHTML = "";
-
-            if (!Array.isArray(files) || !files.length) {
-                section.style.display = "none";
-                return;
-            }
-
-            section.style.display = "block";
-            const dayImages = [];
-
-            files.forEach(file => {
-                if (!file || !file.url) {
-                    return;
-                }
-
-                const url = String(file.url).trim();
-                const name = file.name || "Materiał";
-
-                if (isImage(url)) {
-                    dayImages.push({
-                        url: url,
-                        name: name
-                    });
-
-                    const card = document.createElement("div");
-                    card.className = "photo-card";
-
-                    const image = document.createElement("img");
-                    image.src = url;
-                    image.alt = name;
-                    image.loading = "lazy";
-                    image.onerror = () => card.remove();
-
-                    card.appendChild(image);
-                    card.addEventListener("click", () => {
-                        openImage(
-                            dayImages,
-                            dayImages.findIndex(item => item.url === url)
-                        );
-                    });
-                    gallery.appendChild(card);
-                } else {
-                    const link = document.createElement("a");
-                    link.className = "material";
-                    link.href = url;
-                    link.target = "_blank";
-                    link.rel = "noopener noreferrer";
-                    link.textContent = `🔗 ${name}`;
-                    links.appendChild(link);
-                }
-            });
-
-            gallery.style.display = dayImages.length ? "grid" : "none";
-            links.style.display = links.children.length ? "flex" : "none";
-
-            if (!gallery.children.length && !links.children.length) {
-                section.style.display = "none";
-            }
-        }
-
-        /* =====================================================
-           CZY LINK JEST ZDJĘCIEM
-        ====================================================== */
-        function isImage(url) {
-            const clean = String(url)
-                .split("?")[0]
-                .split("#")[0]
-                .toLowerCase();
-
-            return (
-                clean.endsWith(".jpg") ||
-                clean.endsWith(".jpeg") ||
-                clean.endsWith(".png") ||
-                clean.endsWith(".webp") ||
-                clean.endsWith(".gif") ||
-                clean.endsWith(".avif")
-            );
-        }
-
-        /* =====================================================
-           OTWÓRZ ZDJĘCIE
-        ====================================================== */
-        function openImage(images, index = 0) {
-            if (!Array.isArray(images) || !images.length) {
-                return;
-            }
-
-            viewerImages = images;
-            currentImageIndex = Math.max(0, Math.min(index, viewerImages.length - 1));
-
-            const viewer = document.getElementById("imageViewer");
-            viewer.classList.add("active");
-            viewer.setAttribute("aria-hidden", "false");
-            document.body.style.overflow = "hidden";
-
-            updateViewer();
-        }
-
-        /* =====================================================
-           AKTUALIZUJ PODGLĄD
-        ====================================================== */
-        function updateViewer() {
-            if (!viewerImages.length) {
-                return;
-            }
-
-            const current = viewerImages[currentImageIndex];
-            const image = document.getElementById("viewerImage");
-            const counter = document.getElementById("imageCounter");
-            const previous = document.getElementById("imagePrev");
-            const next = document.getElementById("imageNext");
-
-            image.src = current.url;
-            image.alt = current.name || "Zdjęcie";
-            counter.textContent = `${currentImageIndex + 1}/${viewerImages.length}`;
-
-            const hasMultiple = viewerImages.length > 1;
-            previous.style.display = hasMultiple ? "flex" : "none";
-            next.style.display = hasMultiple ? "flex" : "none";
-        }
-
-        /* =====================================================
-           POPRZEDNIE ZDJĘCIE
-        ====================================================== */
-        function previousImage(event) {
-            if (event) {
-                event.stopPropagation();
-            }
-
-            if (viewerImages.length <= 1) {
-                return;
-            }
-
-            currentImageIndex--;
-
-            if (currentImageIndex < 0) {
-                currentImageIndex = viewerImages.length - 1;
-            }
-
-            updateViewer();
-        }
-
-        /* =====================================================
-           NASTĘPNE ZDJĘCIE
-        ====================================================== */
-        function nextImage(event) {
-            if (event) {
-                event.stopPropagation();
-            }
-
-            if (viewerImages.length <= 1) {
-                return;
-            }
-
-            currentImageIndex++;
-
-            if (currentImageIndex >= viewerImages.length) {
-                currentImageIndex = 0;
-            }
-
-            updateViewer();
-        }
-
-        /* =====================================================
-           ZAMKNIJ PODGLĄD
-        ====================================================== */
-        function closeImage(event) {
-            if (event && event.target && event.target.id === "viewerImage") {
-                return;
-            }
-
-            const viewer = document.getElementById("imageViewer");
-            viewer.classList.remove("active");
-            viewer.setAttribute("aria-hidden", "true");
-            document.body.style.overflow = "";
-            viewerImages = [];
-            currentImageIndex = 0;
-        }
-
-        /* =====================================================
-           KLIKNIĘCIE W TŁO
-        ====================================================== */
-        document.getElementById("imageViewer").addEventListener("click", event => {
-            if (event.target.id === "imageViewer") {
-                closeImage();
-            }
-        });
-
-        /* =====================================================
-           KLAWIATURA — PODGLĄD ZDJĘĆ
-        ====================================================== */
-        document.addEventListener("keydown", event => {
-            const viewer = document.getElementById("imageViewer");
-
-            if (!viewer.classList.contains("active")) {
-                return;
-            }
-
-            if (event.key === "Escape") {
-                closeImage();
-                return;
-            }
-
-            if (event.key === "ArrowLeft") {
-                previousImage();
-                return;
-            }
-
-            if (event.key === "ArrowRight") {
-                nextImage();
-                return;
-            }
-        });
-
-        /* =====================================================
-           SŁOWO „LEKCJA”
-        ====================================================== */
-        function lessonWord(count) {
-            if (count === 1) {
-                return "lekcja";
-            }
-
-            if (count >= 2 && count <= 4) {
-                return "lekcje";
-            }
-
-            return "lekcji";
-        }
-
-        /* =====================================================
-           DATA
-        ====================================================== */
-        function formatDate(date) {
-            const [year, month, day] = String(date).split("-");
-            const months = [
-                "",
-                "stycznia",
-                "lutego",
-                "marca",
-                "kwietnia",
-                "maja",
-                "czerwca",
-                "lipca",
-                "sierpnia",
-                "września",
-                "października",
-                "listopada",
-                "grudnia"
-            ];
-
-            return `${Number(day)} ${months[Number(month)] || ""} ${year}`;
-        }
-
-        /* =====================================================
-           DZIEŃ TYGODNIA
-        ====================================================== */
-        function getWeekdayName(date) {
-            const dateObject = new Date(`${date}T12:00:00`);
-            return WEEK_DAYS[dateObject.getDay()] || "";
-        }
-
-        /* =====================================================
-           ESCAPE HTML
-        ====================================================== */
-        function escapeHtml(text) {
-            return String(text ?? "")
-                .replaceAll("&", "&amp;")
-                .replaceAll("<", "&lt;")
-                .replaceAll(">", "&gt;")
-                .replaceAll('"', "&quot;")
-                .replaceAll("'", "&#039;");
-        }
-
-        /* =====================================================
-           HAMBURGER MENU
-        ====================================================== */
-        const hamburger = document.getElementById("hamburger");
-        const menu = document.getElementById("menu");
-
-        if (hamburger && menu) {
-            hamburger.addEventListener("click", () => {
-                hamburger.classList.toggle("active");
-                menu.classList.toggle("active");
-
-                const menuIsOpen = menu.classList.contains("active");
-                hamburger.setAttribute("aria-expanded", menuIsOpen ? "true" : "false");
-            });
-
-            hamburger.addEventListener("keydown", event => {
-                if (event.key === "Enter" || event.key === " ") {
-                    event.preventDefault();
-                    hamburger.click();
-                }
-            });
-
-            menu.querySelectorAll("a").forEach(link => {
-                link.addEventListener("click", () => {
-                    hamburger.classList.remove("active");
-                    menu.classList.remove("active");
-                    hamburger.setAttribute("aria-expanded", "false");
-                });
-            });
-
-            window.addEventListener("resize", () => {
-                if (window.innerWidth > 700) {
-                    hamburger.classList.remove("active");
-                    menu.classList.remove("active");
-                    hamburger.setAttribute("aria-expanded", "false");
-                }
-            });
-        }
-    </script>
-</body>
-</html>
