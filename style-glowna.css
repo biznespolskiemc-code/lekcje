@@ -480,6 +480,9 @@ body {
 
     text-align: center;
 
+    /* Przesunięcie całej zawartości strony głównej w górę. */
+    transform: translateY(-45px);
+
 }
 
 
