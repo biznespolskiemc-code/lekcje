@@ -1633,3 +1633,30 @@ footer {
         transition: none !important;
     }
 }
+
+/* NIEBIESKI LIQUID GLASS */
+.glass-indicator {
+    background:
+        radial-gradient(
+            90% 60% at 30% 0%,
+            rgba(255,255,255,.38),
+            transparent 60%
+        ),
+        radial-gradient(
+            70% 70% at 80% 110%,
+            rgba(24,176,214,.32),
+            transparent 70%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.2),
+            rgba(24,176,214,.16) 55%,
+            rgba(255,255,255,.08)
+        );
+
+    box-shadow:
+        0 6px 22px rgba(24,176,214,.22),
+        inset 0 1px 2px rgba(255,255,255,.45),
+        inset 0 -3px 8px rgba(0,0,0,.18),
+        inset 0 0 14px rgba(255,255,255,.06);
+}
