@@ -21,33 +21,6 @@
         <div class="grid"></div>
     </div>
 
-    <!-- NAWIGACJA DESKTOPOWA -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="glowna.html" class="logo">LEKCJE</a>
-
-            <div
-                class="hamburger"
-                id="hamburger"
-                role="button"
-                tabindex="0"
-                aria-label="Menu"
-                aria-controls="menu"
-                aria-expanded="false"
-            >
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-
-            <div class="menu" id="menu">
-                <a href="glowna.html" class="active">Strona główna</a>
-                <a href="lekcje.html">Lekcje</a>
-                <a href="e8.html">Inne</a>
-            </div>
-        </div>
-    </nav>
-
     <!-- GŁÓWNA ZAWARTOŚĆ -->
     <main>
         <section class="hero">
@@ -131,44 +104,8 @@
     </nav>
 
     <script>
-        /* Menu desktopowe — na telefonach zastępuje je dolny Liquid Glass. */
-        const hamburger = document.getElementById('hamburger');
-        const menu = document.getElementById('menu');
 
-        function closeMenu() {
-            if (!hamburger || !menu) return;
-            hamburger.classList.remove('active');
-            menu.classList.remove('active');
-            hamburger.setAttribute('aria-expanded', 'false');
-        }
-
-        function toggleMenu() {
-            if (!hamburger || !menu) return;
-            hamburger.classList.toggle('active');
-            menu.classList.toggle('active');
-            hamburger.setAttribute(
-                'aria-expanded',
-                menu.classList.contains('active') ? 'true' : 'false'
-            );
-        }
-
-        if (hamburger && menu) {
-            hamburger.addEventListener('click', toggleMenu);
-            hamburger.addEventListener('keydown', event => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault();
-                    toggleMenu();
-                }
-            });
-
-            menu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', closeMenu);
-            });
-
-            window.addEventListener('resize', () => {
-                if (window.innerWidth > 800) closeMenu();
-            });
-        }
+        
 
         /* =================================================
            LIQUID GLASS NAV — fizyka sprężyny jak w index
