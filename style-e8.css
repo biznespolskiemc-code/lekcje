@@ -194,7 +194,19 @@
     display: none;
 }
 
+/* Na komputerach używamy klasycznego navbaru u góry. */
+@media (min-width: 801px) {
+    .navbar {
+        display: flex;
+    }
+}
+
 @media (max-width: 800px) {
+    /* Na telefonach górny navbar znika — zostaje dolny Liquid Glass. */
+    .navbar {
+        display: none !important;
+    }
+
     body {
         padding-bottom: 120px;
     }
