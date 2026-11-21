@@ -2,54 +2,33 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>LEKCJE | Lista lekcji</title>
     <meta name="description" content="Lista lekcji i materiały ze szkoły.">
     <link rel="icon" type="image/png" href="Polak.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style-lekcje.css">
 </head>
 <body>
-    <div class="background">
+    <!-- TŁO -->
+    <div class="background" aria-hidden="true">
         <div class="background-glow glow-one"></div>
         <div class="background-glow glow-two"></div>
         <div class="grid"></div>
     </div>
 
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="glowna.html" class="logo">LEKCJE</a>
-
-            <div
-                class="hamburger"
-                id="hamburger"
-                aria-label="Menu"
-                aria-expanded="false"
-                role="button"
-                tabindex="0"
-            >
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-
-            <div class="menu" id="menu">
-                <a href="glowna.html">Strona główna</a>
-                <a href="lekcje.html" class="active">Lekcje</a>
-                <a href="e8.html">Inne</a>
-            </div>
-        </div>
-    </nav>
-
     <main>
         <section class="lessons-page">
-            <div class="lessons-header">
+            <header class="lessons-header">
                 <h1>Lista <strong>lekcji.</strong></h1>
                 <p>
                     Tutaj znajdziesz zapis tego, co danego dnia
                     było robione w szkole, wraz z dodatkowymi
                     materiałami i zdjęciami.
                 </p>
-            </div>
+            </header>
 
             <div class="sort-container" id="sortContainer">
                 <button
@@ -63,37 +42,24 @@
                         Sortuj wg.
                         <strong id="sortCurrent">Najnowsze</strong>
                     </span>
-                    <span class="sort-arrow">▼</span>
+                    <span class="sort-arrow" aria-hidden="true">▼</span>
                 </button>
 
                 <div class="sort-menu" id="sortMenu">
-                    <div class="sort-group-label">
-                        Data utworzenia:
-                    </div>
-
+                    <div class="sort-group-label">Data utworzenia:</div>
                     <div class="sort-date-options">
-                        <button type="button" data-sort="newest">
-                            Najnowsze
-                        </button>
-                        <button type="button" data-sort="oldest">
-                            Najstarsze
-                        </button>
+                        <button type="button" data-sort="newest">Najnowsze</button>
+                        <button type="button" data-sort="oldest">Najstarsze</button>
                     </div>
 
                     <div class="sort-divider"></div>
 
-                    <div class="sort-group-label sort-month-label">
-                        Miesiąc:
-                    </div>
-
+                    <div class="sort-group-label sort-month-label">Miesiąc:</div>
                     <div class="sort-months" id="sortMonths"></div>
 
                     <div class="sort-divider"></div>
 
-                    <div class="sort-group-label">
-                        Przedmiot:
-                    </div>
-
+                    <div class="sort-group-label">Przedmiot:</div>
                     <div class="sort-subjects" id="sortSubjects"></div>
                 </div>
             </div>
@@ -104,12 +70,8 @@
                 </div>
             </div>
 
-            <div id="dayDetails">
-                <button
-                    class="back-button"
-                    onclick="showDays()"
-                    type="button"
-                >
+            <section id="dayDetails" aria-live="polite">
+                <button class="back-button" onclick="showDays()" type="button">
                     ← Powrót
                 </button>
 
@@ -121,50 +83,23 @@
 
                 <div class="lessons-box">
                     <div id="lessonList"></div>
-
                     <div class="materials" id="materials">
                         <div class="materials-title">Materiały</div>
                         <div id="photoGallery" class="photo-gallery"></div>
                         <div id="materialsList" class="materials-list"></div>
                     </div>
                 </div>
-            </div>
+            </section>
         </section>
     </main>
 
+    <!-- PODGLĄD ZDJĘĆ -->
     <div id="imageViewer" aria-hidden="true">
         <div class="image-counter" id="imageCounter">1/1</div>
-
-        <button
-            class="image-close"
-            onclick="closeImage()"
-            aria-label="Zamknij"
-            type="button"
-        >
-            ×
-        </button>
-
-        <button
-            class="image-nav image-prev"
-            id="imagePrev"
-            onclick="previousImage(event)"
-            aria-label="Poprzednie zdjęcie"
-            type="button"
-        >
-            &lt;
-        </button>
-
+        <button class="image-close" onclick="closeImage()" aria-label="Zamknij" type="button">×</button>
+        <button class="image-nav image-prev" id="imagePrev" onclick="previousImage(event)" aria-label="Poprzednie zdjęcie" type="button">&lt;</button>
         <img id="viewerImage" src="" alt="Podgląd zdjęcia">
-
-        <button
-            class="image-nav image-next"
-            id="imageNext"
-            onclick="nextImage(event)"
-            aria-label="Następne zdjęcie"
-            type="button"
-        >
-            &gt;
-        </button>
+        <button class="image-nav image-next" id="imageNext" onclick="nextImage(event)" aria-label="Następne zdjęcie" type="button">&gt;</button>
     </div>
 
     <footer>
@@ -174,13 +109,47 @@
         </div>
     </footer>
 
+    <!-- DOLNA NAWIGACJA MOBILE — LIQUID GLASS -->
+    <nav class="mobile-glass-nav" id="mobileGlassNav" aria-label="Nawigacja mobilna">
+        <div class="glass-indicator" id="glassIndicator" aria-hidden="true"></div>
+
+        <a href="glowna.html" class="glass-item">
+            <span class="glass-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 11l9-8 9 8"></path>
+                    <path d="M5 10v10h5v-6h4v6h5V10"></path>
+                </svg>
+            </span>
+            <span class="glass-label">Główna</span>
+        </a>
+
+        <a href="lekcje.html" class="glass-item active" aria-current="page">
+            <span class="glass-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5z"></path>
+                    <path d="M4 4.5v17"></path>
+                    <path d="M8 6h8M8 10h8M8 14h5"></path>
+                </svg>
+            </span>
+            <span class="glass-label">Lekcje</span>
+        </a>
+
+        <a href="e8.html" class="glass-item">
+            <span class="glass-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="4" y="3" width="16" height="18" rx="2"></rect>
+                    <path d="M8 8h8M8 12h8M8 16h5"></path>
+                </svg>
+            </span>
+            <span class="glass-label">Inne</span>
+        </a>
+    </nav>
+
     <script>
-        const API =
-            "https://old-term-d35c.oliwierbielicki.workers.dev";
+        const API = "https://old-term-d35c.oliwierbielicki.workers.dev";
 
         let allDays = [];
         let currentSort = "newest";
-
         let viewerImages = [];
         let currentImageIndex = 0;
 
@@ -195,64 +164,33 @@
         };
 
         const MONTHS = [
-            "",
-            "STYCZEŃ",
-            "LUTY",
-            "MARZEC",
-            "KWIECIEŃ",
-            "MAJ",
-            "CZERWIEC",
-            "LIPIEC",
-            "SIERPIEŃ",
-            "WRZESIEŃ",
-            "PAŹDZIERNIK",
-            "LISTOPAD",
-            "GRUDZIEŃ"
+            "", "STYCZEŃ", "LUTY", "MARZEC", "KWIECIEŃ", "MAJ",
+            "CZERWIEC", "LIPIEC", "SIERPIEŃ", "WRZESIEŃ", "PAŹDZIERNIK",
+            "LISTOPAD", "GRUDZIEŃ"
         ];
 
-        const sortContainer =
-            document.getElementById("sortContainer");
-
-        const sortButton =
-            document.getElementById("sortButton");
-
-        const sortMenu =
-            document.getElementById("sortMenu");
-
-        const sortCurrent =
-            document.getElementById("sortCurrent");
-
-        const sortMonths =
-            document.getElementById("sortMonths");
-
-        const sortSubjects =
-            document.getElementById("sortSubjects");
+        const sortContainer = document.getElementById("sortContainer");
+        const sortButton = document.getElementById("sortButton");
+        const sortMenu = document.getElementById("sortMenu");
+        const sortCurrent = document.getElementById("sortCurrent");
+        const sortMonths = document.getElementById("sortMonths");
+        const sortSubjects = document.getElementById("sortSubjects");
 
         loadLessons();
 
         async function loadLessons() {
-            const container =
-                document.getElementById("daysList");
-
+            const container = document.getElementById("daysList");
             try {
-                const response =
-                    await fetch(`${API}/lessons`);
-
-                if (!response.ok) {
-                    throw new Error(
-                        "Nie udało się pobrać lekcji."
-                    );
-                }
+                const response = await fetch(`${API}/lessons`);
+                if (!response.ok) throw new Error("Nie udało się pobrać lekcji.");
 
                 const data = await response.json();
-
                 allDays = Array.isArray(data) ? data : [];
 
                 generateMonthOptions();
                 generateSubjectOptions();
                 applySort();
                 syncSelectedSort();
-
             } catch (error) {
                 container.innerHTML = `
                     <div class="empty">
@@ -266,38 +204,22 @@
 
         sortButton.addEventListener("click", event => {
             event.stopPropagation();
-
-            const isOpen =
-                sortMenu.classList.toggle("active");
-
+            const isOpen = sortMenu.classList.toggle("active");
             sortButton.classList.toggle("active", isOpen);
-
-            sortButton.setAttribute(
-                "aria-expanded",
-                isOpen ? "true" : "false"
-            );
+            sortButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
         });
 
         document.addEventListener("click", event => {
-            if (
-                !sortMenu.contains(event.target) &&
-                !sortButton.contains(event.target)
-            ) {
+            if (!sortMenu.contains(event.target) && !sortButton.contains(event.target)) {
                 closeSortMenu();
             }
         });
 
-        sortMenu
-            .querySelectorAll(
-                'button[data-sort="newest"], button[data-sort="oldest"]'
-            )
+        sortMenu.querySelectorAll('button[data-sort="newest"], button[data-sort="oldest"]')
             .forEach(button => {
                 button.addEventListener("click", () => {
                     currentSort = button.dataset.sort;
-
-                    sortCurrent.textContent =
-                        button.textContent.trim();
-
+                    sortCurrent.textContent = button.textContent.trim();
                     updateSelectedSort(button);
                     applySort();
                     closeSortMenu();
@@ -306,158 +228,89 @@
 
         function generateMonthOptions() {
             sortMonths.innerHTML = "";
-
             const months = new Map();
 
             allDays.forEach(day => {
-                if (!day || !day.date) {
-                    return;
-                }
-
-                const [year, month] =
-                    String(day.date).split("-");
-
-                if (!year || !month) {
-                    return;
-                }
-
+                if (!day || !day.date) return;
+                const [year, month] = String(day.date).split("-");
+                if (!year || !month) return;
                 const key = `${year}-${month}`;
-
-                if (!months.has(key)) {
-                    months.set(key, {
-                        year: Number(year),
-                        month: Number(month)
-                    });
-                }
+                if (!months.has(key)) months.set(key, { year: Number(year), month: Number(month) });
             });
 
-            const sortedMonths =
-                [...months.values()].sort((a, b) => {
-                    if (a.year !== b.year) {
-                        return b.year - a.year;
-                    }
-
-                    return b.month - a.month;
-                });
+            const sortedMonths = [...months.values()].sort((a, b) =>
+                a.year !== b.year ? b.year - a.year : b.month - a.month
+            );
 
             sortedMonths.forEach(item => {
-                const button =
-                    document.createElement("button");
-
+                const button = document.createElement("button");
                 button.type = "button";
-
-                button.dataset.sort =
-                    `${item.year}-${String(item.month).padStart(2, "0")}`;
-
-                button.textContent =
-                    `${MONTHS[item.month] || ""} ${item.year}`;
-
+                button.dataset.sort = `${item.year}-${String(item.month).padStart(2, "0")}`;
+                button.textContent = `${MONTHS[item.month] || ""} ${item.year}`;
                 button.addEventListener("click", () => {
                     currentSort = button.dataset.sort;
                     sortCurrent.textContent = button.textContent;
-
                     updateSelectedSort(button);
                     applySort();
                     closeSortMenu();
                 });
-
                 sortMonths.appendChild(button);
             });
         }
 
         function generateSubjectOptions() {
             sortSubjects.innerHTML = "";
-
             const subjects = new Map();
 
             allDays.forEach(day => {
-                if (!day || !Array.isArray(day.lessons)) {
-                    return;
-                }
-
+                if (!day || !Array.isArray(day.lessons)) return;
                 day.lessons.forEach(lesson => {
-                    if (
-                        !lesson ||
-                        typeof lesson.subject !== "string"
-                    ) {
-                        return;
-                    }
-
+                    if (!lesson || typeof lesson.subject !== "string") return;
                     const subject = lesson.subject.trim();
-
-                    if (!subject) {
-                        return;
-                    }
-
-                    const normalizedSubject =
-                        subject.toLocaleLowerCase("pl-PL");
-
-                    if (!subjects.has(normalizedSubject)) {
-                        subjects.set(normalizedSubject, subject);
-                    }
+                    if (!subject) return;
+                    const normalizedSubject = subject.toLocaleLowerCase("pl-PL");
+                    if (!subjects.has(normalizedSubject)) subjects.set(normalizedSubject, subject);
                 });
             });
 
-            const sortedSubjects =
-                [...subjects.values()].sort((a, b) =>
-                    a.localeCompare(
-                        b,
-                        "pl",
-                        { sensitivity: "base" }
-                    )
-                );
+            const sortedSubjects = [...subjects.values()].sort((a, b) =>
+                a.localeCompare(b, "pl", { sensitivity: "base" })
+            );
 
             if (!sortedSubjects.length) {
-                const empty =
-                    document.createElement("div");
-
+                const empty = document.createElement("div");
                 empty.className = "sort-group-empty";
                 empty.textContent = "Brak przedmiotów";
-
                 sortSubjects.appendChild(empty);
                 return;
             }
 
             sortedSubjects.forEach(subject => {
-                const button =
-                    document.createElement("button");
-
+                const button = document.createElement("button");
                 button.type = "button";
                 button.dataset.sort = `subject:${subject}`;
                 button.textContent = subject;
-
                 button.addEventListener("click", () => {
                     currentSort = button.dataset.sort;
                     sortCurrent.textContent = subject;
-
                     updateSelectedSort(button);
                     applySort();
                     closeSortMenu();
                 });
-
                 sortSubjects.appendChild(button);
             });
         }
 
         function updateSelectedSort(selectedButton) {
-            sortMenu
-                .querySelectorAll("button[data-sort]")
-                .forEach(button => {
-                    button.classList.remove("selected");
-                });
-
-            if (selectedButton) {
-                selectedButton.classList.add("selected");
-            }
+            sortMenu.querySelectorAll("button[data-sort]").forEach(button => {
+                button.classList.remove("selected");
+            });
+            if (selectedButton) selectedButton.classList.add("selected");
         }
 
         function syncSelectedSort() {
-            const selectedButton =
-                [...sortMenu.querySelectorAll("button[data-sort]")]
-                    .find(button =>
-                        button.dataset.sort === currentSort
-                    );
-
+            const selectedButton = [...sortMenu.querySelectorAll("button[data-sort]")]
+                .find(button => button.dataset.sort === currentSort);
             updateSelectedSort(selectedButton);
         }
 
@@ -465,50 +318,22 @@
             let days = [...allDays];
 
             if (currentSort.startsWith("subject:")) {
-                const selectedSubject =
-                    currentSort.slice("subject:".length);
-
-                renderSubjectResults(selectedSubject);
+                renderSubjectResults(currentSort.slice("subject:".length));
                 return;
             }
 
             if (currentSort === "newest") {
-                days.sort((a, b) =>
-                    String(b.date || "").localeCompare(
-                        String(a.date || "")
-                    )
-                );
-
+                days.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
             } else if (currentSort === "oldest") {
-                days.sort((a, b) =>
-                    String(a.date || "").localeCompare(
-                        String(b.date || "")
-                    )
-                );
-
+                days.sort((a, b) => String(a.date || "").localeCompare(String(b.date || "")));
             } else {
-                const [selectedYear, selectedMonth] =
-                    currentSort.split("-");
-
+                const [selectedYear, selectedMonth] = currentSort.split("-");
                 days = days.filter(day => {
-                    if (!day || !day.date) {
-                        return false;
-                    }
-
-                    const [year, month] =
-                        String(day.date).split("-");
-
-                    return (
-                        year === selectedYear &&
-                        month === selectedMonth
-                    );
+                    if (!day || !day.date) return false;
+                    const [year, month] = String(day.date).split("-");
+                    return year === selectedYear && month === selectedMonth;
                 });
-
-                days.sort((a, b) =>
-                    String(b.date || "").localeCompare(
-                        String(a.date || "")
-                    )
-                );
+                days.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
             }
 
             renderDays(days);
@@ -516,155 +341,76 @@
 
         function renderSubjectResults(subject) {
             const entries = [];
-
-            const normalizedSelectedSubject =
-                String(subject)
-                    .trim()
-                    .toLocaleLowerCase("pl-PL");
+            const normalizedSelectedSubject = String(subject).trim().toLocaleLowerCase("pl-PL");
 
             allDays.forEach(day => {
-                if (
-                    !day ||
-                    !day.date ||
-                    !Array.isArray(day.lessons)
-                ) {
-                    return;
-                }
-
+                if (!day || !day.date || !Array.isArray(day.lessons)) return;
                 day.lessons.forEach(lesson => {
-                    if (
-                        !lesson ||
-                        typeof lesson.subject !== "string"
-                    ) {
-                        return;
-                    }
-
-                    if (
-                        lesson.subject
-                            .trim()
-                            .toLocaleLowerCase("pl-PL") ===
-                        normalizedSelectedSubject
-                    ) {
-                        entries.push({
-                            date: day.date,
-                            lesson: lesson
-                        });
+                    if (!lesson || typeof lesson.subject !== "string") return;
+                    if (lesson.subject.trim().toLocaleLowerCase("pl-PL") === normalizedSelectedSubject) {
+                        entries.push({ date: day.date, lesson });
                     }
                 });
             });
 
-            entries.sort((a, b) =>
-                String(b.date).localeCompare(String(a.date))
-            );
-
+            entries.sort((a, b) => String(b.date).localeCompare(String(a.date)));
             renderLessons(entries, true);
         }
 
         function closeSortMenu() {
             sortButton.classList.remove("active");
             sortMenu.classList.remove("active");
-
-            sortButton.setAttribute(
-                "aria-expanded",
-                "false"
-            );
+            sortButton.setAttribute("aria-expanded", "false");
         }
 
         function renderDays(days = allDays) {
-            const container =
-                document.getElementById("daysList");
-
+            const container = document.getElementById("daysList");
             container.innerHTML = "";
 
             if (!days.length) {
-                container.innerHTML = `
-                    <div class="empty">
-                        Nie ma jeszcze zapisanych lekcji.
-                    </div>
-                `;
+                container.innerHTML = '<div class="empty">Nie ma jeszcze zapisanych lekcji.</div>';
                 return;
             }
 
-            const today =
-                new Date().toLocaleDateString(
-                    "sv-SE",
-                    { timeZone: "Europe/Warsaw" }
-                );
-
+            const today = new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Warsaw" });
             let previousMonth = null;
             let previousYear = null;
 
             days.forEach((day, index) => {
-                if (!day || !day.date) {
-                    return;
-                }
-
-                const [year, month] =
-                    String(day.date).split("-");
-
+                if (!day || !day.date) return;
+                const [year, month] = String(day.date).split("-");
                 const monthNumber = Number(month);
                 const yearNumber = Number(year);
 
-                if (
-                    monthNumber !== previousMonth ||
-                    yearNumber !== previousYear
-                ) {
-                    const separator =
-                        document.createElement("div");
-
+                if (monthNumber !== previousMonth || yearNumber !== previousYear) {
+                    const separator = document.createElement("div");
                     separator.className = "month-separator";
-
-                    separator.textContent =
-                        `${MONTHS[monthNumber] || ""} ${yearNumber}`;
-
+                    separator.textContent = `${MONTHS[monthNumber] || ""} ${yearNumber}`;
                     container.appendChild(separator);
-
                     previousMonth = monthNumber;
                     previousYear = yearNumber;
                 }
 
-                const card =
-                    document.createElement("div");
-
+                const card = document.createElement("div");
                 card.className = "day-card";
-
                 const isNew = day.date === today;
                 const weekday = getWeekdayName(day.date);
-
-                const lessonCount =
-                    Array.isArray(day.lessons)
-                        ? day.lessons.length
-                        : 0;
+                const lessonCount = Array.isArray(day.lessons) ? day.lessons.length : 0;
 
                 card.innerHTML = `
-                    ${isNew ? `
-                        <div class="day-new">NOWOŚĆ!</div>
-                    ` : ""}
-
+                    ${isNew ? '<div class="day-new">NOWOŚĆ!</div>' : ""}
                     <div class="day-left">
                         <div class="day-icon">📚</div>
-
                         <div class="day-info">
                             <h2>${escapeHtml(formatDate(day.date))}</h2>
-                            <p>
-                                ${escapeHtml(weekday)} -
-                                ${lessonCount}
-                                ${lessonWord(lessonCount)}
-                            </p>
+                            <p>${escapeHtml(weekday)} - ${lessonCount} ${lessonWord(lessonCount)}</p>
                         </div>
                     </div>
-
                     <div class="day-arrow">→</div>
                 `;
 
-                card.style.animationDelay =
-                    `${index * 0.05}s`;
-
-                card.addEventListener(
-                    "click",
-                    () => showDay(day)
-                );
-
+                card.style.animationDelay = `${index * 0.05}s`;
+                card.addEventListener("click", () => showDay(day));
                 container.appendChild(card);
             });
         }
@@ -672,216 +418,106 @@
         function showDay(day) {
             sortContainer.style.display = "none";
             closeSortMenu();
-
-            document.getElementById("daysView").style.display =
-                "none";
-
-            document.getElementById("dayDetails")
-                .classList.add("active");
-
-            document.getElementById("detailDate")
-                .textContent = formatDate(day.date);
-
-            document.getElementById("detailWeekday")
-                .textContent = getWeekdayName(day.date);
-
+            document.getElementById("daysView").style.display = "none";
+            document.getElementById("dayDetails").classList.add("active");
+            document.getElementById("detailDate").textContent = formatDate(day.date);
+            document.getElementById("detailWeekday").textContent = getWeekdayName(day.date);
             renderLessons(day.lessons);
             renderMaterials(day.files);
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
+            window.scrollTo({ top: 0, behavior: "smooth" });
         }
 
         function showDays() {
             sortContainer.style.display = "";
-
-            document.getElementById("dayDetails")
-                .classList.remove("active");
-
-            document.getElementById("daysView").style.display =
-                "block";
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
+            closeSortMenu();
+            document.getElementById("dayDetails").classList.remove("active");
+            document.getElementById("daysView").style.display = "block";
+            window.scrollTo({ top: 0, behavior: "smooth" });
         }
 
         function renderLessons(lessons, showDates = false) {
-            const container =
-                document.getElementById("lessonList");
-
-            const targetContainer = showDates
-                ? document.getElementById("daysList")
-                : container;
-
+            const container = document.getElementById("lessonList");
+            const targetContainer = showDates ? document.getElementById("daysList") : container;
             targetContainer.innerHTML = "";
 
             if (!Array.isArray(lessons) || !lessons.length) {
                 targetContainer.innerHTML = `
                     <div class="empty">
-                        ${
-                            showDates
-                                ? "Brak lekcji z wybranego przedmiotu."
-                                : "Brak informacji o lekcjach."
-                        }
+                        ${showDates ? "Brak lekcji z wybranego przedmiotu." : "Brak informacji o lekcjach."}
                     </div>
                 `;
                 return;
             }
 
             lessons.forEach((entry, index) => {
-                const lesson =
-                    showDates ? entry.lesson : entry;
+                const lesson = showDates ? entry.lesson : entry;
+                if (!lesson) return;
 
-                if (!lesson) {
-                    return;
-                }
-
-                const element =
-                    document.createElement("div");
-
+                const element = document.createElement("div");
                 element.className = "lesson";
-
-                const attachments =
-                    Array.isArray(lesson.attachments)
-                        ? lesson.attachments
-                        : [];
-
-                const topLabel = showDates
-                    ? formatDate(entry.date)
-                    : `LEKCJA ${index + 1}`;
+                const attachments = Array.isArray(lesson.attachments) ? lesson.attachments : [];
+                const topLabel = showDates ? formatDate(entry.date) : `LEKCJA ${index + 1}`;
 
                 element.innerHTML = `
-                    <div class="lesson-number">
-                        ${escapeHtml(topLabel)}
-                    </div>
-
-                    <h3>
-                        ${escapeHtml(lesson.subject || "Bez nazwy")}
-                    </h3>
-
-                    <p>
-                        ${escapeHtml(lesson.content || "Brak informacji.")}
-                    </p>
-
-                    ${
-                        attachments.length
-                            ? `
-                                <div class="lesson-attachments">
-                                    <button
-                                        type="button"
-                                        class="lesson-attachments-button"
-                                    >
-                                        📎 Załączniki (${attachments.length})
-                                    </button>
-
-                                    <div class="lesson-attachments-content">
-                                        <div class="photo-gallery"></div>
-                                        <div class="lesson-attachment-links"></div>
-                                    </div>
-                                </div>
-                            `
-                            : ""
-                    }
+                    <div class="lesson-number">${escapeHtml(topLabel)}</div>
+                    <h3>${escapeHtml(lesson.subject || "Bez nazwy")}</h3>
+                    <p>${escapeHtml(lesson.content || "Brak informacji.")}</p>
+                    ${attachments.length ? `
+                        <div class="lesson-attachments">
+                            <button type="button" class="lesson-attachments-button">📎 Załączniki (${attachments.length})</button>
+                            <div class="lesson-attachments-content">
+                                <div class="photo-gallery"></div>
+                                <div class="lesson-attachment-links"></div>
+                            </div>
+                        </div>
+                    ` : ""}
                 `;
 
                 if (attachments.length) {
-                    const button =
-                        element.querySelector(
-                            ".lesson-attachments-button"
-                        );
-
-                    const content =
-                        element.querySelector(
-                            ".lesson-attachments-content"
-                        );
-
-                    const gallery =
-                        element.querySelector(".photo-gallery");
-
-                    const links =
-                        element.querySelector(
-                            ".lesson-attachment-links"
-                        );
-
+                    const button = element.querySelector(".lesson-attachments-button");
+                    const content = element.querySelector(".lesson-attachments-content");
+                    const gallery = element.querySelector(".photo-gallery");
+                    const links = element.querySelector(".lesson-attachment-links");
                     const lessonImages = [];
 
                     attachments.forEach(file => {
-                        if (!file || !file.url) {
-                            return;
-                        }
-
+                        if (!file || !file.url) return;
                         const url = String(file.url).trim();
                         const name = file.name || "Załącznik";
 
                         if (isImage(url)) {
-                            lessonImages.push({
-                                url: url,
-                                name: name
-                            });
-
-                            const card =
-                                document.createElement("div");
-
+                            lessonImages.push({ url, name });
+                            const card = document.createElement("div");
                             card.className = "photo-card";
-
-                            const image =
-                                document.createElement("img");
-
+                            const image = document.createElement("img");
                             image.src = url;
                             image.alt = name;
                             image.loading = "lazy";
-
                             image.onerror = () => card.remove();
-
                             card.appendChild(image);
-
                             card.addEventListener("click", () => {
-                                openImage(
-                                    lessonImages,
-                                    lessonImages.findIndex(
-                                        item => item.url === url
-                                    )
-                                );
+                                openImage(lessonImages, lessonImages.findIndex(item => item.url === url));
                             });
-
                             gallery.appendChild(card);
-
                         } else {
-                            const link =
-                                document.createElement("a");
-
+                            const link = document.createElement("a");
                             link.className = "material";
                             link.href = url;
                             link.target = "_blank";
                             link.rel = "noopener noreferrer";
                             link.textContent = `🔗 ${name}`;
-
                             links.appendChild(link);
                         }
                     });
 
-                    if (!lessonImages.length) {
-                        gallery.style.display = "none";
-                    }
-
-                    if (!links.children.length) {
-                        links.style.display = "none";
-                    }
+                    if (!lessonImages.length) gallery.style.display = "none";
+                    if (!links.children.length) links.style.display = "none";
 
                     button.addEventListener("click", () => {
                         content.classList.toggle("active");
-
-                        if (content.classList.contains("active")) {
-                            button.textContent =
-                                "📎 Ukryj załączniki";
-                        } else {
-                            button.textContent =
-                                `📎 Załączniki (${attachments.length})`;
-                        }
+                        button.textContent = content.classList.contains("active")
+                            ? "📎 Ukryj załączniki"
+                            : `📎 Załączniki (${attachments.length})`;
                     });
                 }
 
@@ -890,15 +526,9 @@
         }
 
         function renderMaterials(files) {
-            const section =
-                document.getElementById("materials");
-
-            const gallery =
-                document.getElementById("photoGallery");
-
-            const links =
-                document.getElementById("materialsList");
-
+            const section = document.getElementById("materials");
+            const gallery = document.getElementById("photoGallery");
+            const links = document.getElementById("materialsList");
             gallery.innerHTML = "";
             links.innerHTML = "";
 
@@ -908,283 +538,128 @@
             }
 
             section.style.display = "block";
-
             const dayImages = [];
 
             files.forEach(file => {
-                if (!file || !file.url) {
-                    return;
-                }
-
+                if (!file || !file.url) return;
                 const url = String(file.url).trim();
                 const name = file.name || "Materiał";
 
                 if (isImage(url)) {
-                    dayImages.push({
-                        url: url,
-                        name: name
-                    });
-
-                    const card =
-                        document.createElement("div");
-
+                    dayImages.push({ url, name });
+                    const card = document.createElement("div");
                     card.className = "photo-card";
-
-                    const image =
-                        document.createElement("img");
-
+                    const image = document.createElement("img");
                     image.src = url;
                     image.alt = name;
                     image.loading = "lazy";
-
                     image.onerror = () => card.remove();
-
                     card.appendChild(image);
-
                     card.addEventListener("click", () => {
-                        openImage(
-                            dayImages,
-                            dayImages.findIndex(
-                                item => item.url === url
-                            )
-                        );
+                        openImage(dayImages, dayImages.findIndex(item => item.url === url));
                     });
-
                     gallery.appendChild(card);
-
                 } else {
-                    const link =
-                        document.createElement("a");
-
+                    const link = document.createElement("a");
                     link.className = "material";
                     link.href = url;
                     link.target = "_blank";
                     link.rel = "noopener noreferrer";
                     link.textContent = `🔗 ${name}`;
-
                     links.appendChild(link);
                 }
             });
 
-            gallery.style.display =
-                dayImages.length ? "grid" : "none";
+            gallery.style.display = dayImages.length ? "grid" : "none";
+            links.style.display = links.children.length ? "flex" : "none";
 
-            links.style.display =
-                links.children.length ? "flex" : "none";
-
-            if (
-                !gallery.children.length &&
-                !links.children.length
-            ) {
-                section.style.display = "none";
-            }
+            if (!gallery.children.length && !links.children.length) section.style.display = "none";
         }
 
         function isImage(url) {
-            const clean =
-                String(url)
-                    .split("?")[0]
-                    .split("#")[0]
-                    .toLowerCase();
-
-            return (
-                clean.endsWith(".jpg") ||
-                clean.endsWith(".jpeg") ||
-                clean.endsWith(".png") ||
-                clean.endsWith(".webp") ||
-                clean.endsWith(".gif") ||
-                clean.endsWith(".avif")
-            );
+            const clean = String(url).split("?")[0].split("#")[0].toLowerCase();
+            return [".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif"].some(extension => clean.endsWith(extension));
         }
 
         function openImage(images, index = 0) {
-            if (!Array.isArray(images) || !images.length) {
-                return;
-            }
-
+            if (!Array.isArray(images) || !images.length) return;
             viewerImages = images;
-
-            currentImageIndex = Math.max(
-                0,
-                Math.min(index, viewerImages.length - 1)
-            );
-
-            const viewer =
-                document.getElementById("imageViewer");
-
+            currentImageIndex = Math.max(0, Math.min(index, viewerImages.length - 1));
+            const viewer = document.getElementById("imageViewer");
             viewer.classList.add("active");
-
             viewer.setAttribute("aria-hidden", "false");
-
             document.body.style.overflow = "hidden";
-
             updateViewer();
         }
 
         function updateViewer() {
-            if (!viewerImages.length) {
-                return;
-            }
-
-            const current =
-                viewerImages[currentImageIndex];
-
-            const image =
-                document.getElementById("viewerImage");
-
-            const counter =
-                document.getElementById("imageCounter");
-
-            const previous =
-                document.getElementById("imagePrev");
-
-            const next =
-                document.getElementById("imageNext");
-
+            if (!viewerImages.length) return;
+            const current = viewerImages[currentImageIndex];
+            const image = document.getElementById("viewerImage");
+            const counter = document.getElementById("imageCounter");
+            const previous = document.getElementById("imagePrev");
+            const next = document.getElementById("imageNext");
             image.src = current.url;
             image.alt = current.name || "Zdjęcie";
-
-            counter.textContent =
-                `${currentImageIndex + 1}/${viewerImages.length}`;
-
+            counter.textContent = `${currentImageIndex + 1}/${viewerImages.length}`;
             const hasMultiple = viewerImages.length > 1;
-
-            previous.style.display =
-                hasMultiple ? "flex" : "none";
-
-            next.style.display =
-                hasMultiple ? "flex" : "none";
+            previous.style.display = hasMultiple ? "flex" : "none";
+            next.style.display = hasMultiple ? "flex" : "none";
         }
 
         function previousImage(event) {
-            if (event) {
-                event.stopPropagation();
-            }
-
-            if (viewerImages.length <= 1) {
-                return;
-            }
-
-            currentImageIndex--;
-
-            if (currentImageIndex < 0) {
-                currentImageIndex =
-                    viewerImages.length - 1;
-            }
-
+            if (event) event.stopPropagation();
+            if (viewerImages.length <= 1) return;
+            currentImageIndex = (currentImageIndex - 1 + viewerImages.length) % viewerImages.length;
             updateViewer();
         }
 
         function nextImage(event) {
-            if (event) {
-                event.stopPropagation();
-            }
-
-            if (viewerImages.length <= 1) {
-                return;
-            }
-
-            currentImageIndex++;
-
-            if (currentImageIndex >= viewerImages.length) {
-                currentImageIndex = 0;
-            }
-
+            if (event) event.stopPropagation();
+            if (viewerImages.length <= 1) return;
+            currentImageIndex = (currentImageIndex + 1) % viewerImages.length;
             updateViewer();
         }
 
         function closeImage(event) {
-            if (
-                event &&
-                event.target &&
-                event.target.id === "viewerImage"
-            ) {
-                return;
-            }
-
-            const viewer =
-                document.getElementById("imageViewer");
-
+            if (event && event.target && event.target.id === "viewerImage") return;
+            const viewer = document.getElementById("imageViewer");
             viewer.classList.remove("active");
             viewer.setAttribute("aria-hidden", "true");
-
             document.body.style.overflow = "";
-
             viewerImages = [];
             currentImageIndex = 0;
         }
 
-        document
-            .getElementById("imageViewer")
-            .addEventListener("click", event => {
-                if (event.target.id === "imageViewer") {
-                    closeImage();
-                }
-            });
+        document.getElementById("imageViewer").addEventListener("click", event => {
+            if (event.target.id === "imageViewer") closeImage();
+        });
 
         document.addEventListener("keydown", event => {
-            const viewer =
-                document.getElementById("imageViewer");
-
-            if (!viewer.classList.contains("active")) {
-                return;
-            }
-
-            if (event.key === "Escape") {
-                closeImage();
-                return;
-            }
-
-            if (event.key === "ArrowLeft") {
-                previousImage();
-                return;
-            }
-
-            if (event.key === "ArrowRight") {
-                nextImage();
-                return;
-            }
+            const viewer = document.getElementById("imageViewer");
+            if (!viewer.classList.contains("active")) return;
+            if (event.key === "Escape") closeImage();
+            if (event.key === "ArrowLeft") previousImage();
+            if (event.key === "ArrowRight") nextImage();
         });
 
         function lessonWord(count) {
-            if (count === 1) {
-                return "lekcja";
-            }
-
-            if (count >= 2 && count <= 4) {
-                return "lekcje";
-            }
-
+            if (count === 1) return "lekcja";
+            if (count >= 2 && count <= 4) return "lekcje";
             return "lekcji";
         }
 
         function formatDate(date) {
-            const [year, month, day] =
-                String(date).split("-");
-
+            const [year, month, day] = String(date).split("-");
             const months = [
-                "",
-                "stycznia",
-                "lutego",
-                "marca",
-                "kwietnia",
-                "maja",
-                "czerwca",
-                "lipca",
-                "sierpnia",
-                "września",
-                "października",
-                "listopada",
-                "grudnia"
+                "", "stycznia", "lutego", "marca", "kwietnia", "maja", "czerwca",
+                "lipca", "sierpnia", "września", "października", "listopada", "grudnia"
             ];
-
             return `${Number(day)} ${months[Number(month)] || ""} ${year}`;
         }
 
         function getWeekdayName(date) {
-            const dateObject =
-                new Date(`${date}T12:00:00`);
-
+            const dateObject = new Date(`${date}T12:00:00`);
             return WEEK_DAYS[dateObject.getDay()] || "";
         }
 
@@ -1197,60 +672,212 @@
                 .replaceAll("'", "&#039;");
         }
 
-        const hamburger =
-            document.getElementById("hamburger");
+        /* LIQUID GLASS — sprężysta animacja i przeciąganie */
+        (() => {
+            const nav = document.getElementById("mobileGlassNav");
+            const indicator = document.getElementById("glassIndicator");
+            if (!nav || !indicator) return;
 
-        const menu =
-            document.getElementById("menu");
+            const items = [...nav.querySelectorAll(".glass-item")];
+            if (!items.length) return;
 
-        if (hamburger && menu) {
-            hamburger.addEventListener("click", () => {
-                hamburger.classList.toggle("active");
-                menu.classList.toggle("active");
+            const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            let positions = [];
+            let itemWidths = [];
+            let x = 0;
+            let velocity = 0;
+            let target = 0;
+            let pressed = 0;
+            let dragging = false;
+            let moved = false;
+            let startX = 0;
+            let pointerId = null;
+            let suppressClick = false;
+            let animationFrame = 0;
+            let lastFrame = 0;
+            let navigating = false;
 
-                const menuIsOpen =
-                    menu.classList.contains("active");
+            const cleanPath = path =>
+                path.replace(/index\.html$/, "").replace(/\.html$/, "").replace(/\/+$/, "") || "/";
+            const currentPath = cleanPath(window.location.pathname);
+            let pageIndex = items.findIndex(item =>
+                cleanPath(new URL(item.href, window.location.href).pathname) === currentPath
+            );
+            if (pageIndex < 0) pageIndex = 0;
+            let activeIndex = -1;
 
-                hamburger.setAttribute(
-                    "aria-expanded",
-                    menuIsOpen ? "true" : "false"
-                );
-            });
+            function measure() {
+                const navRect = nav.getBoundingClientRect();
+                const rects = items.map(item => item.getBoundingClientRect());
+                positions = rects.map(rect => rect.left - navRect.left);
+                itemWidths = rects.map(rect => rect.width);
+                const index = activeIndex >= 0 ? activeIndex : pageIndex;
+                indicator.style.width = `${itemWidths[index] || itemWidths[0] || 0}px`;
+            }
 
-            hamburger.addEventListener("keydown", event => {
-                if (
-                    event.key === "Enter" ||
-                    event.key === " "
-                ) {
-                    event.preventDefault();
-                    hamburger.click();
+            function setActive(index) {
+                if (index === activeIndex) return;
+                activeIndex = index;
+                if (itemWidths[index]) indicator.style.width = `${itemWidths[index]}px`;
+                items.forEach((item, itemIndex) => {
+                    const active = itemIndex === index;
+                    item.classList.toggle("active", active);
+                    if (active) item.setAttribute("aria-current", "page");
+                    else item.removeAttribute("aria-current");
+                });
+            }
+
+            function nearestItem(pointerX) {
+                const relativeX = pointerX - nav.getBoundingClientRect().left;
+                let closest = 0;
+                let smallestDistance = Infinity;
+                items.forEach((item, index) => {
+                    const distance = Math.abs(relativeX - (positions[index] + itemWidths[index] / 2));
+                    if (distance < smallestDistance) {
+                        smallestDistance = distance;
+                        closest = index;
+                    }
+                });
+                return closest;
+            }
+
+            function render() {
+                const stretch = Math.min(Math.abs(velocity) / 1800, 0.4);
+                const scaleX = 1 + stretch + pressed * 0.07;
+                const scaleY = 1 - stretch * 0.4 + pressed * 0.07;
+                indicator.style.transform = `translate3d(${x}px, 0, 0) scale(${scaleX}, ${scaleY})`;
+            }
+
+            function tick(time) {
+                const delta = Math.min((time - lastFrame) / 1000 || 0.016, 0.032);
+                lastFrame = time;
+                const stiffness = dragging ? 520 : 230;
+                const damping = dragging ? 40 : 19;
+                velocity += (-stiffness * (x - target) - damping * velocity) * delta;
+                x += velocity * delta;
+                pressed += ((dragging ? 1 : 0) - pressed) * Math.min(1, delta * 14);
+                render();
+
+                const settled = Math.abs(velocity) < 2 && Math.abs(x - target) < 0.1 &&
+                    Math.abs(pressed - (dragging ? 1 : 0)) < 0.01;
+                if (settled && !dragging) {
+                    x = target;
+                    velocity = 0;
+                    pressed = 0;
+                    render();
+                    animationFrame = 0;
+                    return;
                 }
-            });
+                animationFrame = requestAnimationFrame(tick);
+            }
 
-            menu.querySelectorAll("a").forEach(link => {
-                link.addEventListener("click", () => {
-                    hamburger.classList.remove("active");
-                    menu.classList.remove("active");
+            function runAnimation() {
+                if (!animationFrame) {
+                    lastFrame = performance.now();
+                    animationFrame = requestAnimationFrame(tick);
+                }
+            }
 
-                    hamburger.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
+            function snapTo(index, instant = false) {
+                target = positions[index] || 0;
+                if (itemWidths[index]) indicator.style.width = `${itemWidths[index]}px`;
+                if (instant || reduceMotion) {
+                    x = target;
+                    velocity = 0;
+                    pressed = 0;
+                    render();
+                } else {
+                    runAnimation();
+                }
+            }
+
+            function goTo(index) {
+                setActive(index);
+                snapTo(index);
+                if (index === pageIndex || navigating) return;
+                navigating = true;
+                window.setTimeout(() => window.location.assign(items[index].href), reduceMotion ? 0 : 300);
+            }
+
+            items.forEach((item, index) => {
+                item.addEventListener("click", event => {
+                    event.preventDefault();
+                    if (suppressClick) {
+                        suppressClick = false;
+                        return;
+                    }
+                    goTo(index);
                 });
             });
 
-            window.addEventListener("resize", () => {
-                if (window.innerWidth > 700) {
-                    hamburger.classList.remove("active");
-                    menu.classList.remove("active");
+            nav.addEventListener("pointerdown", event => {
+                if (event.pointerType === "mouse" && event.button !== 0) return;
+                pointerId = event.pointerId;
+                startX = event.clientX;
+                moved = false;
+                dragging = false;
+                pressed = 0.0001;
+                runAnimation();
+            });
 
-                    hamburger.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
+            nav.addEventListener("pointermove", event => {
+                if (event.pointerId !== pointerId) return;
+                if (!moved && Math.abs(event.clientX - startX) > 6) {
+                    moved = true;
+                    dragging = true;
+                    try { nav.setPointerCapture(pointerId); } catch (_) { /* opcjonalne API */ }
+                }
+                if (!moved) return;
+
+                const navRect = nav.getBoundingClientRect();
+                const index = nearestItem(event.clientX);
+                setActive(index);
+                const activeWidth = itemWidths[index] || itemWidths[0] || 0;
+                const minX = positions[0] || 0;
+                const maxX = positions[positions.length - 1] || 0;
+                target = Math.max(minX, Math.min(maxX, event.clientX - navRect.left - activeWidth / 2));
+                runAnimation();
+            });
+
+            nav.addEventListener("pointerup", event => {
+                if (event.pointerId !== pointerId) return;
+                const wasDragged = moved;
+                pointerId = null;
+                dragging = false;
+                moved = false;
+                if (wasDragged) {
+                    suppressClick = true;
+                    window.setTimeout(() => { suppressClick = false; }, 60);
+                    goTo(nearestItem(event.clientX));
+                } else {
+                    runAnimation();
                 }
             });
-        }
+
+            nav.addEventListener("pointercancel", event => {
+                if (event.pointerId !== pointerId) return;
+                pointerId = null;
+                dragging = false;
+                moved = false;
+                setActive(pageIndex);
+                snapTo(pageIndex);
+            });
+
+            function initialise() {
+                measure();
+                setActive(pageIndex);
+                snapTo(pageIndex, true);
+            }
+
+            initialise();
+            window.addEventListener("load", initialise);
+            window.addEventListener("resize", initialise);
+            window.addEventListener("pageshow", event => {
+                navigating = false;
+                if (event.persisted) initialise();
+            });
+            if ("ResizeObserver" in window) new ResizeObserver(initialise).observe(nav);
+        })();
     </script>
 </body>
 </html>
