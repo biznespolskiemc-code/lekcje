@@ -808,3 +808,188 @@ footer {
         transition-duration: .01ms !important;
     }
 }
+
+/* =====================================================
+   LIQUID GLASS — UKŁAD IDENTYCZNY JAK W GLOWNA.HTML
+   Zachowany niebieski kolor strony LEKCJE.
+===================================================== */
+@media (max-width: 800px) {
+    body {
+        padding-bottom: 120px;
+    }
+
+    footer {
+        padding-bottom: 140px;
+    }
+
+    .mobile-glass-nav {
+        --r: 28px;
+        --pad: 6px;
+
+        position: fixed;
+        z-index: 10000;
+        left: 0;
+        right: 0;
+        margin-inline: auto;
+        bottom: calc(18px + env(safe-area-inset-bottom));
+
+        width: max-content;
+        max-width: calc(100vw - 28px);
+        height: 72px;
+        padding: var(--pad);
+
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        gap: 3px;
+
+        transform: none;
+        border-radius: var(--r);
+        overflow: hidden;
+        isolation: isolate;
+
+        background:
+            linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.03) 55%, rgba(255,255,255,.06)),
+            rgba(18,18,24,.55);
+
+        -webkit-backdrop-filter: blur(24px) saturate(190%) brightness(1.08);
+        backdrop-filter: blur(24px) saturate(190%) brightness(1.08);
+
+        box-shadow:
+            0 16px 40px rgba(0,0,0,.5),
+            inset 0 1px 0 rgba(255,255,255,.18),
+            inset 0 -1px 0 rgba(255,255,255,.04);
+
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: pan-y;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .mobile-glass-nav::after,
+    .glass-indicator::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1px;
+        pointer-events: none;
+        background: linear-gradient(160deg,
+            rgba(255,255,255,.55),
+            rgba(255,255,255,.08) 35%,
+            rgba(255,255,255,.04) 65%,
+            rgba(255,255,255,.3));
+        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+        mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+        mask-composite: exclude;
+    }
+
+    .mobile-glass-nav::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 4;
+        border-radius: inherit;
+        pointer-events: none;
+        background: radial-gradient(120% 70% at 50% -10%, rgba(255,255,255,.16), transparent 60%);
+    }
+
+    .glass-indicator {
+        position: absolute;
+        z-index: 1;
+        top: var(--pad);
+        left: 0;
+        height: calc(100% - var(--pad) * 2);
+        width: 0;
+        border-radius: calc(var(--r) - var(--pad));
+        transform-origin: 50% 50%;
+        will-change: transform, width;
+        pointer-events: none;
+
+        background:
+            radial-gradient(90% 60% at 30% 0%, rgba(255,255,255,.38), transparent 60%),
+            radial-gradient(70% 70% at 80% 110%, rgba(24,176,214,.32), transparent 70%),
+            linear-gradient(145deg, rgba(255,255,255,.2), rgba(24,176,214,.16) 55%, rgba(255,255,255,.08));
+
+        box-shadow:
+            0 6px 22px rgba(24,176,214,.22),
+            inset 0 1px 2px rgba(255,255,255,.45),
+            inset 0 -3px 8px rgba(0,0,0,.18),
+            inset 0 0 14px rgba(255,255,255,.06);
+    }
+
+    .glass-item {
+        position: relative;
+        z-index: 3;
+        flex: 0 0 auto;
+        width: max-content;
+        min-width: 0;
+        padding: 0 19px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        color: rgba(255,255,255,.55);
+        font-family: "Montserrat", sans-serif;
+        text-decoration: none;
+        transition: color .3s ease;
+    }
+
+    .glass-item.active {
+        color: #fff;
+    }
+
+    .glass-icon {
+        width: 22px;
+        height: 22px;
+        display: block;
+        transition: transform .45s cubic-bezier(.22,1.4,.36,1), filter .3s ease;
+    }
+
+    .glass-icon svg {
+        width: 100%;
+        height: 100%;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .glass-item.active .glass-icon {
+        transform: translateY(-1px) scale(1.12);
+        filter: drop-shadow(0 0 8px rgba(255,255,255,.45));
+    }
+
+    .glass-label {
+        font-size: 9px;
+        font-weight: 700;
+        line-height: 1;
+        white-space: nowrap;
+        letter-spacing: -.1px;
+    }
+}
+
+/* Małe telefony — zachowujemy odstęp 19 px jak na stronie głównej. */
+@media (max-width: 380px) {
+    .mobile-glass-nav {
+        height: 66px;
+        bottom: calc(12px + env(safe-area-inset-bottom));
+    }
+
+    .glass-item {
+        padding-left: 19px;
+        padding-right: 19px;
+    }
+
+    .glass-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .glass-label {
+        font-size: 8px;
+    }
+}
