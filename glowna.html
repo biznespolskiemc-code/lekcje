@@ -186,7 +186,7 @@
             ).matches;
 
             let positions = [];
-            let itemWidth = 0;
+            let itemWidths = [];
             let x = 0;
             let velocity = 0;
             let target = 0;
@@ -219,16 +219,20 @@
 
             function measure() {
                 const navRect = nav.getBoundingClientRect();
-                positions = items.map(item =>
-                    item.getBoundingClientRect().left - navRect.left
-                );
-                itemWidth = items[0].getBoundingClientRect().width;
-                indicator.style.width = `${itemWidth}px`;
+                const rects = items.map(item => item.getBoundingClientRect());
+                positions = rects.map(rect => rect.left - navRect.left);
+                itemWidths = rects.map(rect => rect.width);
+
+                const selectedWidth = itemWidths[activeIndex >= 0 ? activeIndex : pageIndex];
+                indicator.style.width = `${selectedWidth || itemWidths[0] || 0}px`;
             }
 
             function setActive(index) {
                 if (index === activeIndex) return;
                 activeIndex = index;
+                if (itemWidths[index]) {
+                    indicator.style.width = `${itemWidths[index]}px`;
+                }
 
                 items.forEach((item, itemIndex) => {
                     const isActive = itemIndex === index;
@@ -249,7 +253,7 @@
 
                 items.forEach((item, index) => {
                     const distance = Math.abs(
-                        relativeX - (positions[index] + itemWidth / 2)
+                        relativeX - (positions[index] + itemWidths[index] / 2)
                     );
                     if (distance < smallestDistance) {
                         smallestDistance = distance;
@@ -307,6 +311,9 @@
 
             function snapTo(index, instant = false) {
                 target = positions[index] || 0;
+                if (itemWidths[index]) {
+                    indicator.style.width = `${itemWidths[index]}px`;
+                }
                 if (instant || reduceMotion) {
                     x = target;
                     velocity = 0;
@@ -369,15 +376,18 @@
                 if (!moved) return;
 
                 const navRect = nav.getBoundingClientRect();
+                const nearestIndex = nearestItem(event.clientX);
+                setActive(nearestIndex);
+
+                const activeWidth = itemWidths[nearestIndex] || itemWidths[0] || 0;
                 target = Math.max(
                     positions[0],
                     Math.min(
                         positions[positions.length - 1],
-                        event.clientX - navRect.left - itemWidth / 2
+                        event.clientX - navRect.left - activeWidth / 2
                     )
                 );
 
-                setActive(nearestItem(event.clientX));
                 runAnimation();
             });
 

@@ -1469,12 +1469,16 @@ footer {
         margin-inline: auto;
         bottom: calc(18px + env(safe-area-inset-bottom));
 
-        width: min(calc(100% - 28px), 440px);
+        /* Pasek dopasowuje się do szerokości etykiet zamiast rozciągać na ekran. */
+        width: max-content;
+        max-width: calc(100vw - 28px);
         height: 72px;
         padding: var(--pad);
 
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        gap: 3px;
 
         border-radius: var(--r);
         overflow: hidden;
@@ -1558,7 +1562,10 @@ footer {
     .glass-item {
         position: relative;
         z-index: 3;
+        flex: 0 0 auto;
+        width: max-content;
         min-width: 0;
+        padding: 0 13px;
         display: flex;
         flex-direction: column;
         align-items: center;
